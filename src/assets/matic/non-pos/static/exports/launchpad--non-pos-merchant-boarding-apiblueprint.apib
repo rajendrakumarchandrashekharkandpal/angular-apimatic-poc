@@ -1,0 +1,2179 @@
+FORMAT: 1A
+HOST: https://apis.cert.worldpay.com/merchant-boarding/v2
+
+# Launchpad: Non-POS Merchant Boarding
+The Launchpads Merchant Boarding API allows Worldpay partners to onboard merchants to Worldpay's Payments Platform. Please see the Getting Started page for more information. </br> </br> To contact our certifications team, please email <a href="mailto:Certification2@fisglobal.com">Certification2@fisglobal.com</a>.   </br> To contact the product team, please email <a href="mailto:APICustomerIntegration@fisglobal.com">APICustomerIntegration@fisglobal.com</a>.
+
+
+## Authentication
+This API uses Custom Header for its authentication.
+
+The parameters that are needed to be sent for this type of authentication are as follows:
++ `Authorization` - ``` License format is WORLDPAY license='xxxx'```
+
+# Group Initiate Boarding Application
+
+Resources to create/edit and read pending boarding applications.
+
+## Applications [/applications]
+
+### FetchApplication [GET]
+Retrieves existing application data.
+
++ Request 
+    + Headers
+
+            externalRefId:3fcb1437-4e52-4946-9ae1-e618351b6d16
+            v-correlation-id:3fcb1437-4e52-4946-9ae1-e618351b6d16
+
+
+
+
+
++ Response 200 (application/json)
+
+        Success
+
+    + Attributes (ExistingApplication)
+
+
+
+### ExisitingApplication [PUT]
+This endpoint allows merchants to update an existing application with new information.
+
++ Request (<<Add Header Value>>)
+    + Headers
+
+            v-correlation-id:3fcb1437-4e52-4946-9ae1-e618351b6d16
+
+
+    + Attributes (ExistingApplication1)
+
+
+
++ Response 200 
+
+        Success
+
+
+
+
+### NewApplication [POST]
+Use this endpoint to collect the merchant information needed to initiate a new contract.
+
++ Request (<<Add Header Value>>)
+    + Headers
+
+            v-correlation-id:3fcb1437-4e52-4946-9ae1-e618351b6d16
+
+
+    + Attributes (Application)
+
+
+
++ Response 201 (application/json)
+
+        Created
+
+    + Attributes (ApplicationResponse)
+
+
+
+
+
+# Group Equipment Lookup
+
+## Equipment Supported [/equipment/supported]
+
+### GetEquipmentSupported [GET]
+Retrieve applicable equipment for an existing application.
+
++ Request 
+    + Headers
+
+            externalRefId:3fcb1437-4e52-4946-9ae1-e618351b6d16
+            v-correlation-id:3fcb1437-4e52-4946-9ae1-e618351b6d16
+
+
+
+
+
++ Response 200 (application/json)
+
+        Success
+
+    + Attributes (inlineresponse200)
+
+
+
+
+## Terminal Additional Configurations [/terminal/additional-configurations]
+
+### GetAdditionalConfigurations [GET]
+Fetches a list of valid terminal customizations and peripherals, such as electing to password protect a void.
+
++ Request 
+    + Headers
+
+            externalRefId:3fcb1437-4e52-4946-9ae1-e618351b6d16
+            v-correlation-id:3fcb1437-4e52-4946-9ae1-e618351b6d16
+            logicalApplicationId:1073
+
+
+
+
+
++ Response 200 (application/json)
+
+        Response is a list of valid terminal configurations.
+
+    + Attributes (AdditionalConfigurationsResponse)
+
+
+
+
+
+# Group Choose Equipment
+
+Resources to choose the terminals.
+
+## Equipment Terminal Var [/equipment/terminal-var]
+
+### GetTerminalInfo [GET]
+Gets the terminal configuration information for a specific partner.
+
++ Request (application/json)
+    + Headers
+
+            externalRefId:3fcb1437-4e52-4946-9ae1-e618351b6d16
+            v-correlation-id:3fcb1437-4e52-4946-9ae1-e618351b6d16
+            locationId:<<Add Header Value>>
+            merchantId:<<Add Header Value>>
+
+
+
+
+
++ Response 200 (application/json)
+
+        Success
+
+    + Attributes (EquipmentSetup)
+
+
+
+### UpdateTerminal [PUT]
+Updates terminal configurations.
+
++ Request (application/json)
+    + Headers
+
+            externalRefId:3fcb1437-4e52-4946-9ae1-e618351b6d16
+            v-correlation-id:3fcb1437-4e52-4946-9ae1-e618351b6d16
+            locationId:<<Add Header Value>>
+            merchantId:<<Add Header Value>>
+
+
+    + Attributes (EquipmentSetup)
+
+
+    + Body
+
+            {
+                "shippingOption": "next day",
+                "terminals": [
+                    {
+                        "terminalConfigs": {
+                            "requestId": "41231",
+                            "terminalId": "67",
+                            "terminalModel": "VAR - Xpient Solutions",
+                            "price": 187.99,
+                            "quantity": 1,
+                            "logicalApplicationId": "194",
+                            "accessMethod": "SSL",
+                            "paymentMethod": "PURCHASE / SALE",
+                            "environmentName": "Restaurant"
+                        },
+                        "products": [
+                            {
+                                "productId": "1",
+                                "productName": "Credit"
+                            }
+                        ]
+                    }
+                ]
+            }
+
+
++ Response 200 
+
+        Success
+
+
+
+
+### ConfigStandaloneTerminal [POST]
+Sets up terminal configurations.
+
++ Request (application/json)
+    + Headers
+
+            externalRefId:3fcb1437-4e52-4946-9ae1-e618351b6d16
+            v-correlation-id:3fcb1437-4e52-4946-9ae1-e618351b6d16
+            locationId:<<Add Header Value>>
+            merchantId:<<Add Header Value>>
+
+
+    + Attributes (EquipmentSetup)
+
+
+    + Body
+
+            {
+                "shippingOption": "next day",
+                "terminals": [
+                    {
+                        "terminalConfigs": {
+                            "requestId": "41231",
+                            "terminalId": "67",
+                            "terminalModel": "VAR - Xpient Solutions",
+                            "price": 187.99,
+                            "quantity": 1,
+                            "logicalApplicationId": "194",
+                            "accessMethod": "SSL",
+                            "paymentMethod": "PURCHASE / SALE",
+                            "environmentName": "Restaurant"
+                        },
+                        "products": [
+                            {
+                                "productId": "1",
+                                "productName": "Credit"
+                            }
+                        ]
+                    }
+                ]
+            }
+
+
++ Response 200 
+
+        Success
+
+
+
+
+
+
+# Group Submit Application
+
+Resources to validate and submit the final application for boarding.
+
+## Applications Validate [/applications/validate]
+
+### validateBoard [PUT]
+Begins the merchant validation process before boarding after all necessary information has been submitted to the API. Please see the reference guide for specific boarding requirements.
+
++ Request (application/json)
+    + Headers
+
+            externalRefId:3fcb1437-4e52-4946-9ae1-e618351b6d16
+            v-correlation-id:3fcb1437-4e52-4946-9ae1-e618351b6d16
+
+
+
+
+
++ Response 200 
+
+        Success
+
+
+
+
+
+## Applications Board [/applications/board]
+
+### InititateBoard [PUT]
+Begins the merchant boarding process after all necessary information has been submitted to the API. Please see the reference guide for specific boarding requirements.
+
++ Request (application/json)
+    + Headers
+
+            externalRefId:3fcb1437-4e52-4946-9ae1-e618351b6d16
+            v-correlation-id:3fcb1437-4e52-4946-9ae1-e618351b6d16
+            threatmetrixId:<<Add Header Value>>
+
+
+
+
+
++ Response 200 
+
+        Success
+
+
+
+
+
+
+# Group Check Application Status
+
+Resource to check status of the application.
+
+## Applications Status [/applications/status]
+
+### GetApplicationStatus [GET]
+Retrieves the status of a contract when passed with an externalRefID. Both the externalRefID and authorization header are required.
+
++ Request 
+    + Headers
+
+            externalRefId:3fcb1437-4e52-4946-9ae1-e618351b6d16
+            v-correlation-id:3fcb1437-4e52-4946-9ae1-e618351b6d16
+
+
+
+
+
++ Response 200 (application/json)
+
+        Success
+
+ApplicationStatus gives following Information,
+
+- 'contractStatus' - Current status of contract processing.
+
+- 'description' - Detailed description of the contractStatus.
+
+    + Attributes (ApplicationStatus)
+
+
+
+
+## Applications Status History [/applications/status/history]
+
+### fetchApplicationStatusHistory [GET]
+Use this endpoint to get a application's status history.
+
++ Request 
+    + Headers
+
+            externalRefId:3fcb1437-4e52-4946-9ae1-e618351b6d16
+            v-correlation-id:3fcb1437-4e52-4946-9ae1-e618351b6d16
+
+
+
+
+
++ Response 200 (application/json)
+
+        Success
+
+    + Attributes (StatusHistoryResponse)
+
+
+
+
+## Applications Status Signers [/applications/status/signers]
+
+### fetchSignerStatus [GET]
+Use this endpoint to get signer status
+
++ Request (application/json)
+    + Headers
+
+            externalRefId:3fcb1437-4e52-4946-9ae1-e618351b6d16
+            v-correlation-id:3fcb1437-4e52-4946-9ae1-e618351b6d16
+
+
+
+
+
++ Response 200 (application/json)
+
+        Success
+
+    + Attributes (SignerStatus)
+
+
+
+
+
+# Group Review and Sign Contract
+
+Resources to retrieve the contract and digitally sign.
+
+## Contracts [/contracts]
+
+### GetContract [GET]
+Returns a PDF contract to be signed.
+
++ Request 
+    + Headers
+
+            externalRefId:3fcb1437-4e52-4946-9ae1-e618351b6d16
+            v-correlation-id:3fcb1437-4e52-4946-9ae1-e618351b6d16
+
+
+
+
+
++ Response 200 (application/pdf)
+
+        Response is a PDF file.
+
+    + Attributes (string)
+
+
+
+
+## Applications Documentlink [/applications/documentlink]
+
+### DocusignLink [POST]
+Retrieves a Docusign link to view the contract.
+
++ Request (<<Add Header Value>>)
+    + Headers
+
+            v-correlation-id:3fcb1437-4e52-4946-9ae1-e618351b6d16
+
+
+    + Attributes (DocumentLink)
+
+
+
++ Response 200 (application/json)
+
+        Success
+
+    + Attributes (DocuSignLink)
+
+
+
+
+
+# Group Check Launchpad health
+
+Resources to check the the health of Launchpad and its dependent down streams systems at regular intervals to check the system is up or down.
+
+## Applications Health [/applications/health]
+
+### Gethealth [GET]
+Checks the the health of Launchpad and its dependent down streams systems like CPQ, Sales Force, XAA and Jigsaw at regular intervals to check the system is up or down.
+
++ Request 
+    + Headers
+
+            v-correlation-id:3fcb1437-4e52-4946-9ae1-e618351b6d16
+
+
+
+
+
++ Response 200 (application/json)
+
+        Response is UP or DOWN of Launchpad & it's downstream system.
+
+    + Attributes (inlineresponse2001)
+
+
+
+
+
+# Data Structures
+
+## Schema (object)
+
+
+### Properties
++ `id` (number, optional) 
+
+
+## ExistingApplication (object)
+
+
+### Properties
++ `externalRefId`: `df8a6d82-3bb4-4f3b-ba18-57a5981ede8e` (string, required) - A unique GUID generated by POST resource, used for retrieving and updating a deal. Do not send in the request, API will always generate one and assign it to the deal.
++ `leadSource`: `Activate` (string, optional) - The source of a lead.
++ `businessInfo` (BusinessInfo, required) 
++ `transactionInfo` (TransactionInfo, required) 
++ `owners` (array[Owner], optional) 
++ `guarantors` (array[Guarantor], optional) - Guarantor information. A guarantor is the person whose credit report will be pulled during the underwriting process.
++ `authorizedSigners` (array[AuthorizedSigner], optional) 
++ `contacts` (array[Contact], optional) 
++ `addresses` (array[Address], optional) 
++ `bankAccount` (BankAccount, optional) 
++ `salesAgent` (SalesAgent, optional) - The agent who is submitting the deal.
++ `installationContact` (InstallationContact, optional) - The Technical Agent who is going to do setup.
++ `routeToSalesRep`: `false` (boolean, optional) - Used to route a application to a worldpay or partner sales rep. By default the API is configured to route to a Worldpay sales rep. If you would like to route to partner (Launchpad UI) please work with your implementation consultant.
+
+
+## BusinessInfo (object)
+
+
+### Properties
++ `dbaName`: `The DBA Name` (string, required) - The merchant name they do business as.  Generally with what their customers know the business.
++ `legalName`: `Timothy Jones` (string, required) - Business Legal Name as filed with the IRS.
++ `ownershipType` (enum[string], required) - Required. OwnershipType defines the type of the Merchant Organization, and drives the requirements for data collections of beneficial and control owners under U.S. Financial Crimes Enforcement Network (FinCEN).
+    + `GOVERNMENT`
+    + `SOLE PROPRIETOR`
+    + `LLC`
+    + `PARTNERSHIP`
+    + `FIN INSTITUTION`
+    + `NON-PROFIT`
+    + `ASSOCIATION/ESTATE/TRUST`
+    + `PRIVATE CORPORATION`
+    + `SEC REGISTERED`
+    + `PUBLIC CORPORATION`
+    + `OTHER`
++ `mccCode`: `5812` (string, required) - SIC Code / MCC Code (Merchant Category Code) is the code use to describe what the merchant is selling. Use MCC look up call to search valid codes, with sort and long description to find the MCC that most closely matches what the merchant is selling.
++ `businessEstablishedDate`: `2000-03-23` (string, optional) - Date (CCYY-MM-DD) on which the merchant's business was established.
++ `websiteUrl`: `www.thefoodplace.com` (string, optional) - The URL of the merchant's website.
++ `numberOfLocation`: `2` (number, optional) - Number of current locations.
++ `federalTaxId`: `123456789` (string, optional) - The Federal Tax ID is the business Tax Identification Number (TIN) or Employer Identification Number (EIN). If the business is a sole proprietor they may use the social security number of the sole proprietor.
++ `paymentAcceptanceMethod` (array, optional) - The ways in which the business is accepting payments. Multiple options may be selected. 'In person', would be card present at a brick and mortar store, 'onlinesite' would be card not present use on an ecommerce website, and 'phoneormailorder' would be card not present used for mail and telephone orders.
+    + (enum[string])
+        + Members
+            + `inPerson`
+            + `onlineSite`
+            + `phoneOrMailOrder`
++ `pciadc` (enum[string], optional) - Indication if the merchant has had an account data compromise.
+    + `Yes`
+    + `No`
++ `pcidssValidated` (enum[string], optional) - Indictor showing if the merchant is compliant or not with the Payment Card Industry Data Security Standards.
+    + `Yes`
+    + `No`
++ `surroundingArea` (enum[string], optional) - Type of area surroundning the business.
+    + `Commercial`
+    + `Industrial`
+    + `Residential`
++ `productServiceSold`: `Food` (string, optional) - Type of goods or services sold.
++ `ownAddYears`: `2` (number, optional) - Years the business has been operating in their current location.
++ `lengthOfContract` (string, optional) - Inital contract term in months.
++ `seasonal` (enum[string], optional) - Does the business operate seasonally?
+    + `Yes`
+    + `No`
++ `activeMonths` (array, optional) - The months during which the business is actively operating.
+    + (enum[string])
+        + Members
+            + `Jan`
+            + `Feb`
+            + `Mar`
+            + `Apr`
+            + `May`
+            + `Jun`
+            + `Jul`
+            + `Aug`
+            + `Sep`
+            + `Oct`
+            + `Nov`
+            + `Dec`
++ `warranty` (enum[string], optional) - Does the business offer warranties, dues, subscriptions, memberships, or other extended services?
+    + `1 YEAR`
+    + `30 DAY`
+    + `60 DAY`
+    + `90 DAY`
+    + `LIFETIME`
+    + `NO`
++ `returnPolicy` (enum[string], optional) - The business's return policy.
+    + `3 Day`
+    + `30 Day`
+    + `60 Day`
+    + `60+ Day`
+    + `ALL SALES FINAL`
+    + `EXCHANGE ONLY/STORE CREDIT`
+    + `NO RETURN POLICY`
++ `taxExempt` (enum[string], optional) 
+    + `true`
+    + `false`
++ `acceptCreditCards` (enum[string], optional) - Does the business accept credit cards?
+    + `true`
+    + `false`
+
+
+## TransactionInfo (object)
+
+
+### Properties
++ `annualSalesVolume`: `20000.12` (number, required) - Projected annual sales volume.
++ `percentRetailSwipedTransactions`: `82` (number, required) - Projected Percentage of daily card-present transactions.
++ `averageTicket`: `2.3` (number, optional) - Average ticket dollar amount.
++ `highestTicket`: `32.41` (number, optional) - Highest ticket dollar amount.
++ `currentProcessor`: `Global Payments` (string, optional) - the current processor
++ `acceptChargebacks` (enum[string], optional) - Do you have more than 25 chargeback accepted in the last 12 months?
+    + `Yes`
+    + `No`
++ `chargebackPercent`: `0` (number, optional)
+
+    Projected chargeback percentage.
+    
+    ```Required when acceptChargebacks is 'Yes'```
+    
+    ```Optional when acceptChargebacks is null or 'No'.```
+
++ `returnPercent`: `10` (number, optional) - Projected return percent of  goods sold
++ `cardNotPresentPercent`: `20` (number, optional) - Percent of card not present transactions.
++ `businessToBusinessPercent`: `20` (number, optional) - Percent of business-to-business transactions.
++ `internetTransactionPercent`: `10` (number, optional) - Percent of internet transactions.
++ `annualCreditSalesVolume`: `123.32` (number, optional) - Projected annual credit card sales volume.
++ `annualDebitSalesVolume`: `32.23` (number, optional) - Projected annual debit card sales volume.
++ `annualAmexVolume`: `10000` (number, optional) - Projected annual Amex volume. ``` This field is required when you opt-in for Amex ```
++ `amexAverageTicket`: `2.3` (number, optional)
+
+    AverageTicket dollar amount for Amex.
+     ```This field is required when you opt-in for Amex```
+
++ `averageNumberofDays`: `10` (number, optional) - Average number of days from when cardholder is charged & when products or services are received IN FULL by cardholder.
+
+
+## Owner (object)
+A Control Owner is required for the following ownership types > LLC, PARTNERSHIP, PRIVATE CORPORATION, ASSOCIATION/ESTATE/TRUST, NON-PROFIT
+
+### Properties
++ `type` (enum[string], required) - The Owner Type. Please note the above Ownership Types where a Control Owner is required.
+    + `Control Owner Contact`
+    + `Owner 1 Contact`
+    + `Owner 2 Contact`
+    + `Owner 3 Contact`
+    + `Owner 4 Contact`
++ `title`: `President` (string, optional) - Required for AMEX acquired merchants otherwise optional.
++ `firstName`: `Todd` (string, required) - First name. Region based validations will be applied to this field.
++ `middleInitial`: `M` (string, optional) - Middle initial.
++ `lastName`: `Davis` (string, required) - Last name. Region based validations will be applied to this field.
++ `phoneNumber`: `5131234567` (string, required) - 10-digit phone number of the format  5131234567.
++ `phoneNumberExt`: `1234` (string, optional) - Phone number extension. Up to 8 digits of the format 12345678.
++ `phoneType` (enum[string], optional) - Phone type.
+    + `mobile`
+    + `home`
++ `alternatePhone`: `5131234567` (string, optional) - 10-digit alternate phone number of the format  5131234567.
++ `alternatePhoneType` (enum[string], optional) - Alternate phone type.
+    + `mobile`
+    + `home`
++ `faxNumber`: `5131234567` (string, optional) - 10-digit fax number of the format 5131234567
++ `email`: `test@gmail.com` (string, required) - Email address of the contact. Must have @ and a .
++ `ownershipPercentage` (number, optional) - Ownership stake percentage.
++ `ssn`: `123456789` (string, optional) - Social security number. Do not include dashes.
++ `dob`: `2000-03-23` (string, optional) - Date of Birth (CCYY-MM-DD). Must be at least 18 years old.
++ `addressLine1`: `4355 N Coalwhipe St.` (string, required) - Address Line 1. Field for house number, street and direction.
++ `addressLine2`: `suite 104` (string, optional) - Address Line 2. Field for apartment or suite numbers, etc.
++ `city`: `Denver` (string, required) 
++ `state` (enum[string], required) - Valid US state, commonwealth, and territory codes are allowed.
+    + `AK`
+    + `AL`
+    + `AR`
+    + `AS`
+    + `AZ`
+    + `CA`
+    + `CO`
+    + `CT`
+    + `DC`
+    + `DE`
+    + `FL`
+    + `FM`
+    + `GA`
+    + `GU`
+    + `HI`
+    + `IA`
+    + `ID`
+    + `IL`
+    + `IN`
+    + `KS`
+    + `KY`
+    + `LA`
+    + `MA`
+    + `MD`
+    + `ME`
+    + `MH`
+    + `MI`
+    + `MN`
+    + `MO`
+    + `MP`
+    + `MS`
+    + `MT`
+    + `NC`
+    + `ND`
+    + `NE`
+    + `NH`
+    + `NJ`
+    + `NM`
+    + `NV`
+    + `NY`
+    + `OH`
+    + `OK`
+    + `OR`
+    + `PA`
+    + `PR`
+    + `PW`
+    + `RI`
+    + `SC`
+    + `SD`
+    + `TN`
+    + `TX`
+    + `UT`
+    + `VA`
+    + `VI`
+    + `VT`
+    + `WA`
+    + `WI`
+    + `WV`
+    + `WY`
++ `country`: `United States` (string, required) - Only United States is allowed.
++ `postalCode`: `12345` (string, required) - Postal code / zip code. The postal code must be valid for the address' country code.
++ `postalCodeExtension`: `1234` (string, optional) - Postal code / zip code extension.  The postal code extension must be valid for the address' country code.
++ `identification` (array[Identification], optional) - Optional. If any attribute in the identification object is populated then at least idNumber and idType are required.
+
+
+## Identification (object)
+
+
+### Properties
++ `idType` (enum[string], required) - Type of ID provided by the owner.
+    + `ALIEN ID`
+    + `CREDIT BUREAU`
+    + `DRIVERS LICENSE`
+    + `STATE ID`
+    + `MEXICAN CONSULATE`
+    + `MILITARY ID`
+    + `OTHER`
+    + `PASSPORT`
++ `idNumber`: `312312341` (string, required) - Owner's ID number.
++ `issuedCity`: `City Town` (string, optional) - City in which ID was issued.
++ `issuedState` (enum[string], optional) - Valid state code where ID was issued.
+    + `AK`
+    + `AL`
+    + `AR`
+    + `AS`
+    + `AZ`
+    + `CA`
+    + `CO`
+    + `CT`
+    + `DC`
+    + `DE`
+    + `FL`
+    + `FM`
+    + `GA`
+    + `GU`
+    + `HI`
+    + `IA`
+    + `ID`
+    + `IL`
+    + `IN`
+    + `KS`
+    + `KY`
+    + `LA`
+    + `MA`
+    + `MD`
+    + `ME`
+    + `MH`
+    + `MI`
+    + `MN`
+    + `MO`
+    + `MP`
+    + `MS`
+    + `MT`
+    + `NC`
+    + `ND`
+    + `NE`
+    + `NH`
+    + `NJ`
+    + `NM`
+    + `NV`
+    + `NY`
+    + `OH`
+    + `OK`
+    + `OR`
+    + `PA`
+    + `PR`
+    + `PW`
+    + `RI`
+    + `SC`
+    + `SD`
+    + `TN`
+    + `TX`
+    + `UT`
+    + `VA`
+    + `VI`
+    + `VT`
+    + `WA`
+    + `WI`
+    + `WV`
+    + `WY`
++ `issuedCountry`: `US` (string, optional) - Country where ID was issued.
++ `dateIssued`: `1999-01-30` (string, optional) - Date ID was issued (CCYY-MM-DD).
++ `dateExpires`: `2020-02-11` (string, optional) - Date ID expires (CCYY-MM-DD).
+
+
+## Guarantor (object)
+
+
+### Properties
++ `type`: `Guarantor 1 Contact` (string, required) 
++ `title`: `President` (string, optional) - Required for AMEX acquired merchants otherwise optional.
++ `firstName`: `Todd` (string, required) - First name. Region based validations will be applied to this field.
++ `middleInitial`: `M` (string, optional) - Middle initial.
++ `lastName`: `Davis` (string, required) - Last name. Region based validations will be applied to this field.
++ `phoneNumber`: `5131234567` (string, required) - 10-digit phone number of the format  5131234567.
++ `phoneNumberExt`: `1234` (string, optional) - Phone number extension. Up to 8 digits of the format 12345678.
++ `phoneType` (enum[string], optional) - Phone type.
+    + `mobile`
+    + `home`
++ `alternatePhone`: `5131234567` (string, optional) - 10-digit alternate phone number of the format  5131234567.
++ `alternatePhoneType` (enum[string], optional) - Alternate phone type.
+    + `mobile`
+    + `home`
++ `faxNumber`: `5131234567` (string, optional) - 10-digit fax number of the format 5131234567
++ `email`: `test@gmail.com` (string, required) - Email address of the contact. Must have @ and a .
++ `ownershipPercentage` (number, optional) - Ownership stake percentage.
++ `ssn`: `123456789` (string, optional) - Social security number. Do not include dashes.
++ `dob`: `2000-03-23` (string, optional) - Date of Birth (CCYY-MM-DD). Must be at least 18 years old.
++ `addressLine1`: `4355 N Coalwhipe St.` (string, required) - Address Line 1. Field for house number, street and direction.
++ `addressLine2`: `suite 104` (string, optional) - Address Line 2. Field for apartment or suite numbers, etc.
++ `city`: `Denver` (string, required) 
++ `state` (enum[string], required) - Valid US state, commonwealth, and territory codes are allowed.
+    + `AK`
+    + `AL`
+    + `AR`
+    + `AS`
+    + `AZ`
+    + `CA`
+    + `CO`
+    + `CT`
+    + `DC`
+    + `DE`
+    + `FL`
+    + `FM`
+    + `GA`
+    + `GU`
+    + `HI`
+    + `IA`
+    + `ID`
+    + `IL`
+    + `IN`
+    + `KS`
+    + `KY`
+    + `LA`
+    + `MA`
+    + `MD`
+    + `ME`
+    + `MH`
+    + `MI`
+    + `MN`
+    + `MO`
+    + `MP`
+    + `MS`
+    + `MT`
+    + `NC`
+    + `ND`
+    + `NE`
+    + `NH`
+    + `NJ`
+    + `NM`
+    + `NV`
+    + `NY`
+    + `OH`
+    + `OK`
+    + `OR`
+    + `PA`
+    + `PR`
+    + `PW`
+    + `RI`
+    + `SC`
+    + `SD`
+    + `TN`
+    + `TX`
+    + `UT`
+    + `VA`
+    + `VI`
+    + `VT`
+    + `WA`
+    + `WI`
+    + `WV`
+    + `WY`
++ `country`: `United States` (string, required) - Only United States is allowed.
++ `postalCode`: `12345` (string, required) - Postal code / zip code. The postal code must be valid for the address' country code.
++ `postalCodeExtension`: `1234` (string, optional) - Postal code / zip code extension.  The postal code extension must be valid for the address' country code.
++ `identification` (array[Identification], optional) - Optional. If any attribute in the identification object is populated then at least idNumber and idType are required.
+
+
+## AuthorizedSigner (object)
+
+
+### Properties
++ `roleName` (enum[string], required)
+
+    The role of the signer. Please note the below.
+    
+     1) Merchant role name is mandatory.
+     2) Required fields indicated in schema are those required for all role names other than "SalesRep"
+     3) The "SalesRep" role name only requires the following fields > roleName, signingExperience, signingOrder, firstName, lastName, email
+     4) The "Signer2" role name is for a Personal Guarantor. This signer must be included if a Personal Guarantor is on the application. Include the Guarnator's information in this object.
+
+    + `SalesRep`
+    + `Merchant`
+    + `Reviewer`
+    + `Signer2`
+    + `Signer3`
+    + `Signer4`
+    + `Signer5`
+    + `Signer6`
+    + `Signer7`
+    + `Signer8`
++ `signingExperience` (enum[string], required) - Signing ceremony type
+    + `embed`
+    + `email`
+    + `wet`
++ `signingOrder`: `2` (string, required) - Define the signing order for multiple signers
++ `title`: `President` (string, optional) - Required for AMEX acquired merchants otherwise optional.
++ `firstName`: `Todd` (string, required) - First name. Region based validations will be applied to this field.
++ `middleInitial`: `M` (string, optional) - Middle initial.
++ `lastName`: `Davis` (string, required) - Last name. Region based validations will be applied to this field.
++ `phoneNumber`: `5131234567` (string, required) - 10-digit phone number of the format  5131234567.
++ `phoneNumberExt`: `1234` (string, optional) - Phone number extension. Up to 8 digits of the format 12345678.
++ `phoneType` (enum[string], optional) - Phone type.
+    + `mobile`
+    + `home`
++ `alternatePhone`: `5131234567` (string, optional) - 10-digit alternate phone number of the format  5131234567.
++ `alternatePhoneType` (enum[string], optional) - Alternate phone type.
+    + `mobile`
+    + `home`
++ `faxNumber`: `5131234567` (string, optional) - 10-digit fax number of the format 5131234567
++ `email`: `test@gmail.com` (string, required) - Email address of the contact. Must have @ and a .
++ `ssn`: `123456789` (string, required) - Social security number. Do not include dashes.
++ `dob`: `2000-03-23` (string, required) - Date of Birth (CCYY-MM-DD). Must be at least 18 years old.
++ `addressLine1`: `4355 N Coalwhipe St.` (string, required) - Address Line 1. Field for house number, street and direction.
++ `addressLine2`: `suite 104` (string, optional) - Address Line 2. Field for apartment or suite numbers, etc.
++ `city`: `Denver` (string, required) 
++ `state` (enum[string], required) - Valid US state, commonwealth, and territory codes are allowed.
+    + `AK`
+    + `AL`
+    + `AR`
+    + `AS`
+    + `AZ`
+    + `CA`
+    + `CO`
+    + `CT`
+    + `DC`
+    + `DE`
+    + `FL`
+    + `FM`
+    + `GA`
+    + `GU`
+    + `HI`
+    + `IA`
+    + `ID`
+    + `IL`
+    + `IN`
+    + `KS`
+    + `KY`
+    + `LA`
+    + `MA`
+    + `MD`
+    + `ME`
+    + `MH`
+    + `MI`
+    + `MN`
+    + `MO`
+    + `MP`
+    + `MS`
+    + `MT`
+    + `NC`
+    + `ND`
+    + `NE`
+    + `NH`
+    + `NJ`
+    + `NM`
+    + `NV`
+    + `NY`
+    + `OH`
+    + `OK`
+    + `OR`
+    + `PA`
+    + `PR`
+    + `PW`
+    + `RI`
+    + `SC`
+    + `SD`
+    + `TN`
+    + `TX`
+    + `UT`
+    + `VA`
+    + `VI`
+    + `VT`
+    + `WA`
+    + `WI`
+    + `WV`
+    + `WY`
++ `country`: `United States` (string, required) - Only United States is allowed.
++ `postalCode`: `12345` (string, required) - Postal code / zip code. The postal code must be valid for the address' country code.
++ `postalCodeExtension`: `1234` (string, optional) - Postal code / zip code extension.  The postal code extension must be valid for the address' country code.
++ `identification` (array[Identification], optional) - Optional. If any attribute in the identification object is populated then at least idNumber and idType are required.
+
+
+## Contact (object)
+
+
+### Properties
++ `type` (enum[string], required)
+
+    Type of merchant contact.   
+     1) Only primary contact
+          is mandatory. May be the same as any owner contact information. 
+     2) For primary contact, firstName, lastName, phoneNumber and email are mandatory during POST.  
+     3) For all other contact types, firstName and lastName are mandatory during POST.
+
+    + `Primary Contact`
+    + `Accounting Contact`
+    + `Customer Service Contact`
+    + `Shipping Contact`
+    + `Third Party Contact`
+    + `Vendor Contact Info`
+    + `PCI Contact`
+    + `Corporate`
++ `title`: `President` (string, optional) - Required for AMEX acquired merchants otherwise optional.
++ `firstName`: `Todd` (string, required) - First name. Region based validations will be applied to this field.
++ `middleInitial`: `M` (string, optional) - Middle initial.
++ `lastName`: `Davis` (string, required) - Last name. Region based validations will be applied to this field.
++ `ssn`: `123456789` (string, optional) - Social security number. Do not include dashes.
++ `birthDate`: `2000-03-23` (string, optional) - Date of Birth (CCYY-MM-DD). Must be at least 18 years old.
++ `phoneNumber`: `5131234567` (string, required) - 10-digit phone number of the format  5131234567.
++ `phoneNumberExt`: `1234` (string, optional) - Phone number extension. Up to 8 digits of the format 12345678.
++ `phoneType` (enum[string], optional) - Phone type.
+    + `mobile`
+    + `home`
++ `alternatePhone`: `5131234567` (string, optional) - 10-digit alternate phone number of the format  5131234567.
++ `alternatePhoneType` (enum[string], optional) - Alternate phone type.
+    + `mobile`
+    + `home`
++ `email`: `test@gmail.com` (string, required) - Email address of the contact. Must have @ and a .
++ `faxNumber`: `5131234567` (string, optional) - 10-digit fax number of the format 5131234567
+
+
+## Address (object)
+
+
+### Properties
++ `type` (enum[string], required)
+
+    Address Type  
+     1) Physical address is mandatory.
+     2) If equipment needs to be sent to a different location than the physical address, then shipping address should be added.
+    3) For any address type, addressLine1, city, state, postalCode and country are mandatory.
+
+    + `Mailing Address`
+    + `Physical Address`
+    + `Shipping Address`
++ `addressLine1`: `4355 N Coalwhipe St.` (string, required) - Address Line 1. Field for house number, street and direction.
++ `addressLine2`: `suite 104` (string, optional) - Address Line 2. Field for apartment or suite numbers, etc.
++ `city`: `Denver` (string, required) 
++ `state` (enum[string], required) - Valid US state, commonwealth, and territory codes are allowed.
+    + `AK`
+    + `AL`
+    + `AR`
+    + `AS`
+    + `AZ`
+    + `CA`
+    + `CO`
+    + `CT`
+    + `DC`
+    + `DE`
+    + `FL`
+    + `FM`
+    + `GA`
+    + `GU`
+    + `HI`
+    + `IA`
+    + `ID`
+    + `IL`
+    + `IN`
+    + `KS`
+    + `KY`
+    + `LA`
+    + `MA`
+    + `MD`
+    + `ME`
+    + `MH`
+    + `MI`
+    + `MN`
+    + `MO`
+    + `MP`
+    + `MS`
+    + `MT`
+    + `NC`
+    + `ND`
+    + `NE`
+    + `NH`
+    + `NJ`
+    + `NM`
+    + `NV`
+    + `NY`
+    + `OH`
+    + `OK`
+    + `OR`
+    + `PA`
+    + `PR`
+    + `PW`
+    + `RI`
+    + `SC`
+    + `SD`
+    + `TN`
+    + `TX`
+    + `UT`
+    + `VA`
+    + `VI`
+    + `VT`
+    + `WA`
+    + `WI`
+    + `WV`
+    + `WY`
++ `country`: `United States` (string, required) - Only United States is allowed.
++ `postalCode`: `12345` (string, required) - Postal code / zip code. The postal code must be valid for the address' country code.
++ `postalCodeExtension`: `1234` (string, optional) - Postal code / zip code extension.  The postal code extension must be valid for the address' country code.
+
+
+## BankAccount (object)
+
+
+### Properties
++ `ddaType` (enum[string], optional) - Direct deposit account type.
+    + `Checking`
+    + `Savings`
++ `achType` (enum[string], optional) - Check deposit type
+    + `Commercial Checking`
+    + `Private Checking`
++ `accountNumber`: `011401545` (string, optional) - Direct deposit account number.  Maximum 17 characters.
++ `routingNumber`: `102000076` (string, optional) - Bank routing number. Must be 9 characters and pass ACH Mod-10 validation.
++ `bankName`: `Bank name` (string, optional) - Bank name used for credit card processing services.
+
+
+## SalesAgent (object)
+The agent who is submitting the deal.
+
+### Properties
++ `id`: `U15315` (string, optional) - Id for the Sales Contact.
++ `firstName`: `John` (string, required) - Sales agent's first name.
++ `lastName`: `Doe` (string, required) - Sales agent's last name.
++ `mobilePhoneNumber`: `1234567890` (string, optional) - Sales agent's 10-digit phone number of the format 5131234567.
++ `email` (string, required) - Sales agent's email address.  Must have @ and a .
+
+
+## InstallationContact (object)
+The Technical Agent who is going to do setup.
+
+### Properties
++ `id`: `U15318` (string, optional) - Id for Technical Contact
++ `firstName`: `Sam` (string, required) - Contact's first name.
++ `lastName`: `Doe` (string, required) - Contact's last name.
++ `mobilePhoneNumber`: `1234567890` (string, optional) - Contact's 10-digit phone number of the format 5131234567.
++ `email` (string, required) - Contact's email address. Must have @ and a .
+
+
+## ErrorResponse (object)
+
+
+### Properties
++ `httpStatusCode`: `404` (number, optional) 
++ `httpStatusMessage`: `STATUS-MESSAGE` (string, optional) 
++ `errors` (array[Error], optional) 
+
+
+## Error (object)
+
+
+### Properties
++ `errorCode`: `ERROR_CODE` (string, optional) 
++ `errorMessage`: `Error message here.` (string, optional) 
++ `target`: `Target` (string, optional) 
+
+
+## ExistingApplication1 (object)
+
+
+### Properties
++ `externalRefId`: `df8a6d82-3bb4-4f3b-ba18-57a5981ede8e` (string, required) - A unique GUID generated by POST resource, used for retrieving and updating a deal. Do not send in the request, API will always generate one and assign it to the deal.
++ `leadSource`: `Activate` (string, optional) - The source of a lead.
++ `businessInfo` (BusinessInfo1, required) 
++ `transactionInfo` (TransactionInfo1, required) 
++ `owners` (array[Owner1], optional) 
++ `guarantors` (array[Guarantor1], optional) - Guarantor information. A guarantor is the person whose credit report will be pulled during the underwriting process.
++ `authorizedSigners` (array[AuthorizedSigner1], optional) 
++ `contacts` (array[Contact1], optional) 
++ `addresses` (array[Address1], optional) 
++ `bankAccount` (BankAccount1, optional) - Bank account collects bank account information from merchant. It is optional till the time of boarding where bank account becomes required along with ddaType, achType, accountNumber, routingNumber & bankName.
++ `advancedSettelment` (array[AdvancedSettlementinner], optional) 
++ `salesAgent` (SalesAgent1, optional) - The agent who is submitting the deal. It is an optional object. It becomes required, when  partner wants to route deals to their own sales rep. Please work with your integration specialist for route to sales rep functionality.
++ `installationContact` (InstallationContact, optional) - The Technical Agent who is going to do setup.
++ `routeToSalesRep`: `false` (boolean, optional) - Used to route a application to a worldpay or partner sales rep. By default the API is configured to route to a Worldpay sales rep. If you would like to route to partner (Launchpad UI) please work with your implementation consultant.
+
+
+## BusinessInfo1 (object)
+
+
+### Properties
++ `dbaName`: `The DBA Name` (string, required) - The merchant name they do business as.  Generally with what their customers know the business.
++ `legalName` (string, required) - Business Legal Name as filed with the IRS.
++ `ownershipType` (enum[string], required) - Required. OwnershipType defines the type of the Merchant Organization, and drives the requirements for data collections of beneficial and control owners under U.S. Financial Crimes Enforcement Network (FinCEN).
+    + `GOVERNMENT`
+    + `SOLE PROPRIETOR`
+    + `LLC`
+    + `PARTNERSHIP`
+    + `FIN INSTITUTION`
+    + `NON-PROFIT`
+    + `ASSOCIATION/ESTATE/TRUST`
+    + `PRIVATE CORPORATION`
+    + `SEC REGISTERED`
+    + `PUBLIC CORPORATION`
+    + `OTHER`
++ `mccCode`: `5812` (string, required) - SIC Code / MCC Code (Merchant Category Code) is the code use to describe what the merchant is selling. Use MCC look up call to search valid codes, with sort and long description to find the MCC that most closely matches what the merchant is selling.
++ `businessEstablishedDate`: `2000-03-23` (string, optional) - Date (CCYY-MM-DD) on which the merchant's business was established.
++ `websiteUrl`: `www.thefoodplace.com` (string, optional) - The URL of the merchant's website.
++ `numberOfLocation`: `2` (number, optional) - Number of current locations.
++ `federalTaxId`: `123456781` (string, optional)
+
+    The Federal Tax ID is the business Tax Identification Number (TIN) or Employer Identification Number (EIN). If the business is a sole proprietor they may use the social security number of the sole proprietor.The full list of restricted federal tax id-
+      “000000000” “000000001” “000000002” “000000003” “000000004” “000000005” “000000006” “000000007” “000000008” “000000009" "111111110" “111111111” "111111112" "111111113" "111111114" "111111115" "111111116" "111111117" "111111118" "111111119" "222222220" "222222221" “222222222” "222222223" "222222224" "222222225" "222222226" "222222227" "222222228" "222222229" "333333330" "333333331" "333333332" “333333333” "333333334" "333333335" "333333336" "333333337" "333333338" "333333339"  "444444440" "444444441" "444444442" "444444443" “444444444” "444444445" "444444446" "444444447" "444444448" "444444449" "555555550" "555555551" "555555552" "555555553" "555555554" “555555555” "555555556" "555555557" "555555558" "555555559"  "666666660" "666666661" "666666662" "666666663" "666666664" "666666665" “666666666” "666666667" "666666668" "666666669" "777777770" "777777771” "777777772" "777777773" "777777774" "777777775" "777777776" “777777777” "777777778" "777777779" "888888880" "888888881" "888888882" "888888883" "888888884" "888888885" "888888886" "888888887" “888888888” "888888889"  "999999990" "999999991" "999999992" "999999993" "999999994" "999999995" "99999996"   "999999997" "999999998" “999999999”  "123456780" to "123456789" "123123123"
+
++ `paymentAcceptanceMethod` (array, optional) - The ways in which the business is accepting payments. Multiple options may be selected. 'In person', would be card present at a brick and mortar store, 'onlinesite' would be card not present use on an ecommerce website, and 'phoneormailorder' would be card not present used for mail and telephone orders.
+    + (enum[string])
+        + Members
+            + `inPerson`
+            + `onlineSite`
+            + `phoneOrMailOrder`
++ `pciadc` (enum[string], optional) - Indication if the merchant has had an account data compromise.
+    + `Yes`
+    + `No`
++ `pcidssValidated` (enum[string], optional) - Indictor showing if the merchant is compliant or not with the Payment Card Industry Data Security Standards.
+    + `Yes`
+    + `No`
++ `surroundingArea` (enum[string], optional) - Type of area surroundning the business.
+    + `Commercial`
+    + `Industrial`
+    + `Residential`
++ `productServiceSold`: `Food` (string, optional) - Type of goods or services sold.
++ `ownAddYears`: `2` (number, optional) - Years the business has been operating in their current location.
++ `lengthOfContract` (string, optional) - Inital contract term in months.
++ `seasonal` (enum[string], optional) - Does the business operate seasonally?
+    + `Yes`
+    + `No`
++ `activeMonths` (array, optional) - The months during which the business is actively operating.
+    + (enum[string])
+        + Members
+            + `Jan`
+            + `Feb`
+            + `Mar`
+            + `Apr`
+            + `May`
+            + `Jun`
+            + `Jul`
+            + `Aug`
+            + `Sep`
+            + `Oct`
+            + `Nov`
+            + `Dec`
++ `warranty` (enum[string], optional) - Does the business offer warranties, dues, subscriptions, memberships, or other extended services?
+    + `1 YEAR`
+    + `30 DAY`
+    + `60 DAY`
+    + `90 DAY`
+    + `LIFETIME`
+    + `NO`
++ `returnPolicy` (enum[string], optional) - The business's return policy.
+    + `3 Day`
+    + `30 Day`
+    + `60 Day`
+    + `60+ Day`
+    + `ALL SALES FINAL`
+    + `EXCHANGE ONLY/STORE CREDIT`
+    + `NO RETURN POLICY`
++ `taxExempt` (enum[string], optional) 
+    + `true`
+    + `false`
++ `acceptCreditCards` (enum[string], optional) - Does the business accept credit cards?
+    + `true`
+    + `false`
++ `govOwnedMerchantCountry`: `US` (string, optional) - If merchant is a government entity or an entity at least 50% owned or controlled by government entity than provide 2 digit country code which belongs to the country.
+
+
+## TransactionInfo1 (object)
+
+
+### Properties
++ `annualSalesVolume`: `20000.12` (number, required) - Projected annual sales volume.
++ `percentRetailSwipedTransactions`: `82` (number, required) - Projected Percentage of daily card-present transactions.
++ `averageTicket`: `2.3` (number, optional) - Average ticket dollar amount.
++ `highestTicket`: `32.41` (number, optional) - Highest ticket dollar amount.
++ `currentProcessor`: `Global Payments` (string, optional) - the current processor
++ `acceptChargebacks` (enum[string], optional) - Do you have more than 25 chargeback accepted in the last 12 months?
+    + `Yes`
+    + `No`
++ `chargebackPercent`: `0` (number, optional)
+
+    Projected chargeback percentage.
+    
+    ```Required when acceptChargebacks is 'Yes'```
+    
+    ```Optional when acceptChargebacks is null or 'No'.```
+
++ `returnPercent`: `10` (number, optional) - Projected return percent of  goods sold
++ `cardNotPresentPercent`: `20` (number, optional) - Percent of card not present transactions.
++ `businessToBusinessPercent`: `20` (number, optional) - Percent of business-to-business transactions.
++ `internetTransactionPercent`: `10` (number, optional) - Percent of internet transactions.
++ `inPersonTransactionPercent`: `10` (number, optional) - Percent of in person transactions.
++ `motoTransactionPercent`: `10` (number, optional) - Percent of mail or phone order transactions.
++ `annualCreditSalesVolume`: `123.32` (number, optional) - Projected annual credit card sales volume.
++ `annualDebitSalesVolume`: `32.23` (number, optional) - Projected annual debit card sales volume.
++ `annualAmexVolume`: `10000` (number, optional) - Projected annual Amex volume. ``` This field is required when you opt-in for Amex ```
++ `amexAverageTicket`: `2.3` (number, optional)
+
+    AverageTicket dollar amount for Amex.
+     ```This field is required when you opt-in for Amex```
+
++ `averageNumberofDays`: `10` (number, optional) - Average number of days from when cardholder is charged & when products or services are received IN FULL by cardholder.
++ `needsProcessingBy`: `2022-11-01` (string, optional) - Date (CCYY-MM-DD) by which the Equipment needs to be setup. This field may be required for a given partner.
+
+
+## Owner1 (object)
+A Control Owner is required for the following ownership types > LLC, PARTNERSHIP, PRIVATE CORPORATION, ASSOCIATION/ESTATE/TRUST, NON-PROFIT
+
+### Properties
++ `type` (enum[string], required) - The Owner Type. Please note the above Ownership Types where a Control Owner is required.
+    + `Control Owner Contact`
+    + `Owner 1 Contact`
+    + `Owner 2 Contact`
+    + `Owner 3 Contact`
+    + `Owner 4 Contact`
++ `title`: `President` (string, optional) - Required for AMEX acquired merchants otherwise optional.
++ `firstName`: `Todd` (string, required) - First name. Region based validations will be applied to this field.
++ `middleInitial`: `M` (string, optional) - Middle initial.
++ `lastName`: `Davis` (string, required) - Last name. Region based validations will be applied to this field.
++ `phoneNumber`: `5131234567` (string, required) - 10-digit phone number of the format  5131234567.
++ `phoneNumberExt`: `1234` (string, optional) - Phone number extension. Up to 8 digits of the format 12345678.
++ `phoneType` (enum[string], optional) - Phone type.
+    + `mobile`
+    + `home`
++ `alternatePhone`: `5131234567` (string, optional) - 10-digit alternate phone number of the format  5131234567.
++ `alternatePhoneType` (enum[string], optional) - Alternate phone type.
+    + `mobile`
+    + `home`
++ `faxNumber`: `5131234567` (string, optional) - 10-digit fax number of the format 5131234567
++ `email`: `test@gmail.com` (string, required) - Email address of the contact. Must have @ and a .
++ `ownershipPercentage` (number, optional) - Ownership stake percentage.
++ `ssn`: `123456789` (string, optional) - Social security number. Do not include dashes.The full list of restricted SSN is- “000000001” “000000002” “000000003” “000000004” “000000005” “000000006” “000000007” “000000008” “000000009" "111111110" “111111111” "111111112" "111111113" "111111114" "111111115" "111111116" "111111117" "111111118" "111111119" "222222220" "222222221" “222222222” "222222223" "222222224" "222222225" "222222226" "222222227" "222222228" "222222229" "333333330" "333333331" "333333332" “333333333” "333333334" "333333335" "333333336" "333333337" "333333338" "333333339"  "444444440" "444444441" "444444442" "444444443" “444444444” "444444445" "444444446" "444444447" "444444448" "444444449" "555555550" "555555551" "555555552" "555555553" "555555554" “555555555” "555555556" "555555557" "555555558" "555555559"  "666666660" "666666661" "666666662" "666666663" "666666664" "666666665" “666666666" "666666667" "666666668" "666666669" "777777770" "777777771” "777777772" "777777773" "777777774" "777777775" "777777776" “777777777” "777777778" "777777779" "888888880" "888888881" "888888882" "888888883" "888888884" "888888885" "888888886" "888888887" “888888888” "888888889"  "999999990" "999999991" "999999992" "999999993" "999999994" "999999995" "99999996"   "999999997" "999999998" “999999999”  "123456780" to "123456789" "123123123"
++ `dob`: `2000-03-23` (string, optional) - Date of Birth (CCYY-MM-DD). Must be at least 18 years old.
++ `addressLine1`: `4355 N Coalwhipe St.` (string, required) - Address Line 1. Field for house number, street and direction.
++ `addressLine2`: `suite 104` (string, optional) - Address Line 2. Field for apartment or suite numbers, etc.
++ `city`: `Denver` (string, required) 
++ `state` (enum[string], required) - Valid US state, commonwealth, and territory codes are allowed.
+    + `AK`
+    + `AL`
+    + `AR`
+    + `AS`
+    + `AZ`
+    + `CA`
+    + `CO`
+    + `CT`
+    + `DC`
+    + `DE`
+    + `FL`
+    + `FM`
+    + `GA`
+    + `GU`
+    + `HI`
+    + `IA`
+    + `ID`
+    + `IL`
+    + `IN`
+    + `KS`
+    + `KY`
+    + `LA`
+    + `MA`
+    + `MD`
+    + `ME`
+    + `MH`
+    + `MI`
+    + `MN`
+    + `MO`
+    + `MP`
+    + `MS`
+    + `MT`
+    + `NC`
+    + `ND`
+    + `NE`
+    + `NH`
+    + `NJ`
+    + `NM`
+    + `NV`
+    + `NY`
+    + `OH`
+    + `OK`
+    + `OR`
+    + `PA`
+    + `PR`
+    + `PW`
+    + `RI`
+    + `SC`
+    + `SD`
+    + `TN`
+    + `TX`
+    + `UM`
+    + `UT`
+    + `VA`
+    + `VI`
+    + `VT`
+    + `WA`
+    + `WI`
+    + `WV`
+    + `WY`
++ `country`: `United States` (string, required) - Only United States is allowed.
++ `postalCode`: `12345` (string, required) - Postal code / zip code. The postal code must be valid for the address' country code.
++ `postalCodeExtension`: `1234` (string, optional) - Postal code / zip code extension.  The postal code extension must be valid for the address' country code.
++ `identification` (array[Identification], optional) - Optional. If any attribute in the identification object is populated then at least idNumber and idType are required.
+
+
+## Guarantor1 (object)
+
+
+### Properties
++ `type` (enum[string], required) 
+    + `Guarantor 1 Contact`
+    + `Guarantor 2 Contact`
+    + `Guarantor 3 Contact`
+    + `Guarantor 4 Contact`
++ `title`: `President` (string, optional) - Required for AMEX acquired merchants otherwise optional.
++ `firstName`: `Todd` (string, required) - First name. Region based validations will be applied to this field.
++ `middleInitial`: `M` (string, optional) - Middle initial.
++ `lastName`: `Davis` (string, required) - Last name. Region based validations will be applied to this field.
++ `phoneNumber`: `5131234567` (string, required) - 10-digit phone number of the format  5131234567.
++ `phoneNumberExt`: `1234` (string, optional) - Phone number extension. Up to 8 digits of the format 12345678.
++ `phoneType` (enum[string], optional) - Phone type.
+    + `mobile`
+    + `home`
++ `alternatePhone`: `5131234567` (string, optional) - 10-digit alternate phone number of the format  5131234567.
++ `alternatePhoneType` (enum[string], optional) - Alternate phone type.
+    + `mobile`
+    + `home`
++ `faxNumber`: `5131234567` (string, optional) - 10-digit fax number of the format 5131234567
++ `email`: `test@gmail.com` (string, required) - Email address of the contact. Must have @ and a .
++ `ownershipPercentage` (number, optional) - Ownership stake percentage.
++ `ssn`: `123456789` (string, optional) - Social security number. Do not include dashes.The full list of restricted SSN is- “000000001” “000000002” “000000003” “000000004” “000000005” “000000006” “000000007” “000000008” “000000009" "111111110" “111111111” "111111112" "111111113" "111111114" "111111115" "111111116" "111111117" "111111118" "111111119" "222222220" "222222221" “222222222” "222222223" "222222224" "222222225" "222222226" "222222227" "222222228" "222222229" "333333330" "333333331" "333333332" “333333333” "333333334" "333333335" "333333336" "333333337" "333333338" "333333339"  "444444440" "444444441" "444444442" "444444443" “444444444” "444444445" "444444446" "444444447" "444444448" "444444449" "555555550" "555555551" "555555552" "555555553" "555555554" “555555555” "555555556" "555555557" "555555558" "555555559"  "666666660" "666666661" "666666662" "666666663" "666666664" "666666665" “666666666" "666666667" "666666668" "666666669" "777777770" "777777771” "777777772" "777777773" "777777774" "777777775" "777777776" “777777777” "777777778" "777777779" "888888880" "888888881" "888888882" "888888883" "888888884" "888888885" "888888886" "888888887" “888888888” "888888889"  "999999990" "999999991" "999999992" "999999993" "999999994" "999999995" "99999996"   "999999997" "999999998" “999999999”  "123456780" to "123456789" "123123123"
++ `dob`: `2000-03-23` (string, optional) - Date of Birth (CCYY-MM-DD). Must be at least 18 years old.
++ `addressLine1`: `4355 N Coalwhipe St.` (string, required) - Address Line 1. Field for house number, street and direction.
++ `addressLine2`: `suite 104` (string, optional) - Address Line 2. Field for apartment or suite numbers, etc.
++ `city`: `Denver` (string, required) 
++ `state` (enum[string], required) - Valid US state, commonwealth, and territory codes are allowed.
+    + `AK`
+    + `AL`
+    + `AR`
+    + `AS`
+    + `AZ`
+    + `CA`
+    + `CO`
+    + `CT`
+    + `DC`
+    + `DE`
+    + `FL`
+    + `FM`
+    + `GA`
+    + `GU`
+    + `HI`
+    + `IA`
+    + `ID`
+    + `IL`
+    + `IN`
+    + `KS`
+    + `KY`
+    + `LA`
+    + `MA`
+    + `MD`
+    + `ME`
+    + `MH`
+    + `MI`
+    + `MN`
+    + `MO`
+    + `MP`
+    + `MS`
+    + `MT`
+    + `NC`
+    + `ND`
+    + `NE`
+    + `NH`
+    + `NJ`
+    + `NM`
+    + `NV`
+    + `NY`
+    + `OH`
+    + `OK`
+    + `OR`
+    + `PA`
+    + `PR`
+    + `PW`
+    + `RI`
+    + `SC`
+    + `SD`
+    + `TN`
+    + `TX`
+    + `UM`
+    + `UT`
+    + `VA`
+    + `VI`
+    + `VT`
+    + `WA`
+    + `WI`
+    + `WV`
+    + `WY`
++ `country`: `United States` (string, required) - Only United States is allowed.
++ `postalCode`: `12345` (string, required) - Postal code / zip code. The postal code must be valid for the address' country code.
++ `postalCodeExtension`: `1234` (string, optional) - Postal code / zip code extension.  The postal code extension must be valid for the address' country code.
++ `identification` (array[Identification], optional) - Optional. If any attribute in the identification object is populated then at least idNumber and idType are required.
+
+
+## AuthorizedSigner1 (object)
+
+
+### Properties
++ `roleName` (enum[string], required)
+
+    The role of the signer. Please note the below.
+    
+     1) Merchant role name is mandatory.
+     2) Required fields indicated in schema are those required for all role names other than "SalesRep"
+     3) The "SalesRep" role name only requires the following fields > roleName, signingExperience, signingOrder, firstName, lastName, email
+     4) The "Signer2" role name is for a Personal Guarantor. This signer must be included if a Personal Guarantor is on the application. Include the Guarnator's information in this object.
+
+    + `SalesRep`
+    + `Merchant`
+    + `Signer2`
+    + `Signer3`
+    + `Signer4`
+    + `Signer5`
+    + `Signer6`
+    + `Signer7`
+    + `Signer8`
+    + `Guarantor2`
+    + `Guarantor3`
+    + `Guarantor4`
++ `signingExperience` (enum[string], required) - Signing ceremony type
+    + `embed`
+    + `email`
+    + `wet`
++ `signingOrder`: `2` (string, required) - Define the signing order for multiple signers
++ `title`: `President` (string, optional) - Required for AMEX acquired merchants otherwise optional.
++ `firstName`: `Todd` (string, required) - First name. Region based validations will be applied to this field.
++ `middleInitial`: `M` (string, optional) - Middle initial.
++ `lastName`: `Davis` (string, required) - Last name. Region based validations will be applied to this field.
++ `phoneNumber`: `5131234567` (string, required) - 10-digit phone number of the format  5131234567.
++ `phoneNumberExt`: `1234` (string, optional) - Phone number extension. Up to 8 digits of the format 12345678.
++ `phoneType` (enum[string], optional) - Phone type.
+    + `mobile`
+    + `home`
++ `alternatePhone`: `5131234567` (string, optional) - 10-digit alternate phone number of the format  5131234567.
++ `alternatePhoneType` (enum[string], optional) - Alternate phone type.
+    + `mobile`
+    + `home`
++ `faxNumber`: `5131234567` (string, optional) - 10-digit fax number of the format 5131234567
++ `email`: `test@gmail.com` (string, required) - Email address of the contact. Must have @ and a .
++ `ssn`: `123456789` (string, required) - Social security number. Do not include dashes.The full list of restricted SSN is- “000000001” “000000002” “000000003” “000000004” “000000005” “000000006” “000000007” “000000008” “000000009" "111111110" “111111111” "111111112" "111111113" "111111114" "111111115" "111111116" "111111117" "111111118" "111111119" "222222220" "222222221" “222222222” "222222223" "222222224" "222222225" "222222226" "222222227" "222222228" "222222229" "333333330" "333333331" "333333332" “333333333” "333333334" "333333335" "333333336" "333333337" "333333338" "333333339"  "444444440" "444444441" "444444442" "444444443" “444444444” "444444445" "444444446" "444444447" "444444448" "444444449" "555555550" "555555551" "555555552" "555555553" "555555554" “555555555” "555555556" "555555557" "555555558" "555555559"  "666666660" "666666661" "666666662" "666666663" "666666664" "666666665" “666666666" "666666667" "666666668" "666666669" "777777770" "777777771” "777777772" "777777773" "777777774" "777777775" "777777776" “777777777” "777777778" "777777779" "888888880" "888888881" "888888882" "888888883" "888888884" "888888885" "888888886" "888888887" “888888888” "888888889"  "999999990" "999999991" "999999992" "999999993" "999999994" "999999995" "99999996"   "999999997" "999999998" “999999999”  "123456780" to "123456789" "123123123"
++ `dob`: `2000-03-23` (string, required) - Date of Birth (CCYY-MM-DD). Must be at least 18 years old.
++ `addressLine1`: `4355 N Coalwhipe St.` (string, required) - Address Line 1. Field for house number, street and direction.
++ `addressLine2`: `suite 104` (string, optional) - Address Line 2. Field for apartment or suite numbers, etc.
++ `city`: `Denver` (string, required) 
++ `state` (enum[string], required) - Valid US state, commonwealth, and territory codes are allowed.
+    + `AK`
+    + `AL`
+    + `AR`
+    + `AS`
+    + `AZ`
+    + `CA`
+    + `CO`
+    + `CT`
+    + `DC`
+    + `DE`
+    + `FL`
+    + `FM`
+    + `GA`
+    + `GU`
+    + `HI`
+    + `IA`
+    + `ID`
+    + `IL`
+    + `IN`
+    + `KS`
+    + `KY`
+    + `LA`
+    + `MA`
+    + `MD`
+    + `ME`
+    + `MH`
+    + `MI`
+    + `MN`
+    + `MO`
+    + `MP`
+    + `MS`
+    + `MT`
+    + `NC`
+    + `ND`
+    + `NE`
+    + `NH`
+    + `NJ`
+    + `NM`
+    + `NV`
+    + `NY`
+    + `OH`
+    + `OK`
+    + `OR`
+    + `PA`
+    + `PR`
+    + `PW`
+    + `RI`
+    + `SC`
+    + `SD`
+    + `TN`
+    + `TX`
+    + `UM`
+    + `UT`
+    + `VA`
+    + `VI`
+    + `VT`
+    + `WA`
+    + `WI`
+    + `WV`
+    + `WY`
++ `country`: `United States` (string, required) - Only United States is allowed.
++ `postalCode`: `12345` (string, required) - Postal code / zip code. The postal code must be valid for the address' country code.
++ `postalCodeExtension`: `1234` (string, optional) - Postal code / zip code extension.  The postal code extension must be valid for the address' country code.
++ `identification` (array[Identification], optional) - Optional. If any attribute in the identification object is populated then at least idNumber and idType are required.
+
+
+## Contact1 (object)
+
+
+### Properties
++ `type` (enum[string], required)
+
+    Type of merchant contact.   
+     1) Only primary contact
+          is mandatory. May be the same as any owner contact information. 
+     2) For primary contact, firstName, lastName, phoneNumber and email are mandatory during POST.  
+     3) For all other contact types, firstName and lastName are mandatory during POST.
+
+    + `Primary Contact`
+    + `Store Primary Contact`
+    + `Accounting Contact`
+    + `Customer Service Contact`
+    + `Shipping Contact`
+    + `Third Party Contact`
+    + `Vendor Contact Info`
+    + `PCI Contact`
+    + `Corporate`
++ `title`: `President` (string, optional) - Required for AMEX acquired merchants otherwise optional.
++ `firstName`: `Todd` (string, required) - First name. Region based validations will be applied to this field.
++ `middleInitial`: `M` (string, optional) - Middle initial.
++ `lastName`: `Davis` (string, required) - Last name. Region based validations will be applied to this field.
++ `ssn`: `123456789` (string, optional) - Social security number. Do not include dashes.The full list of restricted SSN is- “000000001” “000000002” “000000003” “000000004” “000000005” “000000006” “000000007” “000000008” “000000009" "111111110" “111111111” "111111112" "111111113" "111111114" "111111115" "111111116" "111111117" "111111118" "111111119" "222222220" "222222221" “222222222” "222222223" "222222224" "222222225" "222222226" "222222227" "222222228" "222222229" "333333330" "333333331" "333333332" “333333333” "333333334" "333333335" "333333336" "333333337" "333333338" "333333339"  "444444440" "444444441" "444444442" "444444443" “444444444” "444444445" "444444446" "444444447" "444444448" "444444449" "555555550" "555555551" "555555552" "555555553" "555555554" “555555555” "555555556" "555555557" "555555558" "555555559"  "666666660" "666666661" "666666662" "666666663" "666666664" "666666665" “666666666" "666666667" "666666668" "666666669" "777777770" "777777771” "777777772" "777777773" "777777774" "777777775" "777777776" “777777777” "777777778" "777777779" "888888880" "888888881" "888888882" "888888883" "888888884" "888888885" "888888886" "888888887" “888888888” "888888889"  "999999990" "999999991" "999999992" "999999993" "999999994" "999999995" "99999996"   "999999997" "999999998" “999999999”  "123456780" to "123456789" "123123123"
++ `birthDate`: `2000-03-23` (string, optional) - Date of Birth (CCYY-MM-DD). Must be at least 18 years old.
++ `phoneNumber`: `5131234567` (string, required) - 10-digit phone number of the format  5131234567.
++ `phoneNumberExt`: `1234` (string, optional) - Phone number extension. Up to 8 digits of the format 12345678.
++ `phoneType` (enum[string], optional) - Phone type.
+    + `mobile`
+    + `home`
++ `alternatePhone`: `5131234567` (string, optional) - 10-digit alternate phone number of the format  5131234567.
++ `alternatePhoneType` (enum[string], optional) - Alternate phone type.
+    + `mobile`
+    + `home`
++ `email`: `test@gmail.com` (string, required) - Email address of the contact. Must have @ and a .
++ `faxNumber`: `5131234567` (string, optional) - 10-digit fax number of the format 5131234567
+
+
+## Address1 (object)
+
+
+### Properties
++ `type` (enum[string], required)
+
+    Address Type  
+     1) Physical address is mandatory.
+     2) If equipment needs to be sent to a different location than the physical address, then shipping address should be added.
+    3) For any address type, addressLine1, city, state, postalCode and country are mandatory.
+
+    + `Mailing Address`
+    + `Physical Address`
+    + `Shipping Address`
++ `addressLine1`: `4355 N Coalwhipe St.` (string, required) - Address Line 1. Field for house number, street and direction.
++ `addressLine2`: `suite 104` (string, optional) - Address Line 2. Field for apartment or suite numbers, etc.
++ `city`: `Denver` (string, required) 
++ `state` (enum[string], required) - Valid US state, commonwealth, and territory codes are allowed.
+    + `AK`
+    + `AL`
+    + `AR`
+    + `AS`
+    + `AZ`
+    + `CA`
+    + `CO`
+    + `CT`
+    + `DC`
+    + `DE`
+    + `FL`
+    + `FM`
+    + `GA`
+    + `GU`
+    + `HI`
+    + `IA`
+    + `ID`
+    + `IL`
+    + `IN`
+    + `KS`
+    + `KY`
+    + `LA`
+    + `MA`
+    + `MD`
+    + `ME`
+    + `MH`
+    + `MI`
+    + `MN`
+    + `MO`
+    + `MP`
+    + `MS`
+    + `MT`
+    + `NC`
+    + `ND`
+    + `NE`
+    + `NH`
+    + `NJ`
+    + `NM`
+    + `NV`
+    + `NY`
+    + `OH`
+    + `OK`
+    + `OR`
+    + `PA`
+    + `PR`
+    + `PW`
+    + `RI`
+    + `SC`
+    + `SD`
+    + `TN`
+    + `TX`
+    + `UM`
+    + `UT`
+    + `VA`
+    + `VI`
+    + `VT`
+    + `WA`
+    + `WI`
+    + `WV`
+    + `WY`
++ `country`: `United States` (string, required) - Only United States is allowed.
++ `postalCode`: `12345` (string, required) - Postal code / zip code. The postal code must be valid for the address' country code.
++ `postalCodeExtension`: `1234` (string, optional) - Postal code / zip code extension.  The postal code extension must be valid for the address' country code.
+
+
+## BankAccount1 (object)
+Bank account collects bank account information from merchant. It is optional till the time of boarding where bank account becomes required along with ddaType, achType, accountNumber, routingNumber & bankName.
+
+### Properties
++ `ddaType` (enum[string], optional) - Direct deposit account type.
+    + `Checking`
+    + `Savings`
++ `achType` (enum[string], optional) - Check deposit type
+    + `Commercial Checking`
+    + `Private Checking`
++ `accountNumber`: `011401545` (string, optional) - Direct deposit account number.  Maximum 17 characters.
++ `routingNumber`: `102000076` (string, optional) - Bank routing number. Must be 9 characters and pass ACH Mod-10 validation.
++ `bankName`: `Bank name` (string, optional) - Bank name used for credit card processing services.
+
+
+## AdvancedSettlementinner (object)
+Advanced Settlement gives merchants options to settle their account according to their needs with different settlement categories.
+
+### Properties
++ `settlementCategories` (array, optional) 
+    + (enum[string])
+        + Members
+            + `Deposits`
+            + `Fees`
+            + `Exceptions`
++ `bankAccount` (BankAccount1, optional) - Bank account collects bank account information from merchant. It is optional till the time of boarding where bank account becomes required along with ddaType, achType, accountNumber, routingNumber & bankName.
+
+
+## SalesAgent1 (object)
+The agent who is submitting the deal. It is an optional object. It becomes required, when  partner wants to route deals to their own sales rep. Please work with your integration specialist for route to sales rep functionality.
+
+### Properties
++ `id`: `U15315` (string, optional) - Id for the Sales Contact.
++ `firstName`: `John` (string, required) - Sales agent's first name.
++ `lastName`: `Doe` (string, required) - Sales agent's last name.
++ `mobilePhoneNumber`: `1234567890` (string, optional) - Sales agent's 10-digit phone number of the format 5131234567.
++ `email` (string, required) - Sales agent's email address.  Must have @ and a .
+
+
+## Application (object)
+
+
+### Properties
++ `clientTrackingId`: `1341341234132412341` (string, optional) - This is an optional field that can be used by the partners to send a unique Id from their application for reporting purposes.
++ `businessInfo` (BusinessInfo1, required) 
++ `transactionInfo` (TransactionInfo1, required) 
++ `owners` (array[Owner1], optional) 
++ `authorizedSigners` (array[AuthorizedSigner1], required) 
++ `guarantors` (array[Guarantor1], optional) - Guarantor information. A guarantor is the person whose credit report will be pulled during the underwriting process.
++ `contacts` (array[Contact1], required) 
++ `addresses` (array[Address1], required) 
++ `bankAccount` (BankAccount1, optional) - Bank account collects bank account information from merchant. It is optional till the time of boarding where bank account becomes required along with ddaType, achType, accountNumber, routingNumber & bankName.
++ `advancedSettelment` (array[AdvancedSettlementinner], optional) 
++ `salesAgent` (SalesAgent1, optional) - The agent who is submitting the deal. It is an optional object. It becomes required, when  partner wants to route deals to their own sales rep. Please work with your integration specialist for route to sales rep functionality.
++ `installationContact` (InstallationContact, optional) - The Technical Agent who is going to do setup.
++ `additionalInformation` (array[AdditionalInformationObject], optional) 
++ `leadSource`: `LP Connect API` (string, optional) - The source of the lead.
++ `routeToSalesRep` (boolean, optional) - Used to route a application to a worldpay or partner sales rep.
++ `productsInquiry` (array[string], optional) 
+
+
+## AdditionalInformationObject (object)
+Required for some partners. Work with your Developer Integrations specialist for more information.
+
+### Properties
++ `key` (enum[string], optional) 
+    + `partnerEmployeeId`
+    + `partnerEmployeeName`
+    + `partnerEmployeePhoneNumber`
+    + `partnerEmployeeEmail`
+    + `partnerEmployeeType`
+    + `partnerEmployeeBranch`
+    + `partnerEmployeeCostCentre`
+    + `partnerEmployeeRegion`
+    + `partnerEmployeeOfficerCode`
+    + `partnerEmployeeCompany`
+    + `partnerEmployeeId2`
+    + `partnerEmployeeName2`
+    + `partnerEmployeePhoneNumber2`
+    + `partnerEmployeeEmail2`
+    + `partnerEmployeeType2`
+    + `partnerEmployeeBranch2`
+    + `partnerEmployeeCostCentre2`
+    + `partnerEmployeeRegion2`
+    + `partnerEmployeeOfficerCode2`
+    + `partnerEmployeeCompany2`
+    + `partnerEmployeeIndustry`
+    + `partnerLeadSource`
+    + `partnerEmployeeRef`
+    + `partnerMethod`
+    + `partnerVipIndicator`
+    + `partnerMarketRegion`
+    + `partnerPromotionCampaign`
+    + `partnerLeadType`
+    + `partnerCustom1`
+    + `partnerCustom2`
+    + `partnerCustom3`
+    + `partnerCustom4`
+    + `partnerCustom5`
+    + `leadInitiatedBy`
++ `value`: `4656` (string, optional) 
+
+
+## ApplicationResponse (object)
+
+
+### Properties
++ `externalRefId`: `df8a6d82-3bb4-4f3b-ba18-57a5981ede8e` (string, optional) - A unique GUID generated by POST resource, used for retrieving and updating a deal. Do not send in the request, API will always generate one and assign it to the deal.
+
+
+## AdditionalConfigurationsResponse (object)
+
+
+### Properties
++ `customizations` (array[AdditionalConfigurationCustomization], optional) 
++ `peripherals` (array[AdditionalConfigurationPeripheral], optional) 
+
+
+## AdditionalConfigurationCustomization (object)
+
+
+### Properties
++ `customizationId`: `1` (string, optional) - Customization Id is internally populated from a master list.
++ `customizationType`: `time` (string, optional) - type of customization
++ `useProductMatrix`: `N` (string, optional) - Whether or not used in product matrix
++ `productId`: `12` (string, optional) - unique ID for the product
++ `code`: `CST01` (string, optional) - product code
++ `customizationCodeDetails` (array[CustomizationCodeDetails], optional) 
++ `customizationValue`: `H` (string, optional) - Actual Customization Value
++ `customizationFieldLength`: `1` (string, optional) - Length of the customization value
++ `customizationDecimalPlace`: `0` (string, optional) - Number of decimal places
++ `customizationMinValue`: `0` (string, optional) - Minimum Value. Only applicable if the customization value is a number
++ `customizationMaxValue`: `6` (string, optional) - Maximum Value. Only applicable if the customization value is a number
++ `charactersAllowed`: `abcdefghijklmnopqrstuvwxyz` (string, optional) - All characters allowed for customization. Only applicable if the customization value is a string.
++ `rule` (string, optional) - customization rule
++ `regex`: `^[a-z]{1}` (string, optional) - Regular expression to validate the customization value
++ `multiMerchantFlag`: `false` (boolean, optional) - Applicable in a multiple merchant situation
++ `shortDescription`: `CVV_PROMPTING` (string, optional) - Description of the customization
++ `longDescription`: `CVV_PROMPTING` (string, optional) - Verbose description of the customiztion
+
+
+## CustomizationCodeDetails (object)
+
+
+### Properties
++ `value`: `H` (string, optional) - customization code
++ `shortDescription`: `Host Auto Close` (string, optional) - short description of the customization code
++ `longDescription`: `Host Auto Close` (string, optional) - long description of the customization code
+
+
+## AdditionalConfigurationPeripheral (object)
+
+
+### Properties
++ `peripheralId`: `35` (string, optional) - Peripheral IDs are internally populated.
++ `model`: `Pin Pad 1000 SE` (string, optional) - Peripheral Name
++ `shortDescription`: `PP1S` (string, optional) - Description of the peripheral
++ `longDescription`: `PPAD` (string, optional) - Verbose description of the peripheral
++ `isEMVCertified`: `true` (boolean, optional) - Whether peripheral is EMV certified
++ `isEMVCapable`: `true` (boolean, optional) - Whether peripheral is EMV Capable
++ `activePeripheralFlag`: `Y` (string, optional) 
++ `purchasePrice`: `168.12` (string, optional) - purchase price of the peripheral
++ `leasePrice`: `100.12` (string, optional) - lease price of the peripheral
++ `rentalPrice`: `90` (string, optional) - rental price of the peripheral
++ `hardwareCost`: `50.75` (string, optional) - hardware cost of the terminal
+
+
+## EquipmentSetup (object)
+
+
+### Properties
++ `shippingOption` (enum[string], optional) - The speed you would like the equipment to be shipped.
+    + `ground`
+    + `next day`
+    + `2nd day`
++ `terminals` (array[Terminal], optional) 
+
+
+## Terminal (object)
+
+
+### Properties
++ `terminalConfigs` (TerminalConfig, required) 
++ `customizations` (array[TerminalCustomization], optional) 
++ `products` (array[Product], required) 
++ `peripherals` (array[Peripheral], optional) 
++ `vendors` (array[PaymentApplicationVendor], optional) 
++ `gateways` (array[Gateway], optional) 
++ `supply` (array[TerminalSupply], optional) 
++ `deployment` (TerminalDeployment, optional) 
+
+
+## TerminalConfig (object)
+
+
+### Properties
++ `requestId`: `41231` (string, optional) - Partner assigned unique request ID for terminal setup.
++ `terminalId`: `iCT220` (string, required) - Terminal ID number.
++ `terminalModel`: `Ingenico iCT220 CTLS 3.X Dial` (string, optional) - The model name of the terminal in use.
++ `price`: `187.99` (number, required) - Terminal price
++ `quantity`: `1` (number, required) 
++ `logicalApplicationId`: `MONE510` (string, required) - Logical application ID.
++ `accessMethod`: `SSL` (string, required) - Methods of terminal access.
++ `paymentMethod` (enum[string], required) - Payment method for the selected terminal.
+    + `PURCHASE / SALE`
+    + `REPROGRAM / OWN`
+    + `MONTH-TO-MONTH RENTAL`
+    + `LEASE`
++ `environmentName`: `Retail` (string, required) - Environment name
++ `isVar`: `false` (boolean, optional) - The value added reseller. Default value is false.
++ `emvCapable`: `true` (boolean, optional) - Is it EMV capabale?
++ `leaseId`: `12` (string, optional) - Lease ID. Required when PaymentMethod is selected as lease.
++ `leaseTermLength` (enum[string], optional) - Lease term for the peripheral
+    + `24`
+    + `36`
+    + `48`
+    + `60`
++ `terminalSequenceNumber`: `14` (string, optional) - Terminal sequence number. If not sent, the API will autogenerate a number.
++ `specialCustomizations`: `Mulitple merchant setup is Yes` (string, optional) - Any customization request for a terminal configuration.
+
+
+## TerminalCustomization (object)
+
+
+### Properties
++ `customizationId`: `10` (string, optional) - Customization ID is internally populated from a master list.
++ `customizationName`: `Auto-Close Time` (string, optional) 
++ `customizationFieldValue`: `N` (string, optional) 
+
+
+## Product (object)
+
+
+### Properties
++ `productId`: `1` (string, optional) - Product ID is populated internally.
++ `productName`: `Debit` (string, optional) - Payment method associated with the internally-populated ID.
+
+
+## Peripheral (object)
+
+
+### Properties
++ `peripheralId`: `231` (string, optional) - Peripheral IDs are internally populated.
++ `peripheralType`: `PPAD` (string, optional) - Peripheral type
++ `model`: `Magtek Check Reader` (string, optional) 
++ `leaseId`: `18` (string, optional) - Lease ID for the peripheral
++ `leaseTermLength` (enum[string], optional) - Lease term for the peripheral
+    + `24`
+    + `36`
+    + `48`
+    + `60`
++ `paymentMethod` (enum[string], optional) - Payment method for the selected peripheral.
+    + `PURCHASE / SALE`
+    + `REPROGRAM / OWN`
+    + `MONTH-TO-MONTH RENTAL`
+    + `LEASE`
++ `amount`: `220.21` (string, optional)
+
+    "Payment Amount for the peripheral. Valid values are 0.00
+      - 9999999999.99."
+
++ `paymentConfirmationNumber`: `123456` (string, optional) - Payment confirmation number for the peripheral.
+
+
+## PaymentApplicationVendor (object)
+A payment application is installed software developed for processing various payments types: Credit, Debit, Gift, Checks, etc. and can be integrated with a POS system or used in a standalone manner.
+
+### Properties
++ `paymentApplicationId`: `9` (string, optional) - Payment application ID
++ `paymentApplicationName`: `PurchaseExpress` (string, optional) 
++ `vendorId`: `4` (string, optional) - Vendor ID for the payment application.
++ `version`: `1` (string, optional) - Payment application version.
++ `reseller`: `Agilysys Inc` (string, optional) - Reseller
++ `lastUpgradeDate`: `2012-02-18T00:00:00Z` (string, optional) - Last date payment application was upgraded.
++ `notes`: `Paymetric Gateway v3` (string, optional) - Custom notes can go here.
+
+
+## Gateway (object)
+A gateway is a hosted payment processing application provided by a service provider and accessed through an internet connection.
+
+### Properties
++ `gatewayId`: `15` (string, optional) - Internally-generated gateway ID.
++ `gatewayName`: `Paymetric Gateway` (string, optional) 
++ `notes`: `Paymetric Gateway v3` (string, optional) - Add any custom notes here.
+
+
+## TerminalSupply (object)
+
+
+### Properties
++ `supplyType` (string, required) 
++ `name` (string, optional) - Supply name
++ `quantity`: `2` (number, optional) - Supply quantity
++ `total`: `220.21` (string, optional)
+
+    Total Supplies. Valid values are 0.00
+      - 9999999999.99."
+
+
+
+## TerminalDeployment (object)
+
+
+### Properties
++ `equipmentUpdateDeploy` (enum[string], required) 
+    + `M`
+    + `D`
+    + `N`
++ `terminalBuildFlag`: `true` (boolean, optional) 
++ `frontEndBuildFlag`: `true` (boolean, optional) 
++ `sicMerchantFlag`: `false` (boolean, optional) 
++ `specialInstructions`: `Retail - H52460A (SP)` (string, optional) - Special instructions for terminal deployment.
+
+
+## ApplicationStatus (object)
+
+
+### Properties
++ `externalRefId`: `df8a6d82-3bb4-4f3b-ba18-57a5981ede8e` (string, optional) - A unique GUID generated by POST resource, used for retrieving and updating a deal. Do not send in the request, API will always generate one and assign it to the deal.
++ `contractStatus` (enum[string], optional) 
+    + `Complete`
+    + `In Progress`
+    + `Error`
+    + `Pending`
++ `description` (string, optional) 
++ `pendedReason` (string, optional) - Detailed Underwriting Pended reason of the deal.
+
+
+## StatusHistoryResponse (object)
+
+
+### Properties
++ `externalRefId`: `df8a6d82-3bb4-4f3b-ba18-57a5981ede8e` (string, optional) - A unique GUID generated by POST resource, used for retrieving and updating a deal. Do not send in the request, API will always generate one and assign it to the deal.
++ `statusHistory` (array[StatusHistory], optional) 
+
+
+## StatusHistory (object)
+
+
+### Properties
++ `statusSeqNumber`: `2200` (number, optional) 
++ `detailStatus`: `Contract Signed` (string, optional) 
++ `summaryStatus`: `App Submitted` (string, optional) 
++ `statusCategory`: `Contract` (string, optional) 
++ `statusDateTime` (string, optional) 
+
+
+## SignerStatus (object)
+
+
+### Properties
++ `externalRefId`: `df8a6d82-3bb4-4f3b-ba18-57a5981ede8e` (string, optional) - A unique GUID generated by POST resource, used for retrieving and updating a deal. Do not send in the request, API will always generate one and assign it to the deal.
++ `authorizedSigners` (array[AuthSigners], optional) 
+
+
+## AuthSigners (object)
+
+
+### Properties
++ `firstName`: `Todd` (string, optional) - First name. Region based validations will be applied to this field.
++ `middleInitial`: `M` (string, optional) - Middle initial.
++ `lastName`: `Davis` (string, optional) - Last name. Region based validations will be applied to this field.
++ `email`: `test@gmail.com` (string, optional) - Email address of the contact. Must have @ and a .
++ `status`: `sent` (string, optional) - Status of the signer
++ `lastUpdated` (string, optional) - Date contract was last updated
++ `dateSubmitted` (string, optional) - Date contract was last updated
++ `dateSent` (string, optional) - Date contract was sent
++ `dateDelivered` (string, optional) - Date contract was delivered
++ `dateSigned` (string, optional) - Date contract was signed
++ `signerRoleName`: `Merchant` (string, optional) - Role of the signer
++ `signerExperience`: `wet` (string, optional) - Method of sign
+
+
+## DocumentLink (object)
+
+
+### Properties
++ `externalRefId`: `df8a6d82-3bb4-4f3b-ba18-57a5981ede8e` (string, required) - A unique GUID generated by POST resource, used for retrieving and updating a deal. Do not send in the request, API will always generate one and assign it to the deal.
++ `returnUrl`: `https://docusign.com` (string, optional) - The recipient will be directed to the returnUrl once signing is complete. For example on how it looks:  https://docusign.com/Signing/StartInSession.aspx?t=7f0d21a4-2798-402f-8b26-b12dbb37ae40
+
+
+## DocuSignLink (object)
+
+
+### Properties
++ `embeddingUrl`: `https://docusign.com/Signing/StartInSession.aspx?t=7f0d21a4-2798-402f-8b26-b12dbb37ae40` (string, optional) - UI embeded link of the Docusign contract for the externalRefId.
+
+
+## inlineresponse200 (object)
+
+
+### Properties
++ `equipment` (array[inlineresponse200equipment], optional) 
+
+
+## inlineresponse2001 (object)
+
+
+### Properties
++ `status`: `UP` (string, optional) - UP or DOWN status of Lauchpad & it's downstream system.
+
+
+## inlineresponse200equipment (object)
+
+
+### Properties
++ `id`: `1` (string, optional) 
++ `name`: `Verifone LX570` (string, optional) 
++ `logicalApplicationId`: `1073` (string, optional) 
++ `environment`: `Retail` (string, optional) 
+

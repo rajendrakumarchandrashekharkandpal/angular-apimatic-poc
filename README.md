@@ -1,3 +1,13 @@
+# Pre requisite / Replication Enviornment Setup
+
+- Node - 18.17.1
+- Npm - 9.6.7
+- Angular cli - 17.2.0
+- Please extract the folder and install dependencies before compiling the app(npm install)
+- Complile the app on local and check ng serve / npx ng serve
+- Run the URL http://localhost:4200/mb on browser to check spec page and reported concerns
+
+
 # TestApplication
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.2.0.

@@ -1,0 +1,5970 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "2.6.2",
+    "title": "Launchpad: Non-POS Merchant Boarding",
+    "description": "The Launchpads Merchant Boarding API allows Worldpay partners to onboard merchants to Worldpay's Payments Platform. Please see the Getting Started page for more information. </br> </br> To contact our certifications team, please email <a href=\"mailto:Certification2@fisglobal.com\">Certification2@fisglobal.com</a>.   </br> To contact the product team, please email <a href=\"mailto:APICustomerIntegration@fisglobal.com\">APICustomerIntegration@fisglobal.com</a>.\n",
+    "contact": {
+      "email": "Certification2@fisglobal.com"
+    }
+  },
+  "host": "apis.cert.worldpay.com",
+  "basePath": "/merchant-boarding/v2",
+  "securityDefinitions": {
+    "api_key": {
+      "type": "apiKey",
+      "description": "``` License format is WORLDPAY license='xxxx'```",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/applications": {
+      "get": {
+        "description": "Retrieves existing application data.",
+        "summary": "FetchApplication",
+        "tags": [
+          "Initiate Boarding Application"
+        ],
+        "operationId": "FetchApplication",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "externalRefId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "format": "uuid",
+            "description": "The externalRefId returned from POST /applications call."
+          },
+          {
+            "name": "v-correlation-id",
+            "in": "header",
+            "required": false,
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique transaction Id. Will be generated if not provided and returned in response headers."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ExistingApplication"
+            },
+            "headers": {
+              "v-correlation-id": {
+                "description": "Unique transaction Id. Will be generated if not provided and returned in response headers.",
+                "type": "string"
+              }
+            }
+          },
+          "default": {
+            "description": "Default errors",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            },
+            "examples": {
+              "application/json": {
+                "httpStatusCode": 400,
+                "httpStatusMessage": "BAD_REQUEST",
+                "errors": [
+                  {
+                    "errorCode": "PARAMETER_VALIDATION_ERROR",
+                    "errorMessage": "PartnerId is missing in header.",
+                    "target": "partnerId"
+                  }
+                ]
+              }
+            },
+            "headers": {}
+          }
+        }
+      },
+      "put": {
+        "description": "This endpoint allows merchants to update an existing application with new information.",
+        "summary": "ExisitingApplication",
+        "tags": [
+          "Initiate Boarding Application"
+        ],
+        "operationId": "ExisitingApplication",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ExistingApplication_1"
+            }
+          },
+          {
+            "name": "v-correlation-id",
+            "in": "header",
+            "required": false,
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique transaction Id. Will be generated if not provided and returned in response headers."
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json"
+            ],
+            "default": "application/json",
+            "type": "string",
+            "description": "Indicates the media type of the request-body. Accepts application/json."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "headers": {
+              "v-correlation-id": {
+                "description": "Unique transaction Id. Will be generated if not provided and returned in response headers.",
+                "type": "string"
+              }
+            }
+          },
+          "default": {
+            "description": "Default errors",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            },
+            "examples": {
+              "application/json": {
+                "httpStatusCode": 400,
+                "httpStatusMessage": "BAD_REQUEST",
+                "errors": [
+                  {
+                    "errorCode": "PARAMETER_VALIDATION_ERROR",
+                    "errorMessage": "PartnerId is missing in header.",
+                    "target": "partnerId"
+                  }
+                ]
+              }
+            },
+            "headers": {}
+          }
+        }
+      },
+      "post": {
+        "description": "Use this endpoint to collect the merchant information needed to initiate a new contract. ",
+        "summary": "NewApplication",
+        "tags": [
+          "Initiate Boarding Application"
+        ],
+        "operationId": "NewApplication",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Application"
+            }
+          },
+          {
+            "name": "v-correlation-id",
+            "in": "header",
+            "required": false,
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique transaction Id. Will be generated if not provided and returned in response headers."
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json"
+            ],
+            "default": "application/json",
+            "type": "string",
+            "description": "Indicates the media type of the request-body. Accepts application/json."
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/ApplicationResponse"
+            },
+            "headers": {
+              "v-correlation-id": {
+                "description": "Unique transaction Id. Will be generated if not provided and returned in response headers.",
+                "type": "string"
+              }
+            }
+          },
+          "default": {
+            "description": "Default errors",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            },
+            "examples": {
+              "application/json": {
+                "httpStatusCode": 400,
+                "httpStatusMessage": "BAD_REQUEST",
+                "errors": [
+                  {
+                    "errorCode": "PARAMETER_VALIDATION_ERROR",
+                    "errorMessage": "PartnerId is missing in header.",
+                    "target": "partnerId"
+                  }
+                ]
+              }
+            },
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/equipment/supported": {
+      "get": {
+        "description": "Retrieve applicable equipment for an existing application.",
+        "summary": "GetEquipmentSupported",
+        "tags": [
+          "Equipment Lookup"
+        ],
+        "operationId": "GetEquipmentSupported",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "externalRefId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "format": "uuid",
+            "description": "The externalRefId returned from POST /applications call."
+          },
+          {
+            "name": "v-correlation-id",
+            "in": "header",
+            "required": false,
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique transaction Id. Will be generated if not provided and returned in response headers."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/inline_response_200"
+            },
+            "headers": {
+              "v-correlation-id": {
+                "description": "Unique transaction Id. Will be generated if not provided and returned in response headers.",
+                "type": "string"
+              }
+            }
+          },
+          "default": {
+            "description": "Default errors",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            },
+            "examples": {
+              "application/json": {
+                "httpStatusCode": 400,
+                "httpStatusMessage": "BAD_REQUEST",
+                "errors": [
+                  {
+                    "errorCode": "PARAMETER_VALIDATION_ERROR",
+                    "errorMessage": "PartnerId is missing in header.",
+                    "target": "partnerId"
+                  }
+                ]
+              }
+            },
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/terminal/additional-configurations": {
+      "get": {
+        "description": "Fetches a list of valid terminal customizations and peripherals, such as electing to password protect a void.",
+        "summary": "GetAdditionalConfigurations",
+        "tags": [
+          "Equipment Lookup"
+        ],
+        "operationId": "GetAdditionalConfigurations",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "externalRefId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "format": "uuid",
+            "description": "The externalRefId returned from POST /applications call."
+          },
+          {
+            "name": "v-correlation-id",
+            "in": "header",
+            "required": false,
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique transaction Id. Will be generated if not provided and returned in response headers."
+          },
+          {
+            "name": "logicalApplicationId",
+            "in": "header",
+            "required": false,
+            "type": "string",
+            "description": "Logical App ID of the terminal."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response is a list of valid terminal configurations.",
+            "schema": {
+              "$ref": "#/definitions/AdditionalConfigurationsResponse"
+            },
+            "headers": {
+              "v-correlation-id": {
+                "description": "Unique transaction Id. Will be generated if not provided and returned in response headers.",
+                "type": "string"
+              }
+            }
+          },
+          "default": {
+            "description": "Default errors",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            },
+            "examples": {
+              "application/json": {
+                "httpStatusCode": 400,
+                "httpStatusMessage": "BAD_REQUEST",
+                "errors": [
+                  {
+                    "errorCode": "PARAMETER_VALIDATION_ERROR",
+                    "errorMessage": "PartnerId is missing in header.",
+                    "target": "partnerId"
+                  }
+                ]
+              }
+            },
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/equipment/terminal-var": {
+      "get": {
+        "description": "Gets the terminal configuration information for a specific partner.",
+        "summary": "GetTerminalInfo",
+        "tags": [
+          "Choose Equipment"
+        ],
+        "operationId": "GetTerminalInfo",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "externalRefId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "format": "uuid",
+            "description": "The externalRefId returned from POST /applications call."
+          },
+          {
+            "name": "v-correlation-id",
+            "in": "header",
+            "required": false,
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique transaction Id. Will be generated if not provided and returned in response headers."
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json"
+            ],
+            "default": "application/json",
+            "type": "string",
+            "description": "Indicates the media type of the request-body. Accepts application/json."
+          },
+          {
+            "name": "locationId",
+            "in": "header",
+            "required": false,
+            "type": "string",
+            "description": "The locationId returned from POST /locations call."
+          },
+          {
+            "name": "merchantId",
+            "in": "header",
+            "required": false,
+            "type": "string",
+            "description": "The merchantId returned from POST /merchants call."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/EquipmentSetup"
+            },
+            "headers": {
+              "v-correlation-id": {
+                "description": "Unique transaction Id. Will be generated if not provided and returned in response headers.",
+                "type": "string"
+              }
+            }
+          },
+          "default": {
+            "description": "Default errors",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            },
+            "examples": {
+              "application/json": {
+                "httpStatusCode": 400,
+                "httpStatusMessage": "BAD_REQUEST",
+                "errors": [
+                  {
+                    "errorCode": "PARAMETER_VALIDATION_ERROR",
+                    "errorMessage": "PartnerId is missing in header.",
+                    "target": "partnerId"
+                  }
+                ]
+              }
+            },
+            "headers": {}
+          }
+        }
+      },
+      "put": {
+        "description": "Updates terminal configurations.",
+        "summary": "UpdateTerminal",
+        "tags": [
+          "Choose Equipment"
+        ],
+        "operationId": "UpdateTerminal",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "externalRefId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "format": "uuid",
+            "description": "The externalRefId returned from POST /applications call."
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/EquipmentSetup"
+            }
+          },
+          {
+            "name": "v-correlation-id",
+            "in": "header",
+            "required": false,
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique transaction Id. Will be generated if not provided and returned in response headers."
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json"
+            ],
+            "default": "application/json",
+            "type": "string",
+            "description": "Indicates the media type of the request-body. Accepts application/json."
+          },
+          {
+            "name": "locationId",
+            "in": "header",
+            "required": false,
+            "type": "string",
+            "description": "The locationId returned from POST /locations call."
+          },
+          {
+            "name": "merchantId",
+            "in": "header",
+            "required": false,
+            "type": "string",
+            "description": "The merchantId returned from POST /merchants call."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "headers": {
+              "v-correlation-id": {
+                "description": "Unique transaction Id. Will be generated if not provided and returned in response headers.",
+                "type": "string"
+              }
+            }
+          },
+          "default": {
+            "description": "Default errors",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            },
+            "examples": {
+              "application/json": {
+                "httpStatusCode": 400,
+                "httpStatusMessage": "BAD_REQUEST",
+                "errors": [
+                  {
+                    "errorCode": "PARAMETER_VALIDATION_ERROR",
+                    "errorMessage": "PartnerId is missing in header.",
+                    "target": "partnerId"
+                  }
+                ]
+              }
+            },
+            "headers": {}
+          }
+        }
+      },
+      "post": {
+        "description": "Sets up terminal configurations.",
+        "summary": "ConfigStandaloneTerminal",
+        "tags": [
+          "Choose Equipment"
+        ],
+        "operationId": "ConfigStandaloneTerminal",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "externalRefId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "format": "uuid",
+            "description": "The externalRefId returned from POST /applications call."
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/EquipmentSetup"
+            }
+          },
+          {
+            "name": "v-correlation-id",
+            "in": "header",
+            "required": false,
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique transaction Id. Will be generated if not provided and returned in response headers."
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json"
+            ],
+            "default": "application/json",
+            "type": "string",
+            "description": "Indicates the media type of the request-body. Accepts application/json."
+          },
+          {
+            "name": "locationId",
+            "in": "header",
+            "required": false,
+            "type": "string",
+            "description": "The locationId returned from POST /locations call."
+          },
+          {
+            "name": "merchantId",
+            "in": "header",
+            "required": false,
+            "type": "string",
+            "description": "The merchantId returned from POST /merchants call."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "headers": {
+              "v-correlation-id": {
+                "description": "Unique transaction Id. Will be generated if not provided and returned in response headers.",
+                "type": "string"
+              }
+            }
+          },
+          "default": {
+            "description": "Default errors",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            },
+            "examples": {
+              "application/json": {
+                "httpStatusCode": 400,
+                "httpStatusMessage": "BAD_REQUEST",
+                "errors": [
+                  {
+                    "errorCode": "PARAMETER_VALIDATION_ERROR",
+                    "errorMessage": "PartnerId is missing in header.",
+                    "target": "partnerId"
+                  }
+                ]
+              }
+            },
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/applications/validate": {
+      "put": {
+        "description": "Begins the merchant validation process before boarding after all necessary information has been submitted to the API. Please see the reference guide for specific boarding requirements.",
+        "summary": "validateBoard",
+        "tags": [
+          "Submit Application"
+        ],
+        "operationId": "validateBoard",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "externalRefId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "format": "uuid",
+            "description": "The externalRefId returned from POST /applications call."
+          },
+          {
+            "name": "v-correlation-id",
+            "in": "header",
+            "required": false,
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique transaction Id. Will be generated if not provided and returned in response headers."
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json"
+            ],
+            "default": "application/json",
+            "type": "string",
+            "description": "Indicates the media type of the request-body. Accepts application/json."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "headers": {
+              "v-correlation-id": {
+                "description": "Unique transaction Id. Will be generated if not provided and returned in response headers.",
+                "type": "string"
+              }
+            }
+          },
+          "default": {
+            "description": "Default errors",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            },
+            "examples": {
+              "application/json": {
+                "httpStatusCode": 400,
+                "httpStatusMessage": "BAD_REQUEST",
+                "errors": [
+                  {
+                    "errorCode": "PARAMETER_VALIDATION_ERROR",
+                    "errorMessage": "PartnerId is missing in header.",
+                    "target": "partnerId"
+                  }
+                ]
+              }
+            },
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/applications/board": {
+      "put": {
+        "description": "Begins the merchant boarding process after all necessary information has been submitted to the API. Please see the reference guide for specific boarding requirements.",
+        "summary": "InititateBoard",
+        "tags": [
+          "Submit Application"
+        ],
+        "operationId": "InititateBoard",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "externalRefId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "format": "uuid",
+            "description": "The externalRefId returned from POST /applications call."
+          },
+          {
+            "name": "v-correlation-id",
+            "in": "header",
+            "required": false,
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique transaction Id. Will be generated if not provided and returned in response headers."
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json"
+            ],
+            "default": "application/json",
+            "type": "string",
+            "description": "Indicates the media type of the request-body. Accepts application/json."
+          },
+          {
+            "name": "threatmetrixId",
+            "in": "header",
+            "required": false,
+            "type": "string",
+            "description": "A unique session id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "headers": {
+              "v-correlation-id": {
+                "description": "Unique transaction Id. Will be generated if not provided and returned in response headers.",
+                "type": "string"
+              }
+            }
+          },
+          "default": {
+            "description": "Default errors",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            },
+            "examples": {
+              "application/json": {
+                "httpStatusCode": 400,
+                "httpStatusMessage": "BAD_REQUEST",
+                "errors": [
+                  {
+                    "errorCode": "PARAMETER_VALIDATION_ERROR",
+                    "errorMessage": "PartnerId is missing in header.",
+                    "target": "partnerId"
+                  }
+                ]
+              }
+            },
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/applications/status": {
+      "get": {
+        "description": "Retrieves the status of a contract when passed with an externalRefID. Both the externalRefID and authorization header are required.",
+        "summary": "GetApplicationStatus",
+        "tags": [
+          "Check Application Status"
+        ],
+        "operationId": "GetApplicationStatus",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "externalRefId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "format": "uuid",
+            "description": "The externalRefId returned from POST /applications call."
+          },
+          {
+            "name": "v-correlation-id",
+            "in": "header",
+            "required": false,
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique transaction Id. Will be generated if not provided and returned in response headers."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success\n\nApplicationStatus gives following Information,\n\n- 'contractStatus' - Current status of contract processing.\n\n- 'description' - Detailed description of the contractStatus.",
+            "schema": {
+              "$ref": "#/definitions/ApplicationStatus"
+            },
+            "headers": {
+              "v-correlation-id": {
+                "description": "Unique transaction Id. Will be generated if not provided and returned in response headers.",
+                "type": "string"
+              }
+            }
+          },
+          "default": {
+            "description": "Default errors",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            },
+            "examples": {
+              "application/json": {
+                "httpStatusCode": 400,
+                "httpStatusMessage": "BAD_REQUEST",
+                "errors": [
+                  {
+                    "errorCode": "PARAMETER_VALIDATION_ERROR",
+                    "errorMessage": "PartnerId is missing in header.",
+                    "target": "partnerId"
+                  }
+                ]
+              }
+            },
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/applications/status/history": {
+      "get": {
+        "description": "Use this endpoint to get a application's status history.",
+        "summary": "fetchApplicationStatusHistory",
+        "tags": [
+          "Check Application Status"
+        ],
+        "operationId": "fetchApplicationStatusHistory",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "externalRefId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "format": "uuid",
+            "description": "The externalRefId returned from POST /applications call."
+          },
+          {
+            "name": "v-correlation-id",
+            "in": "header",
+            "required": false,
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique transaction Id. Will be generated if not provided and returned in response headers."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/StatusHistoryResponse"
+            },
+            "headers": {
+              "v-correlation-id": {
+                "description": "Unique transaction Id. Will be generated if not provided and returned in response headers.",
+                "type": "string"
+              }
+            }
+          },
+          "default": {
+            "description": "Default errors",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            },
+            "examples": {
+              "application/json": {
+                "httpStatusCode": 400,
+                "httpStatusMessage": "BAD_REQUEST",
+                "errors": [
+                  {
+                    "errorCode": "PARAMETER_VALIDATION_ERROR",
+                    "errorMessage": "PartnerId is missing in header.",
+                    "target": "partnerId"
+                  }
+                ]
+              }
+            },
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/applications/status/signers": {
+      "get": {
+        "description": "Use this endpoint to get signer status",
+        "summary": "fetchSignerStatus",
+        "tags": [
+          "Check Application Status"
+        ],
+        "operationId": "fetchSignerStatus",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "externalRefId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "format": "uuid",
+            "description": "The externalRefId returned from POST /applications call."
+          },
+          {
+            "name": "v-correlation-id",
+            "in": "header",
+            "required": false,
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique transaction Id. Will be generated if not provided and returned in response headers."
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json"
+            ],
+            "default": "application/json",
+            "type": "string",
+            "description": "Indicates the media type of the request-body. Accepts application/json."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/SignerStatus"
+            },
+            "headers": {
+              "v-correlation-id": {
+                "description": "Unique transaction Id. Will be generated if not provided and returned in response headers.",
+                "type": "string"
+              }
+            }
+          },
+          "default": {
+            "description": "Default errors",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            },
+            "examples": {
+              "application/json": {
+                "httpStatusCode": 400,
+                "httpStatusMessage": "BAD_REQUEST",
+                "errors": [
+                  {
+                    "errorCode": "PARAMETER_VALIDATION_ERROR",
+                    "errorMessage": "PartnerId is missing in header.",
+                    "target": "partnerId"
+                  }
+                ]
+              }
+            },
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/contracts": {
+      "get": {
+        "description": "Returns a PDF contract to be signed.",
+        "summary": "GetContract",
+        "tags": [
+          "Review and Sign Contract"
+        ],
+        "operationId": "GetContract",
+        "deprecated": false,
+        "produces": [
+          "application/pdf",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "externalRefId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "format": "uuid",
+            "description": "The externalRefId returned from POST /applications call."
+          },
+          {
+            "name": "v-correlation-id",
+            "in": "header",
+            "required": false,
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique transaction Id. Will be generated if not provided and returned in response headers."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response is a PDF file.",
+            "schema": {
+              "default": ""
+            },
+            "headers": {
+              "v-correlation-id": {
+                "description": "Unique transaction Id. Will be generated if not provided and returned in response headers.",
+                "type": "string"
+              }
+            }
+          },
+          "default": {
+            "description": "Default errors",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            },
+            "examples": {
+              "application/json": {
+                "httpStatusCode": 400,
+                "httpStatusMessage": "BAD_REQUEST",
+                "errors": [
+                  {
+                    "errorCode": "PARAMETER_VALIDATION_ERROR",
+                    "errorMessage": "PartnerId is missing in header.",
+                    "target": "partnerId"
+                  }
+                ]
+              }
+            },
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/applications/documentlink": {
+      "post": {
+        "description": "Retrieves a Docusign link to view the contract.",
+        "summary": "DocusignLink",
+        "tags": [
+          "Review and Sign Contract"
+        ],
+        "operationId": "DocusignLink",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/DocumentLink"
+            }
+          },
+          {
+            "name": "v-correlation-id",
+            "in": "header",
+            "required": false,
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique transaction Id. Will be generated if not provided and returned in response headers."
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": false,
+            "enum": [
+              "application/json"
+            ],
+            "default": "application/json",
+            "type": "string",
+            "description": "Indicates the media type of the request-body. Accepts application/json."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/DocuSignLink"
+            },
+            "headers": {
+              "v-correlation-id": {
+                "description": "Unique transaction Id. Will be generated if not provided and returned in response headers.",
+                "type": "string"
+              }
+            }
+          },
+          "default": {
+            "description": "Default errors",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            },
+            "examples": {
+              "application/json": {
+                "httpStatusCode": 400,
+                "httpStatusMessage": "BAD_REQUEST",
+                "errors": [
+                  {
+                    "errorCode": "PARAMETER_VALIDATION_ERROR",
+                    "errorMessage": "PartnerId is missing in header.",
+                    "target": "partnerId"
+                  }
+                ]
+              }
+            },
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/applications/health": {
+      "get": {
+        "description": "Checks the the health of Launchpad and its dependent down streams systems like CPQ, Sales Force, XAA and Jigsaw at regular intervals to check the system is up or down.",
+        "summary": "Gethealth",
+        "tags": [
+          "Check Launchpad health"
+        ],
+        "operationId": "Gethealth",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "v-correlation-id",
+            "in": "header",
+            "required": false,
+            "type": "string",
+            "format": "uuid",
+            "description": "Unique transaction Id. Will be generated if not provided and returned in response headers."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response is UP or DOWN of Launchpad & it's downstream system.",
+            "schema": {
+              "$ref": "#/definitions/inline_response_200_1"
+            },
+            "headers": {}
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Schema": {
+      "title": "Schema",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "ExistingApplication": {
+      "title": "ExistingApplication",
+      "type": "object",
+      "properties": {
+        "externalRefId": {
+          "description": "A unique GUID generated by POST resource, used for retrieving and updating a deal. Do not send in the request, API will always generate one and assign it to the deal.",
+          "example": "df8a6d82-3bb4-4f3b-ba18-57a5981ede8e",
+          "type": "string",
+          "maxLength": 36,
+          "pattern": "([0-9a-z]{8})-([0-9a-z]{4})-([0-9a-z]{4})-([0-9a-z]{4})-([0-9a-z]{12})"
+        },
+        "leadSource": {
+          "description": "The source of a lead.",
+          "example": "Activate",
+          "type": "string",
+          "maxLength": 12
+        },
+        "businessInfo": {
+          "$ref": "#/definitions/BusinessInfo"
+        },
+        "transactionInfo": {
+          "$ref": "#/definitions/TransactionInfo"
+        },
+        "owners": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Owner"
+          }
+        },
+        "guarantors": {
+          "description": "Guarantor information. A guarantor is the person whose credit report will be pulled during the underwriting process.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Guarantor"
+          },
+          "uniqueItems": true
+        },
+        "authorizedSigners": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AuthorizedSigner"
+          }
+        },
+        "contacts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Contact"
+          },
+          "uniqueItems": true
+        },
+        "addresses": {
+          "example": [
+            {
+              "type": "Mailing Address",
+              "addressLine1": "1234 W Tester Ave.",
+              "city": "City Town",
+              "state": "CO",
+              "country": "United States",
+              "postalCode": "80123",
+              "postalCodeExtension": "1234"
+            },
+            {
+              "type": "Physical Address",
+              "addressLine1": "1234 W Tester Ave.",
+              "city": "City Town",
+              "state": "CO",
+              "country": "United States",
+              "postalCode": "80123",
+              "postalCodeExtension": "1234"
+            }
+          ],
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Address"
+          },
+          "uniqueItems": true
+        },
+        "bankAccount": {
+          "$ref": "#/definitions/BankAccount"
+        },
+        "salesAgent": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SalesAgent"
+            },
+            {
+              "description": "The agent who is submitting the deal."
+            }
+          ]
+        },
+        "installationContact": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/InstallationContact"
+            },
+            {
+              "description": "The Technical Agent who is going to do setup."
+            }
+          ]
+        },
+        "routeToSalesRep": {
+          "description": "Used to route a application to a worldpay or partner sales rep. By default the API is configured to route to a Worldpay sales rep. If you would like to route to partner (Launchpad UI) please work with your implementation consultant.",
+          "example": false,
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "externalRefId",
+        "businessInfo",
+        "transactionInfo"
+      ]
+    },
+    "BusinessInfo": {
+      "title": "BusinessInfo",
+      "type": "object",
+      "properties": {
+        "dbaName": {
+          "description": "The merchant name they do business as.  Generally with what their customers know the business.",
+          "example": "The DBA Name",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 50
+        },
+        "legalName": {
+          "description": "Business Legal Name as filed with the IRS.",
+          "example": "Timothy Jones",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 50
+        },
+        "ownershipType": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/OwnershipType"
+            },
+            {
+              "description": "Required. OwnershipType defines the type of the Merchant Organization, and drives the requirements for data collections of beneficial and control owners under U.S. Financial Crimes Enforcement Network (FinCEN).",
+              "example": "LLC"
+            }
+          ]
+        },
+        "mccCode": {
+          "description": "SIC Code / MCC Code (Merchant Category Code) is the code use to describe what the merchant is selling. Use MCC look up call to search valid codes, with sort and long description to find the MCC that most closely matches what the merchant is selling.",
+          "example": "5812",
+          "type": "string",
+          "minLength": 4,
+          "maxLength": 4
+        },
+        "businessEstablishedDate": {
+          "description": "Date (CCYY-MM-DD) on which the merchant's business was established.",
+          "example": "2000-03-23",
+          "type": "string",
+          "format": "date"
+        },
+        "websiteUrl": {
+          "description": "The URL of the merchant's website.",
+          "example": "www.thefoodplace.com",
+          "type": "string",
+          "minLength": 0,
+          "maxLength": 80
+        },
+        "numberOfLocation": {
+          "description": "Number of current locations.",
+          "example": 2,
+          "type": "integer",
+          "format": "int32"
+        },
+        "federalTaxId": {
+          "description": "The Federal Tax ID is the business Tax Identification Number (TIN) or Employer Identification Number (EIN). If the business is a sole proprietor they may use the social security number of the sole proprietor.",
+          "example": "123456789",
+          "type": "string",
+          "minLength": 9,
+          "maxLength": 9,
+          "pattern": "^[0-9]{9}$"
+        },
+        "paymentAcceptanceMethod": {
+          "description": "The ways in which the business is accepting payments. Multiple options may be selected. 'In person', would be card present at a brick and mortar store, 'onlinesite' would be card not present use on an ecommerce website, and 'phoneormailorder' would be card not present used for mail and telephone orders.",
+          "example": [
+            "inPerson",
+            "onlineSite"
+          ],
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PaymentAcceptanceMethod"
+          }
+        },
+        "pciadc": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/Pciadc"
+            },
+            {
+              "description": "Indication if the merchant has had an account data compromise.",
+              "example": "No",
+              "default": "No"
+            }
+          ]
+        },
+        "pcidssValidated": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/PcidssValidated"
+            },
+            {
+              "description": "Indictor showing if the merchant is compliant or not with the Payment Card Industry Data Security Standards.",
+              "example": "No",
+              "default": "Yes"
+            }
+          ]
+        },
+        "surroundingArea": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SurroundingArea"
+            },
+            {
+              "description": "Type of area surroundning the business.",
+              "example": "Commercial"
+            }
+          ]
+        },
+        "productServiceSold": {
+          "description": "Type of goods or services sold.",
+          "example": "Food",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 40,
+          "pattern": "(^[-a-zA-Z0-9_ &()*+,./:;=_'‘]{1,40}$)"
+        },
+        "ownAddYears": {
+          "description": "Years the business has been operating in their current location.",
+          "example": 2,
+          "type": "integer",
+          "minimum": 0.0,
+          "maximum": 99.0,
+          "format": "int32"
+        },
+        "lengthOfContract": {
+          "description": "Inital contract term in months.",
+          "type": "string",
+          "pattern": "([0-9]{3})$"
+        },
+        "seasonal": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/Seasonal"
+            },
+            {
+              "description": "Does the business operate seasonally?",
+              "example": "Yes"
+            }
+          ]
+        },
+        "activeMonths": {
+          "description": "The months during which the business is actively operating.",
+          "example": [
+            "Jan",
+            "Feb",
+            "Mar"
+          ],
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ActiveMonth"
+          }
+        },
+        "warranty": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/Warranty"
+            },
+            {
+              "description": "Does the business offer warranties, dues, subscriptions, memberships, or other extended services?",
+              "example": "1 YEAR"
+            }
+          ]
+        },
+        "returnPolicy": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/ReturnPolicy"
+            },
+            {
+              "description": "The business's return policy.",
+              "example": "30 Day"
+            }
+          ]
+        },
+        "taxExempt": {
+          "$ref": "#/definitions/TaxExempt"
+        },
+        "acceptCreditCards": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/AcceptCreditCards"
+            },
+            {
+              "description": "Does the business accept credit cards?"
+            }
+          ]
+        }
+      },
+      "required": [
+        "dbaName",
+        "legalName",
+        "ownershipType",
+        "mccCode"
+      ]
+    },
+    "TransactionInfo": {
+      "title": "TransactionInfo",
+      "type": "object",
+      "properties": {
+        "annualSalesVolume": {
+          "description": "Projected annual sales volume.",
+          "example": 20000.12,
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 9999999999999.99,
+          "format": "double"
+        },
+        "percentRetailSwipedTransactions": {
+          "description": "Projected Percentage of daily card-present transactions.",
+          "example": 82,
+          "type": "integer",
+          "minimum": 0.0,
+          "maximum": 100.0,
+          "format": "int32"
+        },
+        "averageTicket": {
+          "description": "Average ticket dollar amount.",
+          "example": 2.3,
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 9999999.99,
+          "format": "double"
+        },
+        "highestTicket": {
+          "description": "Highest ticket dollar amount.",
+          "example": 32.41,
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 9999999.99,
+          "format": "double"
+        },
+        "currentProcessor": {
+          "description": "the current processor",
+          "example": "Global Payments",
+          "type": "string"
+        },
+        "acceptChargebacks": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/AcceptChargebacks"
+            },
+            {
+              "description": "Do you have more than 25 chargeback accepted in the last 12 months?",
+              "example": "No"
+            }
+          ]
+        },
+        "chargebackPercent": {
+          "description": "Projected chargeback percentage.\n\n```Required when acceptChargebacks is 'Yes'```\n\n```Optional when acceptChargebacks is null or 'No'.```",
+          "example": 0,
+          "type": "integer",
+          "minimum": 0.0,
+          "maximum": 100.0,
+          "format": "int32"
+        },
+        "returnPercent": {
+          "description": "Projected return percent of  goods sold",
+          "example": 10,
+          "type": "integer",
+          "minimum": 0.0,
+          "maximum": 100.0,
+          "format": "int32"
+        },
+        "cardNotPresentPercent": {
+          "description": "Percent of card not present transactions.",
+          "example": 20,
+          "type": "integer",
+          "minimum": 0.0,
+          "maximum": 100.0,
+          "format": "int32"
+        },
+        "businessToBusinessPercent": {
+          "description": "Percent of business-to-business transactions.",
+          "example": 20,
+          "type": "integer",
+          "minimum": 0.0,
+          "maximum": 100.0,
+          "format": "int32"
+        },
+        "internetTransactionPercent": {
+          "description": "Percent of internet transactions.",
+          "example": 10,
+          "type": "integer",
+          "minimum": 0.0,
+          "maximum": 100.0,
+          "format": "int32"
+        },
+        "annualCreditSalesVolume": {
+          "description": "Projected annual credit card sales volume.",
+          "example": 123.32,
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 999999999.99,
+          "format": "double"
+        },
+        "annualDebitSalesVolume": {
+          "description": "Projected annual debit card sales volume.",
+          "example": 32.23,
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 999999999.99,
+          "format": "double"
+        },
+        "annualAmexVolume": {
+          "description": "Projected annual Amex volume. ``` This field is required when you opt-in for Amex ```",
+          "example": 10000,
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 999999999.99,
+          "format": "double"
+        },
+        "amexAverageTicket": {
+          "description": "AverageTicket dollar amount for Amex.\n ```This field is required when you opt-in for Amex```",
+          "example": 2.3,
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 9999999.99,
+          "format": "double"
+        },
+        "averageNumberofDays": {
+          "description": "Average number of days from when cardholder is charged & when products or services are received IN FULL by cardholder.",
+          "example": 10,
+          "type": "integer",
+          "minimum": 0.0,
+          "format": "int32"
+        }
+      },
+      "required": [
+        "annualSalesVolume",
+        "percentRetailSwipedTransactions"
+      ]
+    },
+    "Owner": {
+      "title": "Owner",
+      "description": "A Control Owner is required for the following ownership types > LLC, PARTNERSHIP, PRIVATE CORPORATION, ASSOCIATION/ESTATE/TRUST, NON-PROFIT",
+      "example": {
+        "type": "Control Owner Contact",
+        "title": "Owner",
+        "firstName": "Timothy",
+        "middleInitial": "M",
+        "lastName": "Jones",
+        "phoneNumber": "1234567890",
+        "phoneNumberExt": "1234",
+        "faxNumber": "1234567890",
+        "email": "test@test.com",
+        "ownershipPercentage": 23,
+        "ssn": "123456789",
+        "dob": "2000-03-23",
+        "addressLine1": "4355 N Coalwhipe St.",
+        "city": "City Town",
+        "state": "OH",
+        "country": "United States",
+        "postalCode": "80123",
+        "postalCodeExtension": "1234"
+      },
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/Type"
+            },
+            {
+              "description": "The Owner Type. Please note the above Ownership Types where a Control Owner is required."
+            }
+          ]
+        },
+        "title": {
+          "description": "Required for AMEX acquired merchants otherwise optional.",
+          "example": "President",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 30,
+          "pattern": "^[a-zA-Z0-9 \\p{P}\\p{S}]+$"
+        },
+        "firstName": {
+          "description": "First name. Region based validations will be applied to this field.",
+          "example": "Todd",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 15,
+          "pattern": "^[a-zA-Z0-9 \\p{P}\\p{S}]+$"
+        },
+        "middleInitial": {
+          "description": "Middle initial.",
+          "example": "M",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1,
+          "pattern": "^[a-zA-Z0-9 \\p{P}\\p{S}]+$"
+        },
+        "lastName": {
+          "description": "Last name. Region based validations will be applied to this field.",
+          "example": "Davis",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 25,
+          "pattern": "^[a-zA-Z0-9 \\p{P}\\p{S}]+$"
+        },
+        "phoneNumber": {
+          "description": "10-digit phone number of the format  5131234567.",
+          "example": "5131234567",
+          "type": "string",
+          "pattern": "^[0-9]{10}$"
+        },
+        "phoneNumberExt": {
+          "description": "Phone number extension. Up to 8 digits of the format 12345678.",
+          "example": "1234",
+          "type": "string",
+          "maxLength": 8,
+          "pattern": "^[0-9]{1,8}$"
+        },
+        "phoneType": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/PhoneType"
+            },
+            {
+              "description": "Phone type.",
+              "example": "mobile"
+            }
+          ]
+        },
+        "alternatePhone": {
+          "description": "10-digit alternate phone number of the format  5131234567.",
+          "example": "5131234567",
+          "type": "string",
+          "pattern": "^[0-9]{10}$"
+        },
+        "alternatePhoneType": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/AlternatePhoneType"
+            },
+            {
+              "description": "Alternate phone type.",
+              "example": "home"
+            }
+          ]
+        },
+        "faxNumber": {
+          "description": "10-digit fax number of the format 5131234567",
+          "example": "5131234567",
+          "type": "string",
+          "pattern": "^[0-9]{10}$"
+        },
+        "email": {
+          "description": "Email address of the contact. Must have @ and a .",
+          "example": "test@gmail.com",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "\\b[A-Za-z0-9._%+-]+@(?:[A-Za-z0-9-]+\\.)+[A-Za-z0-9]{2,}"
+        },
+        "ownershipPercentage": {
+          "description": "Ownership stake percentage.",
+          "type": "integer",
+          "minimum": 0.0,
+          "maximum": 100.0,
+          "format": "int32"
+        },
+        "ssn": {
+          "description": "Social security number. Do not include dashes.",
+          "example": "123456789",
+          "type": "string",
+          "pattern": "^[0-9]{9}$"
+        },
+        "dob": {
+          "description": "Date of Birth (CCYY-MM-DD). Must be at least 18 years old.",
+          "example": "2000-03-23",
+          "type": "string",
+          "format": "date"
+        },
+        "addressLine1": {
+          "description": "Address Line 1. Field for house number, street and direction.",
+          "example": "4355 N Coalwhipe St.",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 40,
+          "pattern": "^[a-zA-Z0-9 \\p{P}\\p{S}]+$"
+        },
+        "addressLine2": {
+          "description": "Address Line 2. Field for apartment or suite numbers, etc.",
+          "example": "suite 104",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 40,
+          "pattern": "^[a-zA-Z0-9 \\p{P}\\p{S}]+$"
+        },
+        "city": {
+          "example": "Denver",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 28,
+          "pattern": "^[a-zA-Z0-9 \\p{P}\\p{S}]+$"
+        },
+        "state": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/State"
+            },
+            {
+              "description": "Valid US state, commonwealth, and territory codes are allowed.",
+              "example": "CO"
+            }
+          ]
+        },
+        "country": {
+          "description": "Only United States is allowed.",
+          "type": "string",
+          "default": "United States"
+        },
+        "postalCode": {
+          "description": "Postal code / zip code. The postal code must be valid for the address' country code.",
+          "example": "12345",
+          "type": "string",
+          "minLength": 5,
+          "maxLength": 5,
+          "pattern": "^[0-9]{5}$"
+        },
+        "postalCodeExtension": {
+          "description": "Postal code / zip code extension.  The postal code extension must be valid for the address' country code.",
+          "example": "1234",
+          "type": "string",
+          "minLength": 4,
+          "maxLength": 4,
+          "pattern": "^[0-9]{4}$"
+        },
+        "identification": {
+          "description": "Optional. If any attribute in the identification object is populated then at least idNumber and idType are required.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Identification"
+          }
+        }
+      },
+      "required": [
+        "type",
+        "firstName",
+        "lastName",
+        "phoneNumber",
+        "email",
+        "addressLine1",
+        "city",
+        "state",
+        "country",
+        "postalCode"
+      ]
+    },
+    "PhoneType": {
+      "title": "PhoneType",
+      "description": "Phone type.",
+      "example": "mobile",
+      "type": "string",
+      "enum": [
+        "mobile",
+        "home"
+      ]
+    },
+    "AlternatePhoneType": {
+      "title": "AlternatePhoneType",
+      "description": "Alternate phone type.",
+      "example": "home",
+      "type": "string",
+      "enum": [
+        "mobile",
+        "home"
+      ]
+    },
+    "State": {
+      "title": "State",
+      "description": "Valid US state, commonwealth, and territory codes are allowed.",
+      "example": "CO",
+      "type": "string",
+      "enum": [
+        "AK",
+        "AL",
+        "AR",
+        "AS",
+        "AZ",
+        "CA",
+        "CO",
+        "CT",
+        "DC",
+        "DE",
+        "FL",
+        "FM",
+        "GA",
+        "GU",
+        "HI",
+        "IA",
+        "ID",
+        "IL",
+        "IN",
+        "KS",
+        "KY",
+        "LA",
+        "MA",
+        "MD",
+        "ME",
+        "MH",
+        "MI",
+        "MN",
+        "MO",
+        "MP",
+        "MS",
+        "MT",
+        "NC",
+        "ND",
+        "NE",
+        "NH",
+        "NJ",
+        "NM",
+        "NV",
+        "NY",
+        "OH",
+        "OK",
+        "OR",
+        "PA",
+        "PR",
+        "PW",
+        "RI",
+        "SC",
+        "SD",
+        "TN",
+        "TX",
+        "UT",
+        "VA",
+        "VI",
+        "VT",
+        "WA",
+        "WI",
+        "WV",
+        "WY"
+      ]
+    },
+    "Country": {
+      "title": "Country",
+      "description": "Only United States is allowed.",
+      "type": "string",
+      "enum": [
+        "United States"
+      ]
+    },
+    "Identification": {
+      "title": "Identification",
+      "type": "object",
+      "properties": {
+        "idType": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/IdType"
+            },
+            {
+              "description": "Type of ID provided by the owner.",
+              "example": "PASSPORT"
+            }
+          ]
+        },
+        "idNumber": {
+          "description": "Owner's ID number.",
+          "example": "312312341",
+          "type": "string",
+          "maxLength": 40
+        },
+        "issuedCity": {
+          "description": "City in which ID was issued.",
+          "example": "City Town",
+          "type": "string",
+          "maxLength": 28
+        },
+        "issuedState": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/IssuedState"
+            },
+            {
+              "description": "Valid state code where ID was issued.",
+              "example": "CO",
+              "maxLength": 2
+            }
+          ]
+        },
+        "issuedCountry": {
+          "description": "Country where ID was issued.",
+          "example": "US",
+          "type": "string",
+          "maxLength": 2
+        },
+        "dateIssued": {
+          "description": "Date ID was issued (CCYY-MM-DD).",
+          "example": "1999-01-30",
+          "type": "string",
+          "format": "date"
+        },
+        "dateExpires": {
+          "description": "Date ID expires (CCYY-MM-DD).",
+          "example": "2020-02-11",
+          "type": "string",
+          "format": "date"
+        }
+      },
+      "required": [
+        "idType",
+        "idNumber"
+      ]
+    },
+    "Guarantor": {
+      "title": "Guarantor",
+      "type": "object",
+      "properties": {
+        "type": {
+          "example": "Guarantor 1 Contact",
+          "type": "string",
+          "default": "Guarantor 1 Contact"
+        },
+        "title": {
+          "description": "Required for AMEX acquired merchants otherwise optional.",
+          "example": "President",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 30,
+          "pattern": "^[a-zA-Z0-9 \\p{P}\\p{S}]+$"
+        },
+        "firstName": {
+          "description": "First name. Region based validations will be applied to this field.",
+          "example": "Todd",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 15,
+          "pattern": "^[a-zA-Z0-9 \\p{P}\\p{S}]+$"
+        },
+        "middleInitial": {
+          "description": "Middle initial.",
+          "example": "M",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1,
+          "pattern": "^[a-zA-Z0-9 \\p{P}\\p{S}]+$"
+        },
+        "lastName": {
+          "description": "Last name. Region based validations will be applied to this field.",
+          "example": "Davis",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 25,
+          "pattern": "^[a-zA-Z0-9 \\p{P}\\p{S}]+$"
+        },
+        "phoneNumber": {
+          "description": "10-digit phone number of the format  5131234567.",
+          "example": "5131234567",
+          "type": "string",
+          "pattern": "^[0-9]{10}$"
+        },
+        "phoneNumberExt": {
+          "description": "Phone number extension. Up to 8 digits of the format 12345678.",
+          "example": "1234",
+          "type": "string",
+          "maxLength": 8,
+          "pattern": "^[0-9]{1,8}$"
+        },
+        "phoneType": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/PhoneType"
+            },
+            {
+              "description": "Phone type.",
+              "example": "mobile"
+            }
+          ]
+        },
+        "alternatePhone": {
+          "description": "10-digit alternate phone number of the format  5131234567.",
+          "example": "5131234567",
+          "type": "string",
+          "pattern": "^[0-9]{10}$"
+        },
+        "alternatePhoneType": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/AlternatePhoneType"
+            },
+            {
+              "description": "Alternate phone type.",
+              "example": "home"
+            }
+          ]
+        },
+        "faxNumber": {
+          "description": "10-digit fax number of the format 5131234567",
+          "example": "5131234567",
+          "type": "string",
+          "pattern": "^[0-9]{10}$"
+        },
+        "email": {
+          "description": "Email address of the contact. Must have @ and a .",
+          "example": "test@gmail.com",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "\\b[A-Za-z0-9._%+-]+@(?:[A-Za-z0-9-]+\\.)+[A-Za-z0-9]{2,}"
+        },
+        "ownershipPercentage": {
+          "description": "Ownership stake percentage.",
+          "type": "integer",
+          "minimum": 0.0,
+          "maximum": 100.0,
+          "format": "int32"
+        },
+        "ssn": {
+          "description": "Social security number. Do not include dashes.",
+          "example": "123456789",
+          "type": "string",
+          "pattern": "^[0-9]{9}$"
+        },
+        "dob": {
+          "description": "Date of Birth (CCYY-MM-DD). Must be at least 18 years old.",
+          "example": "2000-03-23",
+          "type": "string",
+          "format": "date"
+        },
+        "addressLine1": {
+          "description": "Address Line 1. Field for house number, street and direction.",
+          "example": "4355 N Coalwhipe St.",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 40,
+          "pattern": "^[a-zA-Z0-9 \\p{P}\\p{S}]+$"
+        },
+        "addressLine2": {
+          "description": "Address Line 2. Field for apartment or suite numbers, etc.",
+          "example": "suite 104",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 40,
+          "pattern": "^[a-zA-Z0-9 \\p{P}\\p{S}]+$"
+        },
+        "city": {
+          "example": "Denver",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 28,
+          "pattern": "^[a-zA-Z0-9 \\p{P}\\p{S}]+$"
+        },
+        "state": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/State"
+            },
+            {
+              "description": "Valid US state, commonwealth, and territory codes are allowed.",
+              "example": "CO"
+            }
+          ]
+        },
+        "country": {
+          "description": "Only United States is allowed.",
+          "type": "string",
+          "default": "United States"
+        },
+        "postalCode": {
+          "description": "Postal code / zip code. The postal code must be valid for the address' country code.",
+          "example": "12345",
+          "type": "string",
+          "minLength": 5,
+          "maxLength": 5,
+          "pattern": "^[0-9]{5}$"
+        },
+        "postalCodeExtension": {
+          "description": "Postal code / zip code extension.  The postal code extension must be valid for the address' country code.",
+          "example": "1234",
+          "type": "string",
+          "minLength": 4,
+          "maxLength": 4,
+          "pattern": "^[0-9]{4}$"
+        },
+        "identification": {
+          "description": "Optional. If any attribute in the identification object is populated then at least idNumber and idType are required.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Identification"
+          }
+        }
+      },
+      "required": [
+        "type",
+        "firstName",
+        "lastName",
+        "phoneNumber",
+        "email",
+        "addressLine1",
+        "city",
+        "state",
+        "country",
+        "postalCode"
+      ]
+    },
+    "AuthorizedSigner": {
+      "title": "AuthorizedSigner",
+      "type": "object",
+      "properties": {
+        "roleName": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/RoleName"
+            },
+            {
+              "description": "The role of the signer. Please note the below.\n\n 1) Merchant role name is mandatory.\n 2) Required fields indicated in schema are those required for all role names other than \"SalesRep\"\n 3) The \"SalesRep\" role name only requires the following fields > roleName, signingExperience, signingOrder, firstName, lastName, email\n 4) The \"Signer2\" role name is for a Personal Guarantor. This signer must be included if a Personal Guarantor is on the application. Include the Guarnator's information in this object.",
+              "example": "Merchant"
+            }
+          ]
+        },
+        "signingExperience": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SigningExperience"
+            },
+            {
+              "description": "Signing ceremony type",
+              "example": "email"
+            }
+          ]
+        },
+        "signingOrder": {
+          "description": "Define the signing order for multiple signers",
+          "example": "2",
+          "type": "string"
+        },
+        "title": {
+          "description": "Required for AMEX acquired merchants otherwise optional.",
+          "example": "President",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 30,
+          "pattern": "^[a-zA-Z0-9 \\p{P}\\p{S}]+$"
+        },
+        "firstName": {
+          "description": "First name. Region based validations will be applied to this field.",
+          "example": "Todd",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 15,
+          "pattern": "^[a-zA-Z0-9 \\p{P}\\p{S}]+$"
+        },
+        "middleInitial": {
+          "description": "Middle initial.",
+          "example": "M",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1,
+          "pattern": "^[a-zA-Z0-9 \\p{P}\\p{S}]+$"
+        },
+        "lastName": {
+          "description": "Last name. Region based validations will be applied to this field.",
+          "example": "Davis",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 25,
+          "pattern": "^[a-zA-Z0-9 \\p{P}\\p{S}]+$"
+        },
+        "phoneNumber": {
+          "description": "10-digit phone number of the format  5131234567.",
+          "example": "5131234567",
+          "type": "string",
+          "pattern": "^[0-9]{10}$"
+        },
+        "phoneNumberExt": {
+          "description": "Phone number extension. Up to 8 digits of the format 12345678.",
+          "example": "1234",
+          "type": "string",
+          "maxLength": 8,
+          "pattern": "^[0-9]{1,8}$"
+        },
+        "phoneType": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/PhoneType"
+            },
+            {
+              "description": "Phone type.",
+              "example": "mobile"
+            }
+          ]
+        },
+        "alternatePhone": {
+          "description": "10-digit alternate phone number of the format  5131234567.",
+          "example": "5131234567",
+          "type": "string",
+          "pattern": "^[0-9]{10}$"
+        },
+        "alternatePhoneType": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/AlternatePhoneType"
+            },
+            {
+              "description": "Alternate phone type.",
+              "example": "home"
+            }
+          ]
+        },
+        "faxNumber": {
+          "description": "10-digit fax number of the format 5131234567",
+          "example": "5131234567",
+          "type": "string",
+          "pattern": "^[0-9]{10}$"
+        },
+        "email": {
+          "description": "Email address of the contact. Must have @ and a .",
+          "example": "test@gmail.com",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "\\b[A-Za-z0-9._%+-]+@(?:[A-Za-z0-9-]+\\.)+[A-Za-z0-9]{2,}"
+        },
+        "ssn": {
+          "description": "Social security number. Do not include dashes.",
+          "example": "123456789",
+          "type": "string",
+          "pattern": "^[0-9]{9}$"
+        },
+        "dob": {
+          "description": "Date of Birth (CCYY-MM-DD). Must be at least 18 years old.",
+          "example": "2000-03-23",
+          "type": "string",
+          "format": "date"
+        },
+        "addressLine1": {
+          "description": "Address Line 1. Field for house number, street and direction.",
+          "example": "4355 N Coalwhipe St.",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 40,
+          "pattern": "^[a-zA-Z0-9 \\p{P}\\p{S}]+$"
+        },
+        "addressLine2": {
+          "description": "Address Line 2. Field for apartment or suite numbers, etc.",
+          "example": "suite 104",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 40,
+          "pattern": "^[a-zA-Z0-9 \\p{P}\\p{S}]+$"
+        },
+        "city": {
+          "example": "Denver",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 28,
+          "pattern": "^[a-zA-Z0-9 \\p{P}\\p{S}]+$"
+        },
+        "state": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/State"
+            },
+            {
+              "description": "Valid US state, commonwealth, and territory codes are allowed.",
+              "example": "CO"
+            }
+          ]
+        },
+        "country": {
+          "description": "Only United States is allowed.",
+          "type": "string",
+          "default": "United States"
+        },
+        "postalCode": {
+          "description": "Postal code / zip code. The postal code must be valid for the address' country code.",
+          "example": "12345",
+          "type": "string",
+          "minLength": 5,
+          "maxLength": 5,
+          "pattern": "^[0-9]{5}$"
+        },
+        "postalCodeExtension": {
+          "description": "Postal code / zip code extension.  The postal code extension must be valid for the address' country code.",
+          "example": "1234",
+          "type": "string",
+          "minLength": 4,
+          "maxLength": 4,
+          "pattern": "^[0-9]{4}$"
+        },
+        "identification": {
+          "description": "Optional. If any attribute in the identification object is populated then at least idNumber and idType are required.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Identification"
+          }
+        }
+      },
+      "required": [
+        "roleName",
+        "signingExperience",
+        "signingOrder",
+        "firstName",
+        "lastName",
+        "phoneNumber",
+        "email",
+        "ssn",
+        "dob",
+        "addressLine1",
+        "city",
+        "state",
+        "country",
+        "postalCode"
+      ]
+    },
+    "RoleName": {
+      "title": "RoleName",
+      "description": "The role of the signer. Please note the below.\n\n 1) Merchant role name is mandatory.\n 2) Required fields indicated in schema are those required for all role names other than \"SalesRep\"\n 3) The \"SalesRep\" role name only requires the following fields > roleName, signingExperience, signingOrder, firstName, lastName, email\n 4) The \"Signer2\" role name is for a Personal Guarantor. This signer must be included if a Personal Guarantor is on the application. Include the Guarnator's information in this object.",
+      "example": "Merchant",
+      "type": "string",
+      "enum": [
+        "SalesRep",
+        "Merchant",
+        "Reviewer",
+        "Signer2",
+        "Signer3",
+        "Signer4",
+        "Signer5",
+        "Signer6",
+        "Signer7",
+        "Signer8"
+      ]
+    },
+    "SigningExperience": {
+      "title": "SigningExperience",
+      "description": "Signing ceremony type",
+      "example": "email",
+      "type": "string",
+      "enum": [
+        "embed",
+        "email",
+        "wet"
+      ]
+    },
+    "Contact": {
+      "title": "Contact",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/Type1"
+            },
+            {
+              "description": "Type of merchant contact.   \n 1) Only primary contact\n      is mandatory. May be the same as any owner contact information. \n 2) For primary contact, firstName, lastName, phoneNumber and email are mandatory during POST.  \n 3) For all other contact types, firstName and lastName are mandatory during POST.",
+              "example": "Primary Contact"
+            }
+          ]
+        },
+        "title": {
+          "description": "Required for AMEX acquired merchants otherwise optional.",
+          "example": "President",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 30,
+          "pattern": "^[a-zA-Z0-9 \\p{P}\\p{S}]+$"
+        },
+        "firstName": {
+          "description": "First name. Region based validations will be applied to this field.",
+          "example": "Todd",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 15,
+          "pattern": "^[a-zA-Z0-9 \\p{P}\\p{S}]+$"
+        },
+        "middleInitial": {
+          "description": "Middle initial.",
+          "example": "M",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1,
+          "pattern": "^[a-zA-Z0-9 \\p{P}\\p{S}]+$"
+        },
+        "lastName": {
+          "description": "Last name. Region based validations will be applied to this field.",
+          "example": "Davis",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 25,
+          "pattern": "^[a-zA-Z0-9 \\p{P}\\p{S}]+$"
+        },
+        "ssn": {
+          "description": "Social security number. Do not include dashes.",
+          "example": "123456789",
+          "type": "string",
+          "pattern": "^[0-9]{9}$"
+        },
+        "birthDate": {
+          "description": "Date of Birth (CCYY-MM-DD). Must be at least 18 years old.",
+          "example": "2000-03-23",
+          "type": "string",
+          "format": "date"
+        },
+        "phoneNumber": {
+          "description": "10-digit phone number of the format  5131234567.",
+          "example": "5131234567",
+          "type": "string",
+          "pattern": "^[0-9]{10}$"
+        },
+        "phoneNumberExt": {
+          "description": "Phone number extension. Up to 8 digits of the format 12345678.",
+          "example": "1234",
+          "type": "string",
+          "maxLength": 8,
+          "pattern": "^[0-9]{1,8}$"
+        },
+        "phoneType": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/PhoneType"
+            },
+            {
+              "description": "Phone type.",
+              "example": "mobile"
+            }
+          ]
+        },
+        "alternatePhone": {
+          "description": "10-digit alternate phone number of the format  5131234567.",
+          "example": "5131234567",
+          "type": "string",
+          "pattern": "^[0-9]{10}$"
+        },
+        "alternatePhoneType": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/AlternatePhoneType"
+            },
+            {
+              "description": "Alternate phone type.",
+              "example": "home"
+            }
+          ]
+        },
+        "email": {
+          "description": "Email address of the contact. Must have @ and a .",
+          "example": "test@gmail.com",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "\\b[A-Za-z0-9._%+-]+@(?:[A-Za-z0-9-]+\\.)+[A-Za-z0-9]{2,}"
+        },
+        "faxNumber": {
+          "description": "10-digit fax number of the format 5131234567",
+          "example": "5131234567",
+          "type": "string",
+          "pattern": "^[0-9]{10}$"
+        }
+      },
+      "required": [
+        "type",
+        "firstName",
+        "lastName",
+        "phoneNumber",
+        "email"
+      ]
+    },
+    "Address": {
+      "title": "Address",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/AddressType"
+            },
+            {
+              "description": "Address Type  \n 1) Physical address is mandatory.\n 2) If equipment needs to be sent to a different location than the physical address, then shipping address should be added.\n3) For any address type, addressLine1, city, state, postalCode and country are mandatory.",
+              "example": "Physical Address"
+            }
+          ]
+        },
+        "addressLine1": {
+          "description": "Address Line 1. Field for house number, street and direction.",
+          "example": "4355 N Coalwhipe St.",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 40,
+          "pattern": "^[a-zA-Z0-9 \\p{P}\\p{S}]+$"
+        },
+        "addressLine2": {
+          "description": "Address Line 2. Field for apartment or suite numbers, etc.",
+          "example": "suite 104",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 40,
+          "pattern": "^[a-zA-Z0-9 \\p{P}\\p{S}]+$"
+        },
+        "city": {
+          "example": "Denver",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 28,
+          "pattern": "^[a-zA-Z0-9 \\p{P}\\p{S}]+$"
+        },
+        "state": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/State"
+            },
+            {
+              "description": "Valid US state, commonwealth, and territory codes are allowed.",
+              "example": "CO"
+            }
+          ]
+        },
+        "country": {
+          "description": "Only United States is allowed.",
+          "type": "string",
+          "default": "United States"
+        },
+        "postalCode": {
+          "description": "Postal code / zip code. The postal code must be valid for the address' country code.",
+          "example": "12345",
+          "type": "string",
+          "minLength": 5,
+          "maxLength": 5,
+          "pattern": "^[0-9]{5}$"
+        },
+        "postalCodeExtension": {
+          "description": "Postal code / zip code extension.  The postal code extension must be valid for the address' country code.",
+          "example": "1234",
+          "type": "string",
+          "minLength": 4,
+          "maxLength": 4,
+          "pattern": "^[0-9]{4}$"
+        }
+      },
+      "required": [
+        "type",
+        "addressLine1",
+        "city",
+        "state",
+        "country",
+        "postalCode"
+      ]
+    },
+    "AddressType": {
+      "title": "AddressType",
+      "description": "Address Type  \n 1) Physical address is mandatory.\n 2) If equipment needs to be sent to a different location than the physical address, then shipping address should be added.\n3) For any address type, addressLine1, city, state, postalCode and country are mandatory.",
+      "example": "Physical Address",
+      "type": "string",
+      "enum": [
+        "Mailing Address",
+        "Physical Address",
+        "Shipping Address"
+      ]
+    },
+    "BankAccount": {
+      "title": "BankAccount",
+      "type": "object",
+      "properties": {
+        "ddaType": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/DdaType"
+            },
+            {
+              "description": "Direct deposit account type.",
+              "example": "Checking"
+            }
+          ]
+        },
+        "achType": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/AchType"
+            },
+            {
+              "description": "Check deposit type",
+              "example": "Commercial Checking"
+            }
+          ]
+        },
+        "accountNumber": {
+          "description": "Direct deposit account number.  Maximum 17 characters.",
+          "example": "011401545",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 17
+        },
+        "routingNumber": {
+          "description": "Bank routing number. Must be 9 characters and pass ACH Mod-10 validation.",
+          "example": "102000076",
+          "type": "string",
+          "minLength": 9,
+          "maxLength": 9
+        },
+        "bankName": {
+          "description": "Bank name used for credit card processing services.",
+          "example": "Bank name",
+          "type": "string"
+        }
+      }
+    },
+    "SalesAgent": {
+      "title": "SalesAgent",
+      "description": "The agent who is submitting the deal.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Id for the Sales Contact.",
+          "example": "U15315",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 15
+        },
+        "firstName": {
+          "description": "Sales agent's first name.",
+          "example": "John",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 15
+        },
+        "lastName": {
+          "description": "Sales agent's last name.",
+          "example": "Doe",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 25
+        },
+        "mobilePhoneNumber": {
+          "description": "Sales agent's 10-digit phone number of the format 5131234567.",
+          "example": "1234567890",
+          "type": "string",
+          "pattern": "^[0-9]{10}$"
+        },
+        "email": {
+          "description": "Sales agent's email address.  Must have @ and a .",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "(\\\\b[A-Za-z0-9._%+-]+@(?:[A-Za-z0-9-]+\\\\.)+[A-Za-z0-9]{2,}\\\\b{0,64})"
+        }
+      },
+      "required": [
+        "firstName",
+        "lastName",
+        "email"
+      ]
+    },
+    "InstallationContact": {
+      "title": "InstallationContact",
+      "description": "The Technical Agent who is going to do setup.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Id for Technical Contact",
+          "example": "U15318",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 15,
+          "pattern": "^[a-zA-Z0-9 \\p{P}\\p{S}]+$"
+        },
+        "firstName": {
+          "description": "Contact's first name.",
+          "example": "Sam",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 15,
+          "pattern": "^[a-zA-Z0-9 \\p{P}\\p{S}]+$"
+        },
+        "lastName": {
+          "description": "Contact's last name.",
+          "example": "Doe",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 25,
+          "pattern": "^[a-zA-Z0-9 \\p{P}\\p{S}]+$"
+        },
+        "mobilePhoneNumber": {
+          "description": "Contact's 10-digit phone number of the format 5131234567.",
+          "example": "1234567890",
+          "type": "string",
+          "minLength": 10,
+          "maxLength": 10,
+          "pattern": "([0-9]{10})$"
+        },
+        "email": {
+          "description": "Contact's email address. Must have @ and a .",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "(\\\\b[A-Za-z0-9._%+-]+@(?:[A-Za-z0-9-]+\\\\.)+[A-Za-z0-9]{2,}\\\\b{0,64})"
+        }
+      },
+      "required": [
+        "firstName",
+        "lastName",
+        "email"
+      ]
+    },
+    "ErrorResponse": {
+      "title": "ErrorResponse",
+      "type": "object",
+      "properties": {
+        "httpStatusCode": {
+          "example": 404,
+          "type": "integer",
+          "format": "int32"
+        },
+        "httpStatusMessage": {
+          "example": "STATUS-MESSAGE",
+          "type": "string"
+        },
+        "errors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Error"
+          }
+        }
+      }
+    },
+    "Error": {
+      "title": "Error",
+      "type": "object",
+      "properties": {
+        "errorCode": {
+          "example": "ERROR_CODE",
+          "type": "string"
+        },
+        "errorMessage": {
+          "example": "Error message here.",
+          "type": "string"
+        },
+        "target": {
+          "example": "Target",
+          "type": "string"
+        }
+      }
+    },
+    "ExistingApplication_1": {
+      "title": "ExistingApplication_1",
+      "type": "object",
+      "properties": {
+        "externalRefId": {
+          "description": "A unique GUID generated by POST resource, used for retrieving and updating a deal. Do not send in the request, API will always generate one and assign it to the deal.",
+          "example": "df8a6d82-3bb4-4f3b-ba18-57a5981ede8e",
+          "type": "string",
+          "maxLength": 36,
+          "pattern": "([0-9a-z]{8})-([0-9a-z]{4})-([0-9a-z]{4})-([0-9a-z]{4})-([0-9a-z]{12})"
+        },
+        "leadSource": {
+          "description": "The source of a lead.",
+          "example": "Activate",
+          "type": "string",
+          "maxLength": 12
+        },
+        "businessInfo": {
+          "$ref": "#/definitions/BusinessInfo_1"
+        },
+        "transactionInfo": {
+          "$ref": "#/definitions/TransactionInfo_1"
+        },
+        "owners": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Owner_1"
+          }
+        },
+        "guarantors": {
+          "description": "Guarantor information. A guarantor is the person whose credit report will be pulled during the underwriting process.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Guarantor_1"
+          },
+          "uniqueItems": true
+        },
+        "authorizedSigners": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AuthorizedSigner_1"
+          }
+        },
+        "contacts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Contact_1"
+          },
+          "uniqueItems": true
+        },
+        "addresses": {
+          "example": [
+            {
+              "type": "Mailing Address",
+              "addressLine1": "1234 W Tester Ave.",
+              "city": "City Town",
+              "state": "CO",
+              "country": "United States",
+              "postalCode": "80123",
+              "postalCodeExtension": "1234"
+            },
+            {
+              "type": "Physical Address",
+              "addressLine1": "1234 W Tester Ave.",
+              "city": "City Town",
+              "state": "CO",
+              "country": "United States",
+              "postalCode": "80123",
+              "postalCodeExtension": "1234"
+            }
+          ],
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Address_1"
+          },
+          "uniqueItems": true
+        },
+        "bankAccount": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/BankAccount_1"
+            },
+            {
+              "description": "Bank account collects bank account information from merchant. It is optional till the time of boarding where bank account becomes required along with ddaType, achType, accountNumber, routingNumber & bankName."
+            }
+          ]
+        },
+        "advancedSettelment": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AdvancedSettlement_inner"
+          }
+        },
+        "salesAgent": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SalesAgent_1"
+            },
+            {
+              "description": "The agent who is submitting the deal. It is an optional object. It becomes required, when  partner wants to route deals to their own sales rep. Please work with your integration specialist for route to sales rep functionality."
+            }
+          ]
+        },
+        "installationContact": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/InstallationContact"
+            },
+            {
+              "description": "The Technical Agent who is going to do setup."
+            }
+          ]
+        },
+        "routeToSalesRep": {
+          "description": "Used to route a application to a worldpay or partner sales rep. By default the API is configured to route to a Worldpay sales rep. If you would like to route to partner (Launchpad UI) please work with your implementation consultant.",
+          "example": false,
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "externalRefId",
+        "businessInfo",
+        "transactionInfo"
+      ]
+    },
+    "BusinessInfo_1": {
+      "title": "BusinessInfo_1",
+      "type": "object",
+      "properties": {
+        "dbaName": {
+          "description": "The merchant name they do business as.  Generally with what their customers know the business.",
+          "example": "The DBA Name",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 50
+        },
+        "legalName": {
+          "description": "Business Legal Name as filed with the IRS.",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 40,
+          "pattern": "^([a-z0-9& -]{1,40})$"
+        },
+        "ownershipType": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/OwnershipType"
+            },
+            {
+              "description": "Required. OwnershipType defines the type of the Merchant Organization, and drives the requirements for data collections of beneficial and control owners under U.S. Financial Crimes Enforcement Network (FinCEN).",
+              "example": "LLC"
+            }
+          ]
+        },
+        "mccCode": {
+          "description": "SIC Code / MCC Code (Merchant Category Code) is the code use to describe what the merchant is selling. Use MCC look up call to search valid codes, with sort and long description to find the MCC that most closely matches what the merchant is selling.",
+          "example": "5812",
+          "type": "string",
+          "minLength": 4,
+          "maxLength": 4
+        },
+        "businessEstablishedDate": {
+          "description": "Date (CCYY-MM-DD) on which the merchant's business was established.",
+          "example": "2000-03-23",
+          "type": "string",
+          "format": "date"
+        },
+        "websiteUrl": {
+          "description": "The URL of the merchant's website.",
+          "example": "www.thefoodplace.com",
+          "type": "string",
+          "minLength": 0,
+          "maxLength": 80
+        },
+        "numberOfLocation": {
+          "description": "Number of current locations.",
+          "example": 2,
+          "type": "integer",
+          "format": "int32"
+        },
+        "federalTaxId": {
+          "description": "The Federal Tax ID is the business Tax Identification Number (TIN) or Employer Identification Number (EIN). If the business is a sole proprietor they may use the social security number of the sole proprietor.The full list of restricted federal tax id-\n  “000000000” “000000001” “000000002” “000000003” “000000004” “000000005” “000000006” “000000007” “000000008” “000000009\" \"111111110\" “111111111” \"111111112\" \"111111113\" \"111111114\" \"111111115\" \"111111116\" \"111111117\" \"111111118\" \"111111119\" \"222222220\" \"222222221\" “222222222” \"222222223\" \"222222224\" \"222222225\" \"222222226\" \"222222227\" \"222222228\" \"222222229\" \"333333330\" \"333333331\" \"333333332\" “333333333” \"333333334\" \"333333335\" \"333333336\" \"333333337\" \"333333338\" \"333333339\"  \"444444440\" \"444444441\" \"444444442\" \"444444443\" “444444444” \"444444445\" \"444444446\" \"444444447\" \"444444448\" \"444444449\" \"555555550\" \"555555551\" \"555555552\" \"555555553\" \"555555554\" “555555555” \"555555556\" \"555555557\" \"555555558\" \"555555559\"  \"666666660\" \"666666661\" \"666666662\" \"666666663\" \"666666664\" \"666666665\" “666666666” \"666666667\" \"666666668\" \"666666669\" \"777777770\" \"777777771” \"777777772\" \"777777773\" \"777777774\" \"777777775\" \"777777776\" “777777777” \"777777778\" \"777777779\" \"888888880\" \"888888881\" \"888888882\" \"888888883\" \"888888884\" \"888888885\" \"888888886\" \"888888887\" “888888888” \"888888889\"  \"999999990\" \"999999991\" \"999999992\" \"999999993\" \"999999994\" \"999999995\" \"99999996\"   \"999999997\" \"999999998\" “999999999”  \"123456780\" to \"123456789\" \"123123123\"",
+          "example": "123456781",
+          "type": "string",
+          "minLength": 9,
+          "maxLength": 9,
+          "pattern": "^([a-z0-9& -]{1,40})$"
+        },
+        "paymentAcceptanceMethod": {
+          "description": "The ways in which the business is accepting payments. Multiple options may be selected. 'In person', would be card present at a brick and mortar store, 'onlinesite' would be card not present use on an ecommerce website, and 'phoneormailorder' would be card not present used for mail and telephone orders.",
+          "example": [
+            "inPerson",
+            "onlineSite"
+          ],
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PaymentAcceptanceMethod"
+          }
+        },
+        "pciadc": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/Pciadc"
+            },
+            {
+              "description": "Indication if the merchant has had an account data compromise.",
+              "example": "No",
+              "default": "No"
+            }
+          ]
+        },
+        "pcidssValidated": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/PcidssValidated"
+            },
+            {
+              "description": "Indictor showing if the merchant is compliant or not with the Payment Card Industry Data Security Standards.",
+              "example": "No",
+              "default": "Yes"
+            }
+          ]
+        },
+        "surroundingArea": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SurroundingArea"
+            },
+            {
+              "description": "Type of area surroundning the business.",
+              "example": "Commercial"
+            }
+          ]
+        },
+        "productServiceSold": {
+          "description": "Type of goods or services sold.",
+          "example": "Food",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 40,
+          "pattern": "(^[-a-zA-Z0-9_ &()*+,./:;=_'‘]{1,40}$)"
+        },
+        "ownAddYears": {
+          "description": "Years the business has been operating in their current location.",
+          "example": 2,
+          "type": "integer",
+          "minimum": 0.0,
+          "maximum": 99.0,
+          "format": "int32"
+        },
+        "lengthOfContract": {
+          "description": "Inital contract term in months.",
+          "type": "string",
+          "pattern": "([0-9]{3})$"
+        },
+        "seasonal": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/Seasonal"
+            },
+            {
+              "description": "Does the business operate seasonally?",
+              "example": "Yes"
+            }
+          ]
+        },
+        "activeMonths": {
+          "description": "The months during which the business is actively operating.",
+          "example": [
+            "Jan",
+            "Feb",
+            "Mar"
+          ],
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ActiveMonth"
+          }
+        },
+        "warranty": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/Warranty"
+            },
+            {
+              "description": "Does the business offer warranties, dues, subscriptions, memberships, or other extended services?",
+              "example": "1 YEAR"
+            }
+          ]
+        },
+        "returnPolicy": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/ReturnPolicy"
+            },
+            {
+              "description": "The business's return policy.",
+              "example": "30 Day"
+            }
+          ]
+        },
+        "taxExempt": {
+          "$ref": "#/definitions/TaxExempt"
+        },
+        "acceptCreditCards": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/AcceptCreditCards"
+            },
+            {
+              "description": "Does the business accept credit cards?"
+            }
+          ]
+        },
+        "govOwnedMerchantCountry": {
+          "description": "If merchant is a government entity or an entity at least 50% owned or controlled by government entity than provide 2 digit country code which belongs to the country.",
+          "example": "US",
+          "type": "string"
+        }
+      },
+      "required": [
+        "dbaName",
+        "legalName",
+        "ownershipType",
+        "mccCode"
+      ]
+    },
+    "TransactionInfo_1": {
+      "title": "TransactionInfo_1",
+      "type": "object",
+      "properties": {
+        "annualSalesVolume": {
+          "description": "Projected annual sales volume.",
+          "example": 20000.12,
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 9999999999999.99,
+          "format": "double"
+        },
+        "percentRetailSwipedTransactions": {
+          "description": "Projected Percentage of daily card-present transactions.",
+          "example": 82,
+          "type": "integer",
+          "minimum": 0.0,
+          "maximum": 100.0,
+          "format": "int32"
+        },
+        "averageTicket": {
+          "description": "Average ticket dollar amount.",
+          "example": 2.3,
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 9999999.99,
+          "format": "double"
+        },
+        "highestTicket": {
+          "description": "Highest ticket dollar amount.",
+          "example": 32.41,
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 9999999.99,
+          "format": "double"
+        },
+        "currentProcessor": {
+          "description": "the current processor",
+          "example": "Global Payments",
+          "type": "string"
+        },
+        "acceptChargebacks": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/AcceptChargebacks"
+            },
+            {
+              "description": "Do you have more than 25 chargeback accepted in the last 12 months?",
+              "example": "No"
+            }
+          ]
+        },
+        "chargebackPercent": {
+          "description": "Projected chargeback percentage.\n\n```Required when acceptChargebacks is 'Yes'```\n\n```Optional when acceptChargebacks is null or 'No'.```",
+          "example": 0,
+          "type": "integer",
+          "minimum": 0.0,
+          "maximum": 100.0,
+          "format": "int32"
+        },
+        "returnPercent": {
+          "description": "Projected return percent of  goods sold",
+          "example": 10,
+          "type": "integer",
+          "minimum": 0.0,
+          "maximum": 100.0,
+          "format": "int32"
+        },
+        "cardNotPresentPercent": {
+          "description": "Percent of card not present transactions.",
+          "example": 20,
+          "type": "integer",
+          "minimum": 0.0,
+          "maximum": 100.0,
+          "format": "int32"
+        },
+        "businessToBusinessPercent": {
+          "description": "Percent of business-to-business transactions.",
+          "example": 20,
+          "type": "integer",
+          "minimum": 0.0,
+          "maximum": 100.0,
+          "format": "int32"
+        },
+        "internetTransactionPercent": {
+          "description": "Percent of internet transactions.",
+          "example": 10,
+          "type": "integer",
+          "minimum": 0.0,
+          "maximum": 100.0,
+          "format": "int32"
+        },
+        "inPersonTransactionPercent": {
+          "description": "Percent of in person transactions.",
+          "example": 10,
+          "type": "integer",
+          "minimum": 0.0,
+          "maximum": 100.0,
+          "format": "int32"
+        },
+        "motoTransactionPercent": {
+          "description": "Percent of mail or phone order transactions.",
+          "example": 10,
+          "type": "integer",
+          "minimum": 0.0,
+          "maximum": 100.0,
+          "format": "int32"
+        },
+        "annualCreditSalesVolume": {
+          "description": "Projected annual credit card sales volume.",
+          "example": 123.32,
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 999999999.99,
+          "format": "double"
+        },
+        "annualDebitSalesVolume": {
+          "description": "Projected annual debit card sales volume.",
+          "example": 32.23,
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 999999999.99,
+          "format": "double"
+        },
+        "annualAmexVolume": {
+          "description": "Projected annual Amex volume. ``` This field is required when you opt-in for Amex ```",
+          "example": 10000,
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 999999999.99,
+          "format": "double"
+        },
+        "amexAverageTicket": {
+          "description": "AverageTicket dollar amount for Amex.\n ```This field is required when you opt-in for Amex```",
+          "example": 2.3,
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 9999999.99,
+          "format": "double"
+        },
+        "averageNumberofDays": {
+          "description": "Average number of days from when cardholder is charged & when products or services are received IN FULL by cardholder.",
+          "example": 10,
+          "type": "integer",
+          "minimum": 0.0,
+          "maximum": 365.0,
+          "format": "int32"
+        },
+        "needsProcessingBy": {
+          "description": "Date (CCYY-MM-DD) by which the Equipment needs to be setup. This field may be required for a given partner.",
+          "example": "2022-11-01",
+          "type": "string",
+          "format": "date"
+        }
+      },
+      "required": [
+        "annualSalesVolume",
+        "percentRetailSwipedTransactions"
+      ]
+    },
+    "Owner_1": {
+      "title": "Owner_1",
+      "description": "A Control Owner is required for the following ownership types > LLC, PARTNERSHIP, PRIVATE CORPORATION, ASSOCIATION/ESTATE/TRUST, NON-PROFIT",
+      "example": {
+        "type": "Control Owner Contact",
+        "title": "Owner",
+        "firstName": "Timothy",
+        "middleInitial": "M",
+        "lastName": "Jones",
+        "phoneNumber": "1234567890",
+        "phoneNumberExt": "1234",
+        "faxNumber": "1234567890",
+        "email": "test@test.com",
+        "ownershipPercentage": 23,
+        "ssn": "123456789",
+        "dob": "2000-03-23",
+        "addressLine1": "4355 N Coalwhipe St.",
+        "city": "City Town",
+        "state": "OH",
+        "country": "United States",
+        "postalCode": "80123",
+        "postalCodeExtension": "1234"
+      },
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/Type"
+            },
+            {
+              "description": "The Owner Type. Please note the above Ownership Types where a Control Owner is required."
+            }
+          ]
+        },
+        "title": {
+          "description": "Required for AMEX acquired merchants otherwise optional.",
+          "example": "President",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 30,
+          "pattern": "^[a-zA-Z0-9 \\p{P}\\p{S}]+$"
+        },
+        "firstName": {
+          "description": "First name. Region based validations will be applied to this field.",
+          "example": "Todd",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 15,
+          "pattern": "^[a-zA-Z0-9 \\p{P}\\p{S}]+$"
+        },
+        "middleInitial": {
+          "description": "Middle initial.",
+          "example": "M",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1,
+          "pattern": "^[a-zA-Z0-9 \\p{P}\\p{S}]+$"
+        },
+        "lastName": {
+          "description": "Last name. Region based validations will be applied to this field.",
+          "example": "Davis",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 25,
+          "pattern": "^[a-zA-Z0-9 \\p{P}\\p{S}]+$"
+        },
+        "phoneNumber": {
+          "description": "10-digit phone number of the format  5131234567.",
+          "example": "5131234567",
+          "type": "string",
+          "pattern": "^[0-9]{10}$"
+        },
+        "phoneNumberExt": {
+          "description": "Phone number extension. Up to 8 digits of the format 12345678.",
+          "example": "1234",
+          "type": "string",
+          "maxLength": 8,
+          "pattern": "^[0-9]{1,8}$"
+        },
+        "phoneType": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/PhoneType"
+            },
+            {
+              "description": "Phone type.",
+              "example": "mobile"
+            }
+          ]
+        },
+        "alternatePhone": {
+          "description": "10-digit alternate phone number of the format  5131234567.",
+          "example": "5131234567",
+          "type": "string",
+          "pattern": "^[0-9]{10}$"
+        },
+        "alternatePhoneType": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/AlternatePhoneType"
+            },
+            {
+              "description": "Alternate phone type.",
+              "example": "home"
+            }
+          ]
+        },
+        "faxNumber": {
+          "description": "10-digit fax number of the format 5131234567",
+          "example": "5131234567",
+          "type": "string",
+          "pattern": "^[0-9]{10}$"
+        },
+        "email": {
+          "description": "Email address of the contact. Must have @ and a .",
+          "example": "test@gmail.com",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "\\b[A-Za-z0-9._%+-]+@(?:[A-Za-z0-9-]+\\.)+[A-Za-z0-9]{2,}"
+        },
+        "ownershipPercentage": {
+          "description": "Ownership stake percentage.",
+          "type": "integer",
+          "minimum": 0.0,
+          "maximum": 100.0,
+          "format": "int32"
+        },
+        "ssn": {
+          "description": "Social security number. Do not include dashes.The full list of restricted SSN is- “000000001” “000000002” “000000003” “000000004” “000000005” “000000006” “000000007” “000000008” “000000009\" \"111111110\" “111111111” \"111111112\" \"111111113\" \"111111114\" \"111111115\" \"111111116\" \"111111117\" \"111111118\" \"111111119\" \"222222220\" \"222222221\" “222222222” \"222222223\" \"222222224\" \"222222225\" \"222222226\" \"222222227\" \"222222228\" \"222222229\" \"333333330\" \"333333331\" \"333333332\" “333333333” \"333333334\" \"333333335\" \"333333336\" \"333333337\" \"333333338\" \"333333339\"  \"444444440\" \"444444441\" \"444444442\" \"444444443\" “444444444” \"444444445\" \"444444446\" \"444444447\" \"444444448\" \"444444449\" \"555555550\" \"555555551\" \"555555552\" \"555555553\" \"555555554\" “555555555” \"555555556\" \"555555557\" \"555555558\" \"555555559\"  \"666666660\" \"666666661\" \"666666662\" \"666666663\" \"666666664\" \"666666665\" “666666666\" \"666666667\" \"666666668\" \"666666669\" \"777777770\" \"777777771” \"777777772\" \"777777773\" \"777777774\" \"777777775\" \"777777776\" “777777777” \"777777778\" \"777777779\" \"888888880\" \"888888881\" \"888888882\" \"888888883\" \"888888884\" \"888888885\" \"888888886\" \"888888887\" “888888888” \"888888889\"  \"999999990\" \"999999991\" \"999999992\" \"999999993\" \"999999994\" \"999999995\" \"99999996\"   \"999999997\" \"999999998\" “999999999”  \"123456780\" to \"123456789\" \"123123123\"",
+          "example": "123456789",
+          "type": "string",
+          "pattern": "^[0-9]{9}$"
+        },
+        "dob": {
+          "description": "Date of Birth (CCYY-MM-DD). Must be at least 18 years old.",
+          "example": "2000-03-23",
+          "type": "string",
+          "format": "date"
+        },
+        "addressLine1": {
+          "description": "Address Line 1. Field for house number, street and direction.",
+          "example": "4355 N Coalwhipe St.",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 40,
+          "pattern": "^[a-zA-Z0-9 \\p{P}\\p{S}]+$"
+        },
+        "addressLine2": {
+          "description": "Address Line 2. Field for apartment or suite numbers, etc.",
+          "example": "suite 104",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 40,
+          "pattern": "^[a-zA-Z0-9 \\p{P}\\p{S}]+$"
+        },
+        "city": {
+          "example": "Denver",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 28,
+          "pattern": "^[a-zA-Z0-9 \\p{P}\\p{S}]+$"
+        },
+        "state": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/State_1"
+            },
+            {
+              "description": "Valid US state, commonwealth, and territory codes are allowed.",
+              "example": "CO"
+            }
+          ]
+        },
+        "country": {
+          "description": "Only United States is allowed.",
+          "type": "string",
+          "default": "United States"
+        },
+        "postalCode": {
+          "description": "Postal code / zip code. The postal code must be valid for the address' country code.",
+          "example": "12345",
+          "type": "string",
+          "minLength": 5,
+          "maxLength": 5,
+          "pattern": "^[0-9]{5}$"
+        },
+        "postalCodeExtension": {
+          "description": "Postal code / zip code extension.  The postal code extension must be valid for the address' country code.",
+          "example": "1234",
+          "type": "string",
+          "minLength": 4,
+          "maxLength": 4,
+          "pattern": "^[0-9]{4}$"
+        },
+        "identification": {
+          "description": "Optional. If any attribute in the identification object is populated then at least idNumber and idType are required.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Identification"
+          }
+        }
+      },
+      "required": [
+        "type",
+        "firstName",
+        "lastName",
+        "phoneNumber",
+        "email",
+        "addressLine1",
+        "city",
+        "state",
+        "country",
+        "postalCode"
+      ]
+    },
+    "State_1": {
+      "title": "State_1",
+      "description": "Valid US state, commonwealth, and territory codes are allowed.",
+      "example": "CO",
+      "type": "string",
+      "enum": [
+        "AK",
+        "AL",
+        "AR",
+        "AS",
+        "AZ",
+        "CA",
+        "CO",
+        "CT",
+        "DC",
+        "DE",
+        "FL",
+        "FM",
+        "GA",
+        "GU",
+        "HI",
+        "IA",
+        "ID",
+        "IL",
+        "IN",
+        "KS",
+        "KY",
+        "LA",
+        "MA",
+        "MD",
+        "ME",
+        "MH",
+        "MI",
+        "MN",
+        "MO",
+        "MP",
+        "MS",
+        "MT",
+        "NC",
+        "ND",
+        "NE",
+        "NH",
+        "NJ",
+        "NM",
+        "NV",
+        "NY",
+        "OH",
+        "OK",
+        "OR",
+        "PA",
+        "PR",
+        "PW",
+        "RI",
+        "SC",
+        "SD",
+        "TN",
+        "TX",
+        "UM",
+        "UT",
+        "VA",
+        "VI",
+        "VT",
+        "WA",
+        "WI",
+        "WV",
+        "WY"
+      ]
+    },
+    "Guarantor_1": {
+      "title": "Guarantor_1",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/Type3"
+            },
+            {
+              "example": "Guarantor 1 Contact"
+            }
+          ]
+        },
+        "title": {
+          "description": "Required for AMEX acquired merchants otherwise optional.",
+          "example": "President",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 30,
+          "pattern": "^[a-zA-Z0-9 \\p{P}\\p{S}]+$"
+        },
+        "firstName": {
+          "description": "First name. Region based validations will be applied to this field.",
+          "example": "Todd",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 15,
+          "pattern": "^[a-zA-Z0-9 \\p{P}\\p{S}]+$"
+        },
+        "middleInitial": {
+          "description": "Middle initial.",
+          "example": "M",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1,
+          "pattern": "^[a-zA-Z0-9 \\p{P}\\p{S}]+$"
+        },
+        "lastName": {
+          "description": "Last name. Region based validations will be applied to this field.",
+          "example": "Davis",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 25,
+          "pattern": "^[a-zA-Z0-9 \\p{P}\\p{S}]+$"
+        },
+        "phoneNumber": {
+          "description": "10-digit phone number of the format  5131234567.",
+          "example": "5131234567",
+          "type": "string",
+          "pattern": "^[0-9]{10}$"
+        },
+        "phoneNumberExt": {
+          "description": "Phone number extension. Up to 8 digits of the format 12345678.",
+          "example": "1234",
+          "type": "string",
+          "maxLength": 8,
+          "pattern": "^[0-9]{1,8}$"
+        },
+        "phoneType": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/PhoneType"
+            },
+            {
+              "description": "Phone type.",
+              "example": "mobile"
+            }
+          ]
+        },
+        "alternatePhone": {
+          "description": "10-digit alternate phone number of the format  5131234567.",
+          "example": "5131234567",
+          "type": "string",
+          "pattern": "^[0-9]{10}$"
+        },
+        "alternatePhoneType": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/AlternatePhoneType"
+            },
+            {
+              "description": "Alternate phone type.",
+              "example": "home"
+            }
+          ]
+        },
+        "faxNumber": {
+          "description": "10-digit fax number of the format 5131234567",
+          "example": "5131234567",
+          "type": "string",
+          "pattern": "^[0-9]{10}$"
+        },
+        "email": {
+          "description": "Email address of the contact. Must have @ and a .",
+          "example": "test@gmail.com",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "\\b[A-Za-z0-9._%+-]+@(?:[A-Za-z0-9-]+\\.)+[A-Za-z0-9]{2,}"
+        },
+        "ownershipPercentage": {
+          "description": "Ownership stake percentage.",
+          "type": "integer",
+          "minimum": 0.0,
+          "maximum": 100.0,
+          "format": "int32"
+        },
+        "ssn": {
+          "description": "Social security number. Do not include dashes.The full list of restricted SSN is- “000000001” “000000002” “000000003” “000000004” “000000005” “000000006” “000000007” “000000008” “000000009\" \"111111110\" “111111111” \"111111112\" \"111111113\" \"111111114\" \"111111115\" \"111111116\" \"111111117\" \"111111118\" \"111111119\" \"222222220\" \"222222221\" “222222222” \"222222223\" \"222222224\" \"222222225\" \"222222226\" \"222222227\" \"222222228\" \"222222229\" \"333333330\" \"333333331\" \"333333332\" “333333333” \"333333334\" \"333333335\" \"333333336\" \"333333337\" \"333333338\" \"333333339\"  \"444444440\" \"444444441\" \"444444442\" \"444444443\" “444444444” \"444444445\" \"444444446\" \"444444447\" \"444444448\" \"444444449\" \"555555550\" \"555555551\" \"555555552\" \"555555553\" \"555555554\" “555555555” \"555555556\" \"555555557\" \"555555558\" \"555555559\"  \"666666660\" \"666666661\" \"666666662\" \"666666663\" \"666666664\" \"666666665\" “666666666\" \"666666667\" \"666666668\" \"666666669\" \"777777770\" \"777777771” \"777777772\" \"777777773\" \"777777774\" \"777777775\" \"777777776\" “777777777” \"777777778\" \"777777779\" \"888888880\" \"888888881\" \"888888882\" \"888888883\" \"888888884\" \"888888885\" \"888888886\" \"888888887\" “888888888” \"888888889\"  \"999999990\" \"999999991\" \"999999992\" \"999999993\" \"999999994\" \"999999995\" \"99999996\"   \"999999997\" \"999999998\" “999999999”  \"123456780\" to \"123456789\" \"123123123\"",
+          "example": "123456789",
+          "type": "string",
+          "pattern": "^[0-9]{9}$"
+        },
+        "dob": {
+          "description": "Date of Birth (CCYY-MM-DD). Must be at least 18 years old.",
+          "example": "2000-03-23",
+          "type": "string",
+          "format": "date"
+        },
+        "addressLine1": {
+          "description": "Address Line 1. Field for house number, street and direction.",
+          "example": "4355 N Coalwhipe St.",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 40,
+          "pattern": "^[a-zA-Z0-9 \\p{P}\\p{S}]+$"
+        },
+        "addressLine2": {
+          "description": "Address Line 2. Field for apartment or suite numbers, etc.",
+          "example": "suite 104",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 40,
+          "pattern": "^[a-zA-Z0-9 \\p{P}\\p{S}]+$"
+        },
+        "city": {
+          "example": "Denver",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 28,
+          "pattern": "^[a-zA-Z0-9 \\p{P}\\p{S}]+$"
+        },
+        "state": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/State_1"
+            },
+            {
+              "description": "Valid US state, commonwealth, and territory codes are allowed.",
+              "example": "CO"
+            }
+          ]
+        },
+        "country": {
+          "description": "Only United States is allowed.",
+          "type": "string",
+          "default": "United States"
+        },
+        "postalCode": {
+          "description": "Postal code / zip code. The postal code must be valid for the address' country code.",
+          "example": "12345",
+          "type": "string",
+          "minLength": 5,
+          "maxLength": 5,
+          "pattern": "^[0-9]{5}$"
+        },
+        "postalCodeExtension": {
+          "description": "Postal code / zip code extension.  The postal code extension must be valid for the address' country code.",
+          "example": "1234",
+          "type": "string",
+          "minLength": 4,
+          "maxLength": 4,
+          "pattern": "^[0-9]{4}$"
+        },
+        "identification": {
+          "description": "Optional. If any attribute in the identification object is populated then at least idNumber and idType are required.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Identification"
+          }
+        }
+      },
+      "required": [
+        "type",
+        "firstName",
+        "lastName",
+        "phoneNumber",
+        "email",
+        "addressLine1",
+        "city",
+        "state",
+        "country",
+        "postalCode"
+      ]
+    },
+    "AuthorizedSigner_1": {
+      "title": "AuthorizedSigner_1",
+      "type": "object",
+      "properties": {
+        "roleName": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/RoleName_1"
+            },
+            {
+              "description": "The role of the signer. Please note the below.\n\n 1) Merchant role name is mandatory.\n 2) Required fields indicated in schema are those required for all role names other than \"SalesRep\"\n 3) The \"SalesRep\" role name only requires the following fields > roleName, signingExperience, signingOrder, firstName, lastName, email\n 4) The \"Signer2\" role name is for a Personal Guarantor. This signer must be included if a Personal Guarantor is on the application. Include the Guarnator's information in this object.",
+              "example": "Merchant"
+            }
+          ]
+        },
+        "signingExperience": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SigningExperience"
+            },
+            {
+              "description": "Signing ceremony type",
+              "example": "email"
+            }
+          ]
+        },
+        "signingOrder": {
+          "description": "Define the signing order for multiple signers",
+          "example": "2",
+          "type": "string"
+        },
+        "title": {
+          "description": "Required for AMEX acquired merchants otherwise optional.",
+          "example": "President",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 30,
+          "pattern": "^[a-zA-Z0-9 \\p{P}\\p{S}]+$"
+        },
+        "firstName": {
+          "description": "First name. Region based validations will be applied to this field.",
+          "example": "Todd",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 15,
+          "pattern": "^[a-zA-Z0-9 \\p{P}\\p{S}]+$"
+        },
+        "middleInitial": {
+          "description": "Middle initial.",
+          "example": "M",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1,
+          "pattern": "^[a-zA-Z0-9 \\p{P}\\p{S}]+$"
+        },
+        "lastName": {
+          "description": "Last name. Region based validations will be applied to this field.",
+          "example": "Davis",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 25,
+          "pattern": "^[a-zA-Z0-9 \\p{P}\\p{S}]+$"
+        },
+        "phoneNumber": {
+          "description": "10-digit phone number of the format  5131234567.",
+          "example": "5131234567",
+          "type": "string",
+          "pattern": "^[0-9]{10}$"
+        },
+        "phoneNumberExt": {
+          "description": "Phone number extension. Up to 8 digits of the format 12345678.",
+          "example": "1234",
+          "type": "string",
+          "maxLength": 8,
+          "pattern": "^[0-9]{1,8}$"
+        },
+        "phoneType": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/PhoneType"
+            },
+            {
+              "description": "Phone type.",
+              "example": "mobile"
+            }
+          ]
+        },
+        "alternatePhone": {
+          "description": "10-digit alternate phone number of the format  5131234567.",
+          "example": "5131234567",
+          "type": "string",
+          "pattern": "^[0-9]{10}$"
+        },
+        "alternatePhoneType": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/AlternatePhoneType"
+            },
+            {
+              "description": "Alternate phone type.",
+              "example": "home"
+            }
+          ]
+        },
+        "faxNumber": {
+          "description": "10-digit fax number of the format 5131234567",
+          "example": "5131234567",
+          "type": "string",
+          "pattern": "^[0-9]{10}$"
+        },
+        "email": {
+          "description": "Email address of the contact. Must have @ and a .",
+          "example": "test@gmail.com",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "\\b[A-Za-z0-9._%+-]+@(?:[A-Za-z0-9-]+\\.)+[A-Za-z0-9]{2,}"
+        },
+        "ssn": {
+          "description": "Social security number. Do not include dashes.The full list of restricted SSN is- “000000001” “000000002” “000000003” “000000004” “000000005” “000000006” “000000007” “000000008” “000000009\" \"111111110\" “111111111” \"111111112\" \"111111113\" \"111111114\" \"111111115\" \"111111116\" \"111111117\" \"111111118\" \"111111119\" \"222222220\" \"222222221\" “222222222” \"222222223\" \"222222224\" \"222222225\" \"222222226\" \"222222227\" \"222222228\" \"222222229\" \"333333330\" \"333333331\" \"333333332\" “333333333” \"333333334\" \"333333335\" \"333333336\" \"333333337\" \"333333338\" \"333333339\"  \"444444440\" \"444444441\" \"444444442\" \"444444443\" “444444444” \"444444445\" \"444444446\" \"444444447\" \"444444448\" \"444444449\" \"555555550\" \"555555551\" \"555555552\" \"555555553\" \"555555554\" “555555555” \"555555556\" \"555555557\" \"555555558\" \"555555559\"  \"666666660\" \"666666661\" \"666666662\" \"666666663\" \"666666664\" \"666666665\" “666666666\" \"666666667\" \"666666668\" \"666666669\" \"777777770\" \"777777771” \"777777772\" \"777777773\" \"777777774\" \"777777775\" \"777777776\" “777777777” \"777777778\" \"777777779\" \"888888880\" \"888888881\" \"888888882\" \"888888883\" \"888888884\" \"888888885\" \"888888886\" \"888888887\" “888888888” \"888888889\"  \"999999990\" \"999999991\" \"999999992\" \"999999993\" \"999999994\" \"999999995\" \"99999996\"   \"999999997\" \"999999998\" “999999999”  \"123456780\" to \"123456789\" \"123123123\"",
+          "example": "123456789",
+          "type": "string",
+          "pattern": "^[0-9]{9}$"
+        },
+        "dob": {
+          "description": "Date of Birth (CCYY-MM-DD). Must be at least 18 years old.",
+          "example": "2000-03-23",
+          "type": "string",
+          "format": "date"
+        },
+        "addressLine1": {
+          "description": "Address Line 1. Field for house number, street and direction.",
+          "example": "4355 N Coalwhipe St.",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 40,
+          "pattern": "^[a-zA-Z0-9 \\p{P}\\p{S}]+$"
+        },
+        "addressLine2": {
+          "description": "Address Line 2. Field for apartment or suite numbers, etc.",
+          "example": "suite 104",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 40,
+          "pattern": "^[a-zA-Z0-9 \\p{P}\\p{S}]+$"
+        },
+        "city": {
+          "example": "Denver",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 28,
+          "pattern": "^[a-zA-Z0-9 \\p{P}\\p{S}]+$"
+        },
+        "state": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/State_1"
+            },
+            {
+              "description": "Valid US state, commonwealth, and territory codes are allowed.",
+              "example": "CO"
+            }
+          ]
+        },
+        "country": {
+          "description": "Only United States is allowed.",
+          "type": "string",
+          "default": "United States"
+        },
+        "postalCode": {
+          "description": "Postal code / zip code. The postal code must be valid for the address' country code.",
+          "example": "12345",
+          "type": "string",
+          "minLength": 5,
+          "maxLength": 5,
+          "pattern": "^[0-9]{5}$"
+        },
+        "postalCodeExtension": {
+          "description": "Postal code / zip code extension.  The postal code extension must be valid for the address' country code.",
+          "example": "1234",
+          "type": "string",
+          "minLength": 4,
+          "maxLength": 4,
+          "pattern": "^[0-9]{4}$"
+        },
+        "identification": {
+          "description": "Optional. If any attribute in the identification object is populated then at least idNumber and idType are required.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Identification"
+          }
+        }
+      },
+      "required": [
+        "roleName",
+        "signingExperience",
+        "signingOrder",
+        "firstName",
+        "lastName",
+        "phoneNumber",
+        "email",
+        "ssn",
+        "dob",
+        "addressLine1",
+        "city",
+        "state",
+        "country",
+        "postalCode"
+      ]
+    },
+    "RoleName_1": {
+      "title": "RoleName_1",
+      "description": "The role of the signer. Please note the below.\n\n 1) Merchant role name is mandatory.\n 2) Required fields indicated in schema are those required for all role names other than \"SalesRep\"\n 3) The \"SalesRep\" role name only requires the following fields > roleName, signingExperience, signingOrder, firstName, lastName, email\n 4) The \"Signer2\" role name is for a Personal Guarantor. This signer must be included if a Personal Guarantor is on the application. Include the Guarnator's information in this object.",
+      "example": "Merchant",
+      "type": "string",
+      "enum": [
+        "SalesRep",
+        "Merchant",
+        "Signer2",
+        "Signer3",
+        "Signer4",
+        "Signer5",
+        "Signer6",
+        "Signer7",
+        "Signer8",
+        "Guarantor2",
+        "Guarantor3",
+        "Guarantor4"
+      ]
+    },
+    "Contact_1": {
+      "title": "Contact_1",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/Type4"
+            },
+            {
+              "description": "Type of merchant contact.   \n 1) Only primary contact\n      is mandatory. May be the same as any owner contact information. \n 2) For primary contact, firstName, lastName, phoneNumber and email are mandatory during POST.  \n 3) For all other contact types, firstName and lastName are mandatory during POST.",
+              "example": "Primary Contact"
+            }
+          ]
+        },
+        "title": {
+          "description": "Required for AMEX acquired merchants otherwise optional.",
+          "example": "President",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 30,
+          "pattern": "^[a-zA-Z0-9 \\p{P}\\p{S}]+$"
+        },
+        "firstName": {
+          "description": "First name. Region based validations will be applied to this field.",
+          "example": "Todd",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 15,
+          "pattern": "^[a-zA-Z0-9 \\p{P}\\p{S}]+$"
+        },
+        "middleInitial": {
+          "description": "Middle initial.",
+          "example": "M",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1,
+          "pattern": "^[a-zA-Z0-9 \\p{P}\\p{S}]+$"
+        },
+        "lastName": {
+          "description": "Last name. Region based validations will be applied to this field.",
+          "example": "Davis",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 25,
+          "pattern": "^[a-zA-Z0-9 \\p{P}\\p{S}]+$"
+        },
+        "ssn": {
+          "description": "Social security number. Do not include dashes.The full list of restricted SSN is- “000000001” “000000002” “000000003” “000000004” “000000005” “000000006” “000000007” “000000008” “000000009\" \"111111110\" “111111111” \"111111112\" \"111111113\" \"111111114\" \"111111115\" \"111111116\" \"111111117\" \"111111118\" \"111111119\" \"222222220\" \"222222221\" “222222222” \"222222223\" \"222222224\" \"222222225\" \"222222226\" \"222222227\" \"222222228\" \"222222229\" \"333333330\" \"333333331\" \"333333332\" “333333333” \"333333334\" \"333333335\" \"333333336\" \"333333337\" \"333333338\" \"333333339\"  \"444444440\" \"444444441\" \"444444442\" \"444444443\" “444444444” \"444444445\" \"444444446\" \"444444447\" \"444444448\" \"444444449\" \"555555550\" \"555555551\" \"555555552\" \"555555553\" \"555555554\" “555555555” \"555555556\" \"555555557\" \"555555558\" \"555555559\"  \"666666660\" \"666666661\" \"666666662\" \"666666663\" \"666666664\" \"666666665\" “666666666\" \"666666667\" \"666666668\" \"666666669\" \"777777770\" \"777777771” \"777777772\" \"777777773\" \"777777774\" \"777777775\" \"777777776\" “777777777” \"777777778\" \"777777779\" \"888888880\" \"888888881\" \"888888882\" \"888888883\" \"888888884\" \"888888885\" \"888888886\" \"888888887\" “888888888” \"888888889\"  \"999999990\" \"999999991\" \"999999992\" \"999999993\" \"999999994\" \"999999995\" \"99999996\"   \"999999997\" \"999999998\" “999999999”  \"123456780\" to \"123456789\" \"123123123\"",
+          "example": "123456789",
+          "type": "string",
+          "pattern": "^[0-9]{9}$"
+        },
+        "birthDate": {
+          "description": "Date of Birth (CCYY-MM-DD). Must be at least 18 years old.",
+          "example": "2000-03-23",
+          "type": "string",
+          "format": "date"
+        },
+        "phoneNumber": {
+          "description": "10-digit phone number of the format  5131234567.",
+          "example": "5131234567",
+          "type": "string",
+          "pattern": "^[0-9]{10}$"
+        },
+        "phoneNumberExt": {
+          "description": "Phone number extension. Up to 8 digits of the format 12345678.",
+          "example": "1234",
+          "type": "string",
+          "maxLength": 8,
+          "pattern": "^[0-9]{1,8}$"
+        },
+        "phoneType": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/PhoneType"
+            },
+            {
+              "description": "Phone type.",
+              "example": "mobile"
+            }
+          ]
+        },
+        "alternatePhone": {
+          "description": "10-digit alternate phone number of the format  5131234567.",
+          "example": "5131234567",
+          "type": "string",
+          "pattern": "^[0-9]{10}$"
+        },
+        "alternatePhoneType": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/AlternatePhoneType"
+            },
+            {
+              "description": "Alternate phone type.",
+              "example": "home"
+            }
+          ]
+        },
+        "email": {
+          "description": "Email address of the contact. Must have @ and a .",
+          "example": "test@gmail.com",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "\\b[A-Za-z0-9._%+-]+@(?:[A-Za-z0-9-]+\\.)+[A-Za-z0-9]{2,}"
+        },
+        "faxNumber": {
+          "description": "10-digit fax number of the format 5131234567",
+          "example": "5131234567",
+          "type": "string",
+          "pattern": "^[0-9]{10}$"
+        }
+      },
+      "required": [
+        "type",
+        "firstName",
+        "lastName",
+        "phoneNumber",
+        "email"
+      ]
+    },
+    "Address_1": {
+      "title": "Address_1",
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/AddressType"
+            },
+            {
+              "description": "Address Type  \n 1) Physical address is mandatory.\n 2) If equipment needs to be sent to a different location than the physical address, then shipping address should be added.\n3) For any address type, addressLine1, city, state, postalCode and country are mandatory.",
+              "example": "Physical Address"
+            }
+          ]
+        },
+        "addressLine1": {
+          "description": "Address Line 1. Field for house number, street and direction.",
+          "example": "4355 N Coalwhipe St.",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 40,
+          "pattern": "^[a-zA-Z0-9 \\p{P}\\p{S}]+$"
+        },
+        "addressLine2": {
+          "description": "Address Line 2. Field for apartment or suite numbers, etc.",
+          "example": "suite 104",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 40,
+          "pattern": "^[a-zA-Z0-9 \\p{P}\\p{S}]+$"
+        },
+        "city": {
+          "example": "Denver",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 28,
+          "pattern": "^[a-zA-Z0-9 \\p{P}\\p{S}]+$"
+        },
+        "state": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/State_1"
+            },
+            {
+              "description": "Valid US state, commonwealth, and territory codes are allowed.",
+              "example": "CO"
+            }
+          ]
+        },
+        "country": {
+          "description": "Only United States is allowed.",
+          "type": "string",
+          "default": "United States"
+        },
+        "postalCode": {
+          "description": "Postal code / zip code. The postal code must be valid for the address' country code.",
+          "example": "12345",
+          "type": "string",
+          "minLength": 5,
+          "maxLength": 5,
+          "pattern": "^[0-9]{5}$"
+        },
+        "postalCodeExtension": {
+          "description": "Postal code / zip code extension.  The postal code extension must be valid for the address' country code.",
+          "example": "1234",
+          "type": "string",
+          "minLength": 4,
+          "maxLength": 4,
+          "pattern": "^[0-9]{4}$"
+        }
+      },
+      "required": [
+        "type",
+        "addressLine1",
+        "city",
+        "state",
+        "country",
+        "postalCode"
+      ]
+    },
+    "BankAccount_1": {
+      "title": "BankAccount_1",
+      "description": "Bank account collects bank account information from merchant. It is optional till the time of boarding where bank account becomes required along with ddaType, achType, accountNumber, routingNumber & bankName.",
+      "type": "object",
+      "properties": {
+        "ddaType": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/DdaType"
+            },
+            {
+              "description": "Direct deposit account type.",
+              "example": "Checking"
+            }
+          ]
+        },
+        "achType": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/AchType"
+            },
+            {
+              "description": "Check deposit type",
+              "example": "Commercial Checking"
+            }
+          ]
+        },
+        "accountNumber": {
+          "description": "Direct deposit account number.  Maximum 17 characters.",
+          "example": "011401545",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 17
+        },
+        "routingNumber": {
+          "description": "Bank routing number. Must be 9 characters and pass ACH Mod-10 validation.",
+          "example": "102000076",
+          "type": "string",
+          "minLength": 9,
+          "maxLength": 9
+        },
+        "bankName": {
+          "description": "Bank name used for credit card processing services.",
+          "example": "Bank name",
+          "type": "string"
+        }
+      }
+    },
+    "AdvancedSettlement_inner": {
+      "title": "AdvancedSettlement_inner",
+      "description": "Advanced Settlement gives merchants options to settle their account according to their needs with different settlement categories.",
+      "type": "object",
+      "properties": {
+        "settlementCategories": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SettlementCategory"
+          }
+        },
+        "bankAccount": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/BankAccount_1"
+            },
+            {
+              "description": "Bank account collects bank account information from merchant. It is optional till the time of boarding where bank account becomes required along with ddaType, achType, accountNumber, routingNumber & bankName."
+            }
+          ]
+        }
+      }
+    },
+    "SalesAgent_1": {
+      "title": "SalesAgent_1",
+      "description": "The agent who is submitting the deal. It is an optional object. It becomes required, when  partner wants to route deals to their own sales rep. Please work with your integration specialist for route to sales rep functionality.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "Id for the Sales Contact.",
+          "example": "U15315",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 15
+        },
+        "firstName": {
+          "description": "Sales agent's first name.",
+          "example": "John",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 15
+        },
+        "lastName": {
+          "description": "Sales agent's last name.",
+          "example": "Doe",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 25
+        },
+        "mobilePhoneNumber": {
+          "description": "Sales agent's 10-digit phone number of the format 5131234567.",
+          "example": "1234567890",
+          "type": "string",
+          "pattern": "^[0-9]{10}$"
+        },
+        "email": {
+          "description": "Sales agent's email address.  Must have @ and a .",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "(\\\\b[A-Za-z0-9._%+-]+@(?:[A-Za-z0-9-]+\\\\.)+[A-Za-z0-9]{2,}\\\\b{0,64})"
+        }
+      },
+      "required": [
+        "firstName",
+        "lastName",
+        "email"
+      ]
+    },
+    "Application": {
+      "title": "Application",
+      "type": "object",
+      "properties": {
+        "clientTrackingId": {
+          "description": "This is an optional field that can be used by the partners to send a unique Id from their application for reporting purposes.",
+          "example": "1341341234132412341",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 36
+        },
+        "businessInfo": {
+          "$ref": "#/definitions/BusinessInfo_1"
+        },
+        "transactionInfo": {
+          "$ref": "#/definitions/TransactionInfo_1"
+        },
+        "owners": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Owner_1"
+          }
+        },
+        "authorizedSigners": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AuthorizedSigner_1"
+          }
+        },
+        "guarantors": {
+          "description": "Guarantor information. A guarantor is the person whose credit report will be pulled during the underwriting process.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Guarantor_1"
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "contacts": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Contact_1"
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "addresses": {
+          "example": [
+            {
+              "type": "Mailing Address",
+              "addressLine1": "1234 W Tester Ave.",
+              "city": "City Town",
+              "state": "CO",
+              "country": "United States",
+              "postalCode": "80123",
+              "postalCodeExtension": "1234"
+            },
+            {
+              "type": "Physical Address",
+              "addressLine1": "1234 W Tester Ave.",
+              "city": "City Town",
+              "state": "CO",
+              "country": "United States",
+              "postalCode": "80123",
+              "postalCodeExtension": "1234"
+            },
+            {
+              "type": "Shipping Address",
+              "addressLine1": "1234 W Tester Ave.",
+              "city": "City Town",
+              "state": "CO",
+              "country": "United States",
+              "postalCode": "80123",
+              "postalCodeExtension": "1234"
+            }
+          ],
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Address_1"
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "bankAccount": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/BankAccount_1"
+            },
+            {
+              "description": "Bank account collects bank account information from merchant. It is optional till the time of boarding where bank account becomes required along with ddaType, achType, accountNumber, routingNumber & bankName."
+            }
+          ]
+        },
+        "advancedSettelment": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AdvancedSettlement_inner"
+          }
+        },
+        "salesAgent": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/SalesAgent_1"
+            },
+            {
+              "description": "The agent who is submitting the deal. It is an optional object. It becomes required, when  partner wants to route deals to their own sales rep. Please work with your integration specialist for route to sales rep functionality."
+            }
+          ]
+        },
+        "installationContact": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/InstallationContact"
+            },
+            {
+              "description": "The Technical Agent who is going to do setup."
+            }
+          ]
+        },
+        "additionalInformation": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AdditionalInformationObject"
+          }
+        },
+        "leadSource": {
+          "description": "The source of the lead.",
+          "example": "LP Connect API",
+          "type": "string",
+          "maxLength": 150
+        },
+        "routeToSalesRep": {
+          "description": "Used to route a application to a worldpay or partner sales rep.",
+          "type": "boolean"
+        },
+        "productsInquiry": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 25
+          },
+          "uniqueItems": true,
+          "minLength": 1,
+          "maxLength": 25
+        }
+      },
+      "required": [
+        "businessInfo",
+        "transactionInfo",
+        "authorizedSigners",
+        "contacts",
+        "addresses"
+      ]
+    },
+    "AdditionalInformationObject": {
+      "title": "AdditionalInformationObject",
+      "description": "Required for some partners. Work with your Developer Integrations specialist for more information.",
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/Key"
+            },
+            {
+              "example": "partnerEmployeeId"
+            }
+          ]
+        },
+        "value": {
+          "example": "4656",
+          "type": "string"
+        }
+      }
+    },
+    "ApplicationResponse": {
+      "title": "ApplicationResponse",
+      "type": "object",
+      "properties": {
+        "externalRefId": {
+          "description": "A unique GUID generated by POST resource, used for retrieving and updating a deal. Do not send in the request, API will always generate one and assign it to the deal.",
+          "example": "df8a6d82-3bb4-4f3b-ba18-57a5981ede8e",
+          "type": "string",
+          "maxLength": 36,
+          "pattern": "([0-9a-z]{8})-([0-9a-z]{4})-([0-9a-z]{4})-([0-9a-z]{4})-([0-9a-z]{12})"
+        }
+      }
+    },
+    "AdditionalConfigurationsResponse": {
+      "title": "AdditionalConfigurationsResponse",
+      "type": "object",
+      "properties": {
+        "customizations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AdditionalConfigurationCustomization"
+          }
+        },
+        "peripherals": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AdditionalConfigurationPeripheral"
+          }
+        }
+      }
+    },
+    "AdditionalConfigurationCustomization": {
+      "title": "AdditionalConfigurationCustomization",
+      "type": "object",
+      "properties": {
+        "customizationId": {
+          "description": "Customization Id is internally populated from a master list.",
+          "example": "1",
+          "type": "string"
+        },
+        "customizationType": {
+          "description": "type of customization",
+          "example": "time",
+          "type": "string"
+        },
+        "useProductMatrix": {
+          "description": "Whether or not used in product matrix",
+          "example": "N",
+          "type": "string"
+        },
+        "productId": {
+          "description": "unique ID for the product",
+          "example": "12",
+          "type": "string"
+        },
+        "code": {
+          "description": "product code",
+          "example": "CST01",
+          "type": "string"
+        },
+        "customizationCodeDetails": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CustomizationCodeDetails"
+          }
+        },
+        "customizationValue": {
+          "description": "Actual Customization Value",
+          "example": "H",
+          "type": "string"
+        },
+        "customizationFieldLength": {
+          "description": "Length of the customization value",
+          "example": "1",
+          "type": "string"
+        },
+        "customizationDecimalPlace": {
+          "description": "Number of decimal places",
+          "example": "0",
+          "type": "string"
+        },
+        "customizationMinValue": {
+          "description": "Minimum Value. Only applicable if the customization value is a number",
+          "example": "0",
+          "type": "string"
+        },
+        "customizationMaxValue": {
+          "description": "Maximum Value. Only applicable if the customization value is a number",
+          "example": "6",
+          "type": "string"
+        },
+        "charactersAllowed": {
+          "description": "All characters allowed for customization. Only applicable if the customization value is a string.",
+          "example": "abcdefghijklmnopqrstuvwxyz",
+          "type": "string"
+        },
+        "rule": {
+          "description": "customization rule",
+          "type": "string"
+        },
+        "regex": {
+          "description": "Regular expression to validate the customization value",
+          "example": "^[a-z]{1}",
+          "type": "string"
+        },
+        "multiMerchantFlag": {
+          "description": "Applicable in a multiple merchant situation",
+          "example": false,
+          "type": "boolean",
+          "default": false
+        },
+        "shortDescription": {
+          "description": "Description of the customization",
+          "example": "CVV_PROMPTING",
+          "type": "string"
+        },
+        "longDescription": {
+          "description": "Verbose description of the customiztion",
+          "example": "CVV_PROMPTING",
+          "type": "string"
+        }
+      }
+    },
+    "CustomizationCodeDetails": {
+      "title": "CustomizationCodeDetails",
+      "type": "object",
+      "properties": {
+        "value": {
+          "description": "customization code",
+          "example": "H",
+          "type": "string"
+        },
+        "shortDescription": {
+          "description": "short description of the customization code",
+          "example": "Host Auto Close",
+          "type": "string"
+        },
+        "longDescription": {
+          "description": "long description of the customization code",
+          "example": "Host Auto Close",
+          "type": "string"
+        }
+      }
+    },
+    "AdditionalConfigurationPeripheral": {
+      "title": "AdditionalConfigurationPeripheral",
+      "type": "object",
+      "properties": {
+        "peripheralId": {
+          "description": "Peripheral IDs are internally populated.",
+          "example": "35",
+          "type": "string"
+        },
+        "model": {
+          "description": "Peripheral Name",
+          "example": "Pin Pad 1000 SE",
+          "type": "string"
+        },
+        "shortDescription": {
+          "description": "Description of the peripheral",
+          "example": "PP1S",
+          "type": "string"
+        },
+        "longDescription": {
+          "description": "Verbose description of the peripheral",
+          "example": "PPAD",
+          "type": "string"
+        },
+        "isEMVCertified": {
+          "description": "Whether peripheral is EMV certified",
+          "example": true,
+          "type": "boolean"
+        },
+        "isEMVCapable": {
+          "description": "Whether peripheral is EMV Capable",
+          "example": true,
+          "type": "boolean"
+        },
+        "activePeripheralFlag": {
+          "example": "Y",
+          "type": "string"
+        },
+        "purchasePrice": {
+          "description": "purchase price of the peripheral",
+          "example": "168.12",
+          "type": "string"
+        },
+        "leasePrice": {
+          "description": "lease price of the peripheral",
+          "example": "100.12",
+          "type": "string"
+        },
+        "rentalPrice": {
+          "description": "rental price of the peripheral",
+          "example": "90",
+          "type": "string"
+        },
+        "hardwareCost": {
+          "description": "hardware cost of the terminal",
+          "example": "50.75",
+          "type": "string"
+        }
+      }
+    },
+    "EquipmentSetup": {
+      "title": "EquipmentSetup",
+      "type": "object",
+      "properties": {
+        "shippingOption": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/ShippingOption"
+            },
+            {
+              "description": "The speed you would like the equipment to be shipped.",
+              "example": "next day",
+              "default": "next day"
+            }
+          ]
+        },
+        "terminals": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Terminal"
+          }
+        }
+      }
+    },
+    "Terminal": {
+      "title": "Terminal",
+      "type": "object",
+      "properties": {
+        "terminalConfigs": {
+          "$ref": "#/definitions/TerminalConfig"
+        },
+        "customizations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TerminalCustomization"
+          }
+        },
+        "products": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Product"
+          }
+        },
+        "peripherals": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Peripheral"
+          }
+        },
+        "vendors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PaymentApplicationVendor"
+          }
+        },
+        "gateways": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Gateway"
+          }
+        },
+        "supply": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TerminalSupply"
+          }
+        },
+        "deployment": {
+          "$ref": "#/definitions/TerminalDeployment"
+        }
+      },
+      "required": [
+        "terminalConfigs",
+        "products"
+      ]
+    },
+    "TerminalConfig": {
+      "title": "TerminalConfig",
+      "type": "object",
+      "properties": {
+        "requestId": {
+          "description": "Partner assigned unique request ID for terminal setup.",
+          "example": "41231",
+          "type": "string"
+        },
+        "terminalId": {
+          "description": "Terminal ID number.",
+          "example": "iCT220",
+          "type": "string"
+        },
+        "terminalModel": {
+          "description": "The model name of the terminal in use.",
+          "example": "Ingenico iCT220 CTLS 3.X Dial",
+          "type": "string"
+        },
+        "price": {
+          "description": "Terminal price",
+          "example": 187.99,
+          "type": "number",
+          "format": "double"
+        },
+        "quantity": {
+          "example": 1,
+          "type": "integer",
+          "format": "int32"
+        },
+        "logicalApplicationId": {
+          "description": "Logical application ID.",
+          "example": "MONE510",
+          "type": "string"
+        },
+        "accessMethod": {
+          "description": "Methods of terminal access.",
+          "example": "SSL",
+          "type": "string"
+        },
+        "paymentMethod": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/PaymentMethod"
+            },
+            {
+              "description": "Payment method for the selected terminal.",
+              "example": "PURCHASE / SALE"
+            }
+          ]
+        },
+        "environmentName": {
+          "description": "Environment name",
+          "example": "Retail",
+          "type": "string"
+        },
+        "isVar": {
+          "description": "The value added reseller. Default value is false.",
+          "example": false,
+          "type": "boolean",
+          "default": false
+        },
+        "emvCapable": {
+          "description": "Is it EMV capabale?",
+          "example": true,
+          "type": "boolean",
+          "default": false
+        },
+        "leaseId": {
+          "description": "Lease ID. Required when PaymentMethod is selected as lease.",
+          "example": "12",
+          "type": "string"
+        },
+        "leaseTermLength": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/LeaseTermLength"
+            },
+            {
+              "description": "Lease term for the peripheral",
+              "example": "24"
+            }
+          ]
+        },
+        "terminalSequenceNumber": {
+          "description": "Terminal sequence number. If not sent, the API will autogenerate a number.",
+          "example": "14",
+          "type": "string",
+          "pattern": "^[0-9]"
+        },
+        "specialCustomizations": {
+          "description": "Any customization request for a terminal configuration.",
+          "example": "Mulitple merchant setup is Yes",
+          "type": "string",
+          "maxLength": 255
+        }
+      },
+      "required": [
+        "terminalId",
+        "price",
+        "quantity",
+        "logicalApplicationId",
+        "accessMethod",
+        "paymentMethod",
+        "environmentName"
+      ]
+    },
+    "TerminalCustomization": {
+      "title": "TerminalCustomization",
+      "type": "object",
+      "properties": {
+        "customizationId": {
+          "description": "Customization ID is internally populated from a master list.",
+          "example": "10",
+          "type": "string"
+        },
+        "customizationName": {
+          "example": "Auto-Close Time",
+          "type": "string"
+        },
+        "customizationFieldValue": {
+          "example": "N",
+          "type": "string"
+        }
+      }
+    },
+    "Product": {
+      "title": "Product",
+      "type": "object",
+      "properties": {
+        "productId": {
+          "description": "Product ID is populated internally.",
+          "example": "1",
+          "type": "string"
+        },
+        "productName": {
+          "description": "Payment method associated with the internally-populated ID.",
+          "example": "Debit",
+          "type": "string"
+        }
+      }
+    },
+    "Peripheral": {
+      "title": "Peripheral",
+      "type": "object",
+      "properties": {
+        "peripheralId": {
+          "description": "Peripheral IDs are internally populated.",
+          "example": "231",
+          "type": "string"
+        },
+        "peripheralType": {
+          "description": "Peripheral type",
+          "example": "PPAD",
+          "type": "string"
+        },
+        "model": {
+          "example": "Magtek Check Reader",
+          "type": "string"
+        },
+        "leaseId": {
+          "description": "Lease ID for the peripheral",
+          "example": "18",
+          "type": "string"
+        },
+        "leaseTermLength": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/LeaseTermLength"
+            },
+            {
+              "description": "Lease term for the peripheral",
+              "example": "24"
+            }
+          ]
+        },
+        "paymentMethod": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/PaymentMethod1"
+            },
+            {
+              "description": "Payment method for the selected peripheral.",
+              "example": "PURCHASE / SALE"
+            }
+          ]
+        },
+        "amount": {
+          "description": "\"Payment Amount for the peripheral. Valid values are 0.00\n  - 9999999999.99.\"",
+          "example": "220.21",
+          "type": "string",
+          "pattern": "(^\\d{1,10}([.]\\d{1,2})?)$"
+        },
+        "paymentConfirmationNumber": {
+          "description": "Payment confirmation number for the peripheral.",
+          "example": "123456",
+          "type": "string",
+          "pattern": "[0-9a-zA-Z]{6}|"
+        }
+      }
+    },
+    "PaymentApplicationVendor": {
+      "title": "PaymentApplicationVendor",
+      "description": "A payment application is installed software developed for processing various payments types: Credit, Debit, Gift, Checks, etc. and can be integrated with a POS system or used in a standalone manner.",
+      "type": "object",
+      "properties": {
+        "paymentApplicationId": {
+          "description": "Payment application ID",
+          "example": "9",
+          "type": "string"
+        },
+        "paymentApplicationName": {
+          "example": "PurchaseExpress",
+          "type": "string"
+        },
+        "vendorId": {
+          "description": "Vendor ID for the payment application.",
+          "example": "4",
+          "type": "string"
+        },
+        "version": {
+          "description": "Payment application version.",
+          "example": "1",
+          "type": "string"
+        },
+        "reseller": {
+          "description": "Reseller",
+          "example": "Agilysys Inc",
+          "type": "string"
+        },
+        "lastUpgradeDate": {
+          "description": "Last date payment application was upgraded.",
+          "example": "2012-02-18T00:00:00Z",
+          "type": "string",
+          "format": "date-time"
+        },
+        "notes": {
+          "description": "Custom notes can go here.",
+          "example": "Paymetric Gateway v3",
+          "type": "string"
+        }
+      }
+    },
+    "Gateway": {
+      "title": "Gateway",
+      "description": "A gateway is a hosted payment processing application provided by a service provider and accessed through an internet connection.",
+      "type": "object",
+      "properties": {
+        "gatewayId": {
+          "description": "Internally-generated gateway ID.",
+          "example": "15",
+          "type": "string"
+        },
+        "gatewayName": {
+          "example": "Paymetric Gateway",
+          "type": "string"
+        },
+        "notes": {
+          "description": "Add any custom notes here.",
+          "example": "Paymetric Gateway v3",
+          "type": "string"
+        }
+      }
+    },
+    "TerminalSupply": {
+      "title": "TerminalSupply",
+      "type": "object",
+      "properties": {
+        "supplyType": {
+          "type": "string"
+        },
+        "name": {
+          "description": "Supply name",
+          "type": "string"
+        },
+        "quantity": {
+          "description": "Supply quantity",
+          "example": 2,
+          "type": "integer",
+          "format": "int32"
+        },
+        "total": {
+          "description": "Total Supplies. Valid values are 0.00\n  - 9999999999.99.\"",
+          "example": "220.21",
+          "type": "string",
+          "pattern": "(^\\d{1,10}([.]\\d{1,2})?)$"
+        }
+      },
+      "required": [
+        "supplyType"
+      ]
+    },
+    "TerminalDeployment": {
+      "title": "TerminalDeployment",
+      "type": "object",
+      "properties": {
+        "equipmentUpdateDeploy": {
+          "type": "object",
+          "allOf": [
+            {
+              "$ref": "#/definitions/EquipmentUpdateDeploy"
+            },
+            {
+              "example": "M"
+            }
+          ]
+        },
+        "terminalBuildFlag": {
+          "example": true,
+          "type": "boolean"
+        },
+        "frontEndBuildFlag": {
+          "example": true,
+          "type": "boolean"
+        },
+        "sicMerchantFlag": {
+          "example": false,
+          "type": "boolean"
+        },
+        "specialInstructions": {
+          "description": "Special instructions for terminal deployment.",
+          "example": "Retail - H52460A (SP)",
+          "type": "string",
+          "maxLength": 255
+        }
+      },
+      "required": [
+        "equipmentUpdateDeploy"
+      ]
+    },
+    "ApplicationStatus": {
+      "title": "ApplicationStatus",
+      "example": {
+        "externalRefId": "a57223b9-578a-4294-93bf-30f64fdd24a7",
+        "contractStatus": "In Progress",
+        "description": "Underwriting is in progress.",
+        "pendedReason": "Credit Report|Website address needed"
+      },
+      "type": "object",
+      "properties": {
+        "externalRefId": {
+          "description": "A unique GUID generated by POST resource, used for retrieving and updating a deal. Do not send in the request, API will always generate one and assign it to the deal.",
+          "example": "df8a6d82-3bb4-4f3b-ba18-57a5981ede8e",
+          "type": "string",
+          "maxLength": 36,
+          "pattern": "([0-9a-z]{8})-([0-9a-z]{4})-([0-9a-z]{4})-([0-9a-z]{4})-([0-9a-z]{12})"
+        },
+        "contractStatus": {
+          "$ref": "#/definitions/ContractStatus"
+        },
+        "description": {
+          "type": "string"
+        },
+        "pendedReason": {
+          "description": "Detailed Underwriting Pended reason of the deal.",
+          "type": "string"
+        }
+      }
+    },
+    "StatusHistoryResponse": {
+      "title": "StatusHistoryResponse",
+      "type": "object",
+      "properties": {
+        "externalRefId": {
+          "description": "A unique GUID generated by POST resource, used for retrieving and updating a deal. Do not send in the request, API will always generate one and assign it to the deal.",
+          "example": "df8a6d82-3bb4-4f3b-ba18-57a5981ede8e",
+          "type": "string",
+          "maxLength": 36,
+          "pattern": "([0-9a-z]{8})-([0-9a-z]{4})-([0-9a-z]{4})-([0-9a-z]{4})-([0-9a-z]{12})"
+        },
+        "statusHistory": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/StatusHistory"
+          }
+        }
+      }
+    },
+    "StatusHistory": {
+      "title": "StatusHistory",
+      "type": "object",
+      "properties": {
+        "statusSeqNumber": {
+          "example": 2200,
+          "type": "integer",
+          "format": "int32"
+        },
+        "detailStatus": {
+          "example": "Contract Signed",
+          "type": "string"
+        },
+        "summaryStatus": {
+          "example": "App Submitted",
+          "type": "string"
+        },
+        "statusCategory": {
+          "example": "Contract",
+          "type": "string"
+        },
+        "statusDateTime": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "SignerStatus": {
+      "title": "SignerStatus",
+      "type": "object",
+      "properties": {
+        "externalRefId": {
+          "description": "A unique GUID generated by POST resource, used for retrieving and updating a deal. Do not send in the request, API will always generate one and assign it to the deal.",
+          "example": "df8a6d82-3bb4-4f3b-ba18-57a5981ede8e",
+          "type": "string",
+          "maxLength": 36,
+          "pattern": "([0-9a-z]{8})-([0-9a-z]{4})-([0-9a-z]{4})-([0-9a-z]{4})-([0-9a-z]{12})"
+        },
+        "authorizedSigners": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AuthSigners"
+          }
+        }
+      }
+    },
+    "AuthSigners": {
+      "title": "AuthSigners",
+      "type": "object",
+      "properties": {
+        "firstName": {
+          "description": "First name. Region based validations will be applied to this field.",
+          "example": "Todd",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 15,
+          "pattern": "^[a-zA-Z0-9 \\p{P}\\p{S}]+$"
+        },
+        "middleInitial": {
+          "description": "Middle initial.",
+          "example": "M",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1,
+          "pattern": "^[a-zA-Z0-9 \\p{P}\\p{S}]+$"
+        },
+        "lastName": {
+          "description": "Last name. Region based validations will be applied to this field.",
+          "example": "Davis",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 25,
+          "pattern": "^[a-zA-Z0-9 \\p{P}\\p{S}]+$"
+        },
+        "email": {
+          "description": "Email address of the contact. Must have @ and a .",
+          "example": "test@gmail.com",
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "\\b[A-Za-z0-9._%+-]+@(?:[A-Za-z0-9-]+\\.)+[A-Za-z0-9]{2,}"
+        },
+        "status": {
+          "description": "Status of the signer",
+          "example": "sent",
+          "type": "string"
+        },
+        "lastUpdated": {
+          "description": "Date contract was last updated",
+          "type": "string",
+          "format": "date-time"
+        },
+        "dateSubmitted": {
+          "description": "Date contract was last updated",
+          "type": "string",
+          "format": "date-time"
+        },
+        "dateSent": {
+          "description": "Date contract was sent",
+          "type": "string",
+          "format": "date-time"
+        },
+        "dateDelivered": {
+          "description": "Date contract was delivered",
+          "type": "string",
+          "format": "date-time"
+        },
+        "dateSigned": {
+          "description": "Date contract was signed",
+          "type": "string",
+          "format": "date-time"
+        },
+        "signerRoleName": {
+          "description": "Role of the signer",
+          "example": "Merchant",
+          "type": "string"
+        },
+        "signerExperience": {
+          "description": "Method of sign",
+          "example": "wet",
+          "type": "string"
+        }
+      }
+    },
+    "DocumentLink": {
+      "title": "DocumentLink",
+      "type": "object",
+      "properties": {
+        "externalRefId": {
+          "description": "A unique GUID generated by POST resource, used for retrieving and updating a deal. Do not send in the request, API will always generate one and assign it to the deal.",
+          "example": "df8a6d82-3bb4-4f3b-ba18-57a5981ede8e",
+          "type": "string",
+          "maxLength": 36,
+          "pattern": "([0-9a-z]{8})-([0-9a-z]{4})-([0-9a-z]{4})-([0-9a-z]{4})-([0-9a-z]{12})"
+        },
+        "returnUrl": {
+          "description": "The recipient will be directed to the returnUrl once signing is complete. For example on how it looks:  https://docusign.com/Signing/StartInSession.aspx?t=7f0d21a4-2798-402f-8b26-b12dbb37ae40",
+          "example": "https://docusign.com",
+          "type": "string"
+        }
+      },
+      "required": [
+        "externalRefId"
+      ]
+    },
+    "DocuSignLink": {
+      "title": "DocuSignLink",
+      "type": "object",
+      "properties": {
+        "embeddingUrl": {
+          "description": "UI embeded link of the Docusign contract for the externalRefId.",
+          "example": "https://docusign.com/Signing/StartInSession.aspx?t=7f0d21a4-2798-402f-8b26-b12dbb37ae40",
+          "type": "string"
+        }
+      }
+    },
+    "inline_response_200": {
+      "title": "inline_response_200",
+      "type": "object",
+      "properties": {
+        "equipment": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/inline_response_200_equipment"
+          }
+        }
+      }
+    },
+    "inline_response_200_1": {
+      "title": "inline_response_200_1",
+      "type": "object",
+      "properties": {
+        "status": {
+          "description": "UP or DOWN status of Lauchpad & it's downstream system.",
+          "example": "UP",
+          "type": "string"
+        }
+      }
+    },
+    "inline_response_200_equipment": {
+      "title": "inline_response_200_equipment",
+      "type": "object",
+      "properties": {
+        "id": {
+          "example": "1",
+          "type": "string"
+        },
+        "name": {
+          "example": "Verifone LX570",
+          "type": "string"
+        },
+        "logicalApplicationId": {
+          "example": "1073",
+          "type": "string"
+        },
+        "environment": {
+          "example": "Retail",
+          "type": "string"
+        }
+      }
+    },
+    "AcceptChargebacks": {
+      "title": "AcceptChargebacks",
+      "description": "Do you have more than 25 chargeback accepted in the last 12 months?",
+      "example": "No",
+      "type": "string",
+      "enum": [
+        "Yes",
+        "No"
+      ]
+    },
+    "AcceptCreditCards": {
+      "title": "AcceptCreditCards",
+      "description": "Does the business accept credit cards?",
+      "type": "string",
+      "enum": [
+        "true",
+        "false"
+      ]
+    },
+    "AchType": {
+      "title": "AchType",
+      "description": "Check deposit type",
+      "example": "Commercial Checking",
+      "type": "string",
+      "enum": [
+        "Commercial Checking",
+        "Private Checking"
+      ]
+    },
+    "ActiveMonth": {
+      "title": "ActiveMonth",
+      "type": "string",
+      "enum": [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec"
+      ]
+    },
+    "Content-Type": {
+      "title": "Content-Type",
+      "type": "string",
+      "enum": [
+        "application/json"
+      ]
+    },
+    "ContractStatus": {
+      "title": "ContractStatus",
+      "type": "string",
+      "enum": [
+        "Complete",
+        "In Progress",
+        "Error",
+        "Pending"
+      ]
+    },
+    "DdaType": {
+      "title": "DdaType",
+      "description": "Direct deposit account type.",
+      "example": "Checking",
+      "type": "string",
+      "enum": [
+        "Checking",
+        "Savings"
+      ]
+    },
+    "EquipmentUpdateDeploy": {
+      "title": "EquipmentUpdateDeploy",
+      "example": "M",
+      "type": "string",
+      "enum": [
+        "M",
+        "D",
+        "N"
+      ]
+    },
+    "IdType": {
+      "title": "IdType",
+      "description": "Type of ID provided by the owner.",
+      "example": "PASSPORT",
+      "type": "string",
+      "enum": [
+        "ALIEN ID",
+        "CREDIT BUREAU",
+        "DRIVERS LICENSE",
+        "STATE ID",
+        "MEXICAN CONSULATE",
+        "MILITARY ID",
+        "OTHER",
+        "PASSPORT"
+      ]
+    },
+    "IssuedState": {
+      "title": "IssuedState",
+      "description": "Valid state code where ID was issued.",
+      "example": "CO",
+      "type": "string",
+      "enum": [
+        "AK",
+        "AL",
+        "AR",
+        "AS",
+        "AZ",
+        "CA",
+        "CO",
+        "CT",
+        "DC",
+        "DE",
+        "FL",
+        "FM",
+        "GA",
+        "GU",
+        "HI",
+        "IA",
+        "ID",
+        "IL",
+        "IN",
+        "KS",
+        "KY",
+        "LA",
+        "MA",
+        "MD",
+        "ME",
+        "MH",
+        "MI",
+        "MN",
+        "MO",
+        "MP",
+        "MS",
+        "MT",
+        "NC",
+        "ND",
+        "NE",
+        "NH",
+        "NJ",
+        "NM",
+        "NV",
+        "NY",
+        "OH",
+        "OK",
+        "OR",
+        "PA",
+        "PR",
+        "PW",
+        "RI",
+        "SC",
+        "SD",
+        "TN",
+        "TX",
+        "UT",
+        "VA",
+        "VI",
+        "VT",
+        "WA",
+        "WI",
+        "WV",
+        "WY"
+      ]
+    },
+    "Key": {
+      "title": "Key",
+      "example": "partnerEmployeeId",
+      "type": "string",
+      "enum": [
+        "partnerEmployeeId",
+        "partnerEmployeeName",
+        "partnerEmployeePhoneNumber",
+        "partnerEmployeeEmail",
+        "partnerEmployeeType",
+        "partnerEmployeeBranch",
+        "partnerEmployeeCostCentre",
+        "partnerEmployeeRegion",
+        "partnerEmployeeOfficerCode",
+        "partnerEmployeeCompany",
+        "partnerEmployeeId2",
+        "partnerEmployeeName2",
+        "partnerEmployeePhoneNumber2",
+        "partnerEmployeeEmail2",
+        "partnerEmployeeType2",
+        "partnerEmployeeBranch2",
+        "partnerEmployeeCostCentre2",
+        "partnerEmployeeRegion2",
+        "partnerEmployeeOfficerCode2",
+        "partnerEmployeeCompany2",
+        "partnerEmployeeIndustry",
+        "partnerLeadSource",
+        "partnerEmployeeRef",
+        "partnerMethod",
+        "partnerVipIndicator",
+        "partnerMarketRegion",
+        "partnerPromotionCampaign",
+        "partnerLeadType",
+        "partnerCustom1",
+        "partnerCustom2",
+        "partnerCustom3",
+        "partnerCustom4",
+        "partnerCustom5",
+        "leadInitiatedBy"
+      ]
+    },
+    "LeaseTermLength": {
+      "title": "LeaseTermLength",
+      "description": "Lease term for the peripheral",
+      "example": "24",
+      "type": "string",
+      "enum": [
+        "24",
+        "36",
+        "48",
+        "60"
+      ]
+    },
+    "OwnershipType": {
+      "title": "OwnershipType",
+      "description": "Required. OwnershipType defines the type of the Merchant Organization, and drives the requirements for data collections of beneficial and control owners under U.S. Financial Crimes Enforcement Network (FinCEN).",
+      "example": "LLC",
+      "type": "string",
+      "enum": [
+        "GOVERNMENT",
+        "SOLE PROPRIETOR",
+        "LLC",
+        "PARTNERSHIP",
+        "FIN INSTITUTION",
+        "NON-PROFIT",
+        "ASSOCIATION/ESTATE/TRUST",
+        "PRIVATE CORPORATION",
+        "SEC REGISTERED",
+        "PUBLIC CORPORATION",
+        "OTHER"
+      ]
+    },
+    "PaymentAcceptanceMethod": {
+      "title": "PaymentAcceptanceMethod",
+      "type": "string",
+      "enum": [
+        "inPerson",
+        "onlineSite",
+        "phoneOrMailOrder"
+      ]
+    },
+    "PaymentMethod": {
+      "title": "PaymentMethod",
+      "description": "Payment method for the selected terminal.",
+      "example": "PURCHASE / SALE",
+      "type": "string",
+      "enum": [
+        "PURCHASE / SALE",
+        "REPROGRAM / OWN",
+        "MONTH-TO-MONTH RENTAL",
+        "LEASE"
+      ]
+    },
+    "PaymentMethod1": {
+      "title": "PaymentMethod1",
+      "description": "Payment method for the selected peripheral.",
+      "example": "PURCHASE / SALE",
+      "type": "string",
+      "enum": [
+        "PURCHASE / SALE",
+        "REPROGRAM / OWN",
+        "MONTH-TO-MONTH RENTAL",
+        "LEASE"
+      ]
+    },
+    "Pciadc": {
+      "title": "Pciadc",
+      "description": "Indication if the merchant has had an account data compromise.",
+      "example": "No",
+      "type": "string",
+      "enum": [
+        "Yes",
+        "No"
+      ]
+    },
+    "PcidssValidated": {
+      "title": "PcidssValidated",
+      "description": "Indictor showing if the merchant is compliant or not with the Payment Card Industry Data Security Standards.",
+      "example": "No",
+      "type": "string",
+      "enum": [
+        "Yes",
+        "No"
+      ]
+    },
+    "ReturnPolicy": {
+      "title": "ReturnPolicy",
+      "description": "The business's return policy.",
+      "example": "30 Day",
+      "type": "string",
+      "enum": [
+        "3 Day",
+        "30 Day",
+        "60 Day",
+        "60+ Day",
+        "ALL SALES FINAL",
+        "EXCHANGE ONLY/STORE CREDIT",
+        "NO RETURN POLICY"
+      ]
+    },
+    "Seasonal": {
+      "title": "Seasonal",
+      "description": "Does the business operate seasonally?",
+      "example": "Yes",
+      "type": "string",
+      "enum": [
+        "Yes",
+        "No"
+      ]
+    },
+    "SettlementCategory": {
+      "title": "SettlementCategory",
+      "description": "Settlement categories gives merhant an option to settle their account with different settlement categories. It is an optional field. However at time of boarding it becomes a required field.",
+      "type": "string",
+      "enum": [
+        "Deposits",
+        "Fees",
+        "Exceptions"
+      ]
+    },
+    "ShippingOption": {
+      "title": "ShippingOption",
+      "description": "The speed you would like the equipment to be shipped.",
+      "example": "next day",
+      "type": "string",
+      "enum": [
+        "ground",
+        "next day",
+        "2nd day"
+      ]
+    },
+    "SurroundingArea": {
+      "title": "SurroundingArea",
+      "description": "Type of area surroundning the business.",
+      "example": "Commercial",
+      "type": "string",
+      "enum": [
+        "Commercial",
+        "Industrial",
+        "Residential"
+      ]
+    },
+    "TaxExempt": {
+      "title": "TaxExempt",
+      "type": "string",
+      "enum": [
+        "true",
+        "false"
+      ]
+    },
+    "Type": {
+      "title": "Type",
+      "description": "The Owner Type. Please note the above Ownership Types where a Control Owner is required.",
+      "type": "string",
+      "enum": [
+        "Control Owner Contact",
+        "Owner 1 Contact",
+        "Owner 2 Contact",
+        "Owner 3 Contact",
+        "Owner 4 Contact"
+      ]
+    },
+    "Type1": {
+      "title": "Type1",
+      "description": "Type of merchant contact.   \n 1) Only primary contact\n      is mandatory. May be the same as any owner contact information. \n 2) For primary contact, firstName, lastName, phoneNumber and email are mandatory during POST.  \n 3) For all other contact types, firstName and lastName are mandatory during POST.",
+      "example": "Primary Contact",
+      "type": "string",
+      "enum": [
+        "Primary Contact",
+        "Accounting Contact",
+        "Customer Service Contact",
+        "Shipping Contact",
+        "Third Party Contact",
+        "Vendor Contact Info",
+        "PCI Contact",
+        "Corporate"
+      ]
+    },
+    "Type3": {
+      "title": "Type3",
+      "example": "Guarantor 1 Contact",
+      "type": "string",
+      "enum": [
+        "Guarantor 1 Contact",
+        "Guarantor 2 Contact",
+        "Guarantor 3 Contact",
+        "Guarantor 4 Contact"
+      ]
+    },
+    "Type4": {
+      "title": "Type4",
+      "description": "Type of merchant contact.   \n 1) Only primary contact\n      is mandatory. May be the same as any owner contact information. \n 2) For primary contact, firstName, lastName, phoneNumber and email are mandatory during POST.  \n 3) For all other contact types, firstName and lastName are mandatory during POST.",
+      "example": "Primary Contact",
+      "type": "string",
+      "enum": [
+        "Primary Contact",
+        "Store Primary Contact",
+        "Accounting Contact",
+        "Customer Service Contact",
+        "Shipping Contact",
+        "Third Party Contact",
+        "Vendor Contact Info",
+        "PCI Contact",
+        "Corporate"
+      ]
+    },
+    "Warranty": {
+      "title": "Warranty",
+      "description": "Does the business offer warranties, dues, subscriptions, memberships, or other extended services?",
+      "example": "1 YEAR",
+      "type": "string",
+      "enum": [
+        "1 YEAR",
+        "30 DAY",
+        "60 DAY",
+        "90 DAY",
+        "LIFETIME",
+        "NO"
+      ]
+    }
+  },
+  "security": [
+    {
+      "api_key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Initiate Boarding Application",
+      "description": "Resources to create/edit and read pending boarding applications."
+    },
+    {
+      "name": "Equipment Lookup"
+    },
+    {
+      "name": "Choose Equipment",
+      "description": "Resources to choose the terminals."
+    },
+    {
+      "name": "Submit Application",
+      "description": "Resources to validate and submit the final application for boarding."
+    },
+    {
+      "name": "Check Application Status",
+      "description": "Resource to check status of the application."
+    },
+    {
+      "name": "Review and Sign Contract",
+      "description": "Resources to retrieve the contract and digitally sign."
+    },
+    {
+      "name": "Check Launchpad health",
+      "description": "Resources to check the the health of Launchpad and its dependent down streams systems at regular intervals to check the system is up or down."
+    }
+  ]
+}
